@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2D47DCC919023B7B00F52889"
+               BlueprintIdentifier = "882FC5A31903A344003D4946"
                BuildableName = "Bookio.app"
                BlueprintName = "Bookio"
                ReferencedContainer = "container:Bookio.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2D47DCEA19023B7B00F52889"
+               BlueprintIdentifier = "882FC5C41903A344003D4946"
                BuildableName = "BookioTests.xctest"
                BlueprintName = "BookioTests"
                ReferencedContainer = "container:Bookio.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2D47DCC919023B7B00F52889"
+            BlueprintIdentifier = "882FC5A31903A344003D4946"
             BuildableName = "Bookio.app"
             BlueprintName = "Bookio"
             ReferencedContainer = "container:Bookio.xcodeproj">
@@ -61,7 +61,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2D47DCC919023B7B00F52889"
+            BlueprintIdentifier = "882FC5A31903A344003D4946"
             BuildableName = "Bookio.app"
             BlueprintName = "Bookio"
             ReferencedContainer = "container:Bookio.xcodeproj">
@@ -79,7 +79,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2D47DCC919023B7B00F52889"
+            BlueprintIdentifier = "882FC5A31903A344003D4946"
             BuildableName = "Bookio.app"
             BlueprintName = "Bookio"
             ReferencedContainer = "container:Bookio.xcodeproj">
