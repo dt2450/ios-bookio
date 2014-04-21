@@ -11,4 +11,5 @@
 @interface RentalsViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *RentedFromView;
 @property (weak, nonatomic) IBOutlet UIView *RentedToView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @end
