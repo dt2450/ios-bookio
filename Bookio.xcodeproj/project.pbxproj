@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		2D64783E1904AA91007BC48A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D64783C1904AA91007BC48A /* SWRevealViewController.m */; };
 		2D6478411904B3EF007BC48A /* SideBarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6478401904B3EF007BC48A /* SideBarMenuViewController.m */; };
-		2D6478441904C01D007BC48A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6478431904C01D007BC48A /* SearchViewController.m */; };
-		2D6478471904C0E6007BC48A /* MyBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6478461904C0E6007BC48A /* MyBooksViewController.m */; };
-		2D64784A1904E171007BC48A /* MyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6478491904E171007BC48A /* MyAccountViewController.m */; };
 		2D64784D1904E19D007BC48A /* AddNewBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D64784C1904E19D007BC48A /* AddNewBooksViewController.m */; };
 		2D6478501904E1E8007BC48A /* LogoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D64784F1904E1E8007BC48A /* LogoutViewController.m */; };
+		2DC3E3FF1904FE080073DB6B /* MyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FA1904FE080073DB6B /* MyAccountViewController.m */; };
+		2DC3E4001904FE080073DB6B /* MyBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FC1904FE080073DB6B /* MyBooksViewController.m */; };
+		2DC3E4011904FE080073DB6B /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FE1904FE080073DB6B /* SearchViewController.m */; };
 		882FC5A81903A344003D4946 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882FC5A71903A344003D4946 /* Foundation.framework */; };
 		882FC5AA1903A344003D4946 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882FC5A91903A344003D4946 /* CoreGraphics.framework */; };
 		882FC5AC1903A344003D4946 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882FC5AB1903A344003D4946 /* UIKit.framework */; };
@@ -45,16 +45,16 @@
 		2D64783D1904AA91007BC48A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		2D64783F1904B3EF007BC48A /* SideBarMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideBarMenuViewController.h; sourceTree = "<group>"; };
 		2D6478401904B3EF007BC48A /* SideBarMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideBarMenuViewController.m; sourceTree = "<group>"; };
-		2D6478421904C01D007BC48A /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = ../SearchViewController.h; sourceTree = "<group>"; };
-		2D6478431904C01D007BC48A /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = ../SearchViewController.m; sourceTree = "<group>"; };
-		2D6478451904C0E6007BC48A /* MyBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyBooksViewController.h; path = ../MyBooksViewController.h; sourceTree = "<group>"; };
-		2D6478461904C0E6007BC48A /* MyBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyBooksViewController.m; path = ../MyBooksViewController.m; sourceTree = "<group>"; };
-		2D6478481904E171007BC48A /* MyAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyAccountViewController.h; path = ../MyAccountViewController.h; sourceTree = "<group>"; };
-		2D6478491904E171007BC48A /* MyAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyAccountViewController.m; path = ../MyAccountViewController.m; sourceTree = "<group>"; };
 		2D64784B1904E19D007BC48A /* AddNewBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewBooksViewController.h; sourceTree = "<group>"; };
 		2D64784C1904E19D007BC48A /* AddNewBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewBooksViewController.m; sourceTree = "<group>"; };
 		2D64784E1904E1E8007BC48A /* LogoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutViewController.h; sourceTree = "<group>"; };
 		2D64784F1904E1E8007BC48A /* LogoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutViewController.m; sourceTree = "<group>"; };
+		2DC3E3F91904FE080073DB6B /* MyAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAccountViewController.h; sourceTree = "<group>"; };
+		2DC3E3FA1904FE080073DB6B /* MyAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAccountViewController.m; sourceTree = "<group>"; };
+		2DC3E3FB1904FE080073DB6B /* MyBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBooksViewController.h; sourceTree = "<group>"; };
+		2DC3E3FC1904FE080073DB6B /* MyBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBooksViewController.m; sourceTree = "<group>"; };
+		2DC3E3FD1904FE080073DB6B /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		2DC3E3FE1904FE080073DB6B /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		882FC5A41903A344003D4946 /* Bookio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882FC5A71903A344003D4946 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		882FC5A91903A344003D4946 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -145,16 +145,16 @@
 				882FC5B61903A344003D4946 /* AppDelegate.h */,
 				882FC5B71903A344003D4946 /* AppDelegate.m */,
 				882FC5B91903A344003D4946 /* Main.storyboard */,
-				2D6478421904C01D007BC48A /* SearchViewController.h */,
-				2D6478431904C01D007BC48A /* SearchViewController.m */,
-				2D6478451904C0E6007BC48A /* MyBooksViewController.h */,
-				2D6478461904C0E6007BC48A /* MyBooksViewController.m */,
+				2DC3E3F91904FE080073DB6B /* MyAccountViewController.h */,
+				2DC3E3FA1904FE080073DB6B /* MyAccountViewController.m */,
+				2DC3E3FB1904FE080073DB6B /* MyBooksViewController.h */,
+				2DC3E3FC1904FE080073DB6B /* MyBooksViewController.m */,
+				2DC3E3FD1904FE080073DB6B /* SearchViewController.h */,
+				2DC3E3FE1904FE080073DB6B /* SearchViewController.m */,
 				882FC5DC1903AEDB003D4946 /* RentalsViewController.h */,
 				882FC5DD1903AEDB003D4946 /* RentalsViewController.m */,
 				2D64783F1904B3EF007BC48A /* SideBarMenuViewController.h */,
 				2D6478401904B3EF007BC48A /* SideBarMenuViewController.m */,
-				2D6478481904E171007BC48A /* MyAccountViewController.h */,
-				2D6478491904E171007BC48A /* MyAccountViewController.m */,
 				2D64784B1904E19D007BC48A /* AddNewBooksViewController.h */,
 				2D64784C1904E19D007BC48A /* AddNewBooksViewController.m */,
 				2D64784E1904E1E8007BC48A /* LogoutViewController.h */,
@@ -293,15 +293,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				882FC5B81903A344003D4946 /* AppDelegate.m in Sources */,
+				2DC3E4011904FE080073DB6B /* SearchViewController.m in Sources */,
 				2D64784D1904E19D007BC48A /* AddNewBooksViewController.m in Sources */,
 				2D6478501904E1E8007BC48A /* LogoutViewController.m in Sources */,
 				2D64783E1904AA91007BC48A /* SWRevealViewController.m in Sources */,
 				882FC5DE1903AEDB003D4946 /* RentalsViewController.m in Sources */,
 				2D6478411904B3EF007BC48A /* SideBarMenuViewController.m in Sources */,
-				2D6478471904C0E6007BC48A /* MyBooksViewController.m in Sources */,
+				2DC3E3FF1904FE080073DB6B /* MyAccountViewController.m in Sources */,
 				882FC5B41903A344003D4946 /* main.m in Sources */,
-				2D6478441904C01D007BC48A /* SearchViewController.m in Sources */,
-				2D64784A1904E171007BC48A /* MyAccountViewController.m in Sources */,
+				2DC3E4001904FE080073DB6B /* MyBooksViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

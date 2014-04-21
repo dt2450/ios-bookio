@@ -64,12 +64,13 @@
 
 - (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
 {
-    if( [[segue identifier] isEqualToString:@"showBookio"] )
+    [super prepareForSegue:segue sender:sender];
+    /*if( [[segue identifier] isEqualToString:@"showBookio"] )
     {
         // try to reveal the tab bar controller
     }
     else
-    {
+    {*/
         // Set the title of navigation bar by using the menu items
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
@@ -86,7 +87,7 @@
             };
             
         }
-    }
+    //}
     
 }
 
