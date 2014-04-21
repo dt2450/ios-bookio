@@ -36,7 +36,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lCM-QH-fFR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1926" y="399"/>
+            <point key="canvasLocation" x="1938" y="359"/>
         </scene>
         <!--Side Bar Menu View Controller-->
         <scene sceneID="WY4-n9-mSW">
@@ -68,7 +68,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="WJZ-Mr-e7F" kind="custom" identifier="showBookio" customClass="SWRevealViewControllerSegue" id="gik-Jk-w2g"/>
+                                    <segue destination="WJZ-Mr-e7F" kind="custom" customClass="SWRevealViewControllerSegue" id="z9L-W9-BCL"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyAccount" id="jvu-Ub-3yi">
@@ -85,7 +85,7 @@
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QkU-ae-1Ej">
                                             <rect key="frame" x="56" y="11" width="135" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Marion-Bold" family="Marion" pointSize="21"/>
+                                            <fontDescription key="fontDescription" name="Marion-Bold" family="Marion" pointSize="18"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -110,7 +110,7 @@
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add New Books" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4w-0g-Xqq">
                                             <rect key="frame" x="56" y="11" width="160" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Marion-Bold" family="Marion" pointSize="21"/>
+                                            <fontDescription key="fontDescription" name="Marion-Bold" family="Marion" pointSize="18"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -135,7 +135,7 @@
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Logout" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYZ-Fv-eEd">
                                             <rect key="frame" x="57" y="11" width="131" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Marion-Bold" family="Marion" pointSize="21"/>
+                                            <fontDescription key="fontDescription" name="Marion-Bold" family="Marion" pointSize="18"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -265,35 +265,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l5s-3z-Cp1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="393"/>
+            <point key="canvasLocation" x="1452" y="353"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="hvZ-Y6-lj0">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OAb-2R-oEt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="S9J-k7-2Ci" customClass="SWRevealViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="FFW-DP-1o9"/>
-                        <viewControllerLayoutGuide type="bottom" id="Gcf-LO-lMR"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="IxS-6v-NM5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
                     <connections>
                         <segue destination="5kC-LO-cvB" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegue" id="Lex-uO-4hx"/>
-                        <segue destination="WJZ-Mr-e7F" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegue" id="9So-W0-MAn"/>
+                        <segue destination="WJZ-Mr-e7F" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegue" id="xBw-lg-4Ws"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OAb-2R-oEt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="365" y="-93"/>
+            <point key="canvasLocation" x="373" y="-31"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6YO-jZ-okb">
             <objects>
-                <tabBarController definesPresentationContext="YES" id="WJZ-Mr-e7F" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="krr-xl-oq0"/>
+                <tabBarController storyboardIdentifier="TabBarController" definesPresentationContext="YES" id="WJZ-Mr-e7F" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="q1J-Vd-tgJ"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="pD3-xv-2Fd">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
@@ -308,7 +299,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q9m-EX-kg6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="907" y="1077"/>
+            <point key="canvasLocation" x="907" y="1065"/>
         </scene>
         <!--My Books View Controller - My Books-->
         <scene sceneID="297-6N-5db">
@@ -346,7 +337,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mnq-NP-H1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1926" y="1085"/>
+            <point key="canvasLocation" x="1938" y="1045"/>
         </scene>
         <!--Navigation Controller - My Books-->
         <scene sceneID="gmS-0y-RTy">
@@ -362,7 +353,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UeM-wb-aBN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="1085"/>
+            <point key="canvasLocation" x="1452" y="1045"/>
         </scene>
         <!--Navigation Controller - Rentals-->
         <scene sceneID="7UG-iH-0sO">
@@ -378,7 +369,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iGJ-0G-foF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="1781"/>
+            <point key="canvasLocation" x="1452" y="1741"/>
         </scene>
         <!--Rentals View Controller-->
         <scene sceneID="jz9-5o-6bH">
@@ -480,7 +471,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S6I-4T-BnM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1926" y="1781"/>
+            <point key="canvasLocation" x="1938" y="1741"/>
         </scene>
     </scenes>
     <resources>
@@ -496,6 +487,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gik-Jk-w2g"/>
+        <segue reference="z9L-W9-BCL"/>
     </inferredMetricsTieBreakers>
 </document>

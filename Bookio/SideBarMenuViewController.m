@@ -65,7 +65,7 @@
 - (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
 {
     [super prepareForSegue:segue sender:sender];
-    /*if( [[segue identifier] isEqualToString:@"showBookio"] )
+   /* if( [[segue identifier] isEqualToString:@"showBookio"] )
     {
         // try to reveal the tab bar controller
     }
