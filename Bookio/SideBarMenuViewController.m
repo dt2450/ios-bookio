@@ -65,30 +65,31 @@
 - (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
 {
     [super prepareForSegue:segue sender:sender];
-   /* if( [[segue identifier] isEqualToString:@"showBookio"] )
-    {
-        // try to reveal the tab bar controller
-    }
-    else
-    {*/
-        // Set the title of navigation bar by using the menu items
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
-        destViewController.title = [[_menuItems objectAtIndex:indexPath.row] capitalizedString];
+    
+    // Set the title of navigation bar by using the menu items
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
+    
+    destViewController.title = [[_menuItems objectAtIndex:indexPath.row] capitalizedString];
+ 
+    if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
+        SWRevealViewControllerSegue *swSegue = (SWRevealViewControllerSegue*) segue;
         
-        if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
-            SWRevealViewControllerSegue *swSegue = (SWRevealViewControllerSegue*) segue;
+        swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
             
-            swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
-                
-                UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+            UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
+
+            if([[segue identifier] isEqualToString:@"showBookio"] )
+            {
+                [self.revealViewController pushFrontViewController:dvc animated:YES];
+            }
+            else
+            {
                 [navController setViewControllers: @[dvc] animated: NO ];
                 [self.revealViewController setFrontViewPosition: FrontViewPositionLeft animated: YES];
-            };
-            
-        }
-    //}
-    
+            }
+        };
+    }
 }
 
 @end

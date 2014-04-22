@@ -68,7 +68,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="WJZ-Mr-e7F" kind="custom" customClass="SWRevealViewControllerSegue" id="z9L-W9-BCL"/>
+                                    <segue destination="WJZ-Mr-e7F" kind="custom" identifier="showBookio" customClass="SWRevealViewControllerSegue" id="z9L-W9-BCL"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyAccount" id="jvu-Ub-3yi">
@@ -93,7 +93,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="ezh-uS-Jyc" kind="custom" customClass="SWRevealViewControllerSegue" id="Kjv-oP-jUb"/>
+                                    <segue destination="ezh-uS-Jyc" kind="custom" identifier="" customClass="SWRevealViewControllerSegue" id="Kjv-oP-jUb"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddNewBooks" id="IKW-4u-Ff4">
@@ -118,7 +118,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="ivU-H7-EV8" kind="custom" customClass="SWRevealViewControllerSegue" id="6SL-v9-7vs"/>
+                                    <segue destination="ivU-H7-EV8" kind="custom" identifier="" customClass="SWRevealViewControllerSegue" id="6SL-v9-7vs"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Logout" id="UbL-zn-W9O">
@@ -143,7 +143,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="HaR-LB-8zy" kind="custom" customClass="SWRevealViewControllerSegue" id="pJm-Vn-Ko7"/>
+                                    <segue destination="HaR-LB-8zy" kind="custom" identifier="" customClass="SWRevealViewControllerSegue" id="pJm-Vn-Ko7"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -151,7 +151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fTG-6R-7bv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="907" y="-1139"/>
+            <point key="canvasLocation" x="923" y="-1067"/>
         </scene>
         <!--My Account View Controller-->
         <scene sceneID="gep-8f-E69">
@@ -183,7 +183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EYD-C5-g8m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1447" y="-1834"/>
+            <point key="canvasLocation" x="1463" y="-1762"/>
         </scene>
         <!--Add New Books View Controller-->
         <scene sceneID="Wt5-aJ-Nxc">
@@ -217,7 +217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AS0-8E-sCU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="-1131"/>
+            <point key="canvasLocation" x="1456" y="-1059"/>
         </scene>
         <!--Logout View Controller-->
         <scene sceneID="dJ9-aP-vsu">
@@ -249,7 +249,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1W-bx-84Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440" y="-436"/>
+            <point key="canvasLocation" x="1456" y="-364"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6NZ-aw-d3o">
@@ -278,12 +278,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OAb-2R-oEt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="373" y="-31"/>
+            <point key="canvasLocation" x="387" y="45"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6YO-jZ-okb">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" definesPresentationContext="YES" id="WJZ-Mr-e7F" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WJZ-Mr-e7F" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="q1J-Vd-tgJ"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="pD3-xv-2Fd">
@@ -337,7 +337,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mnq-NP-H1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1938" y="1045"/>
+            <point key="canvasLocation" x="1938" y="1065"/>
         </scene>
         <!--Navigation Controller - My Books-->
         <scene sceneID="gmS-0y-RTy">
@@ -353,7 +353,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UeM-wb-aBN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1452" y="1045"/>
+            <point key="canvasLocation" x="1452" y="1065"/>
         </scene>
         <!--Navigation Controller - Rentals-->
         <scene sceneID="7UG-iH-0sO">
@@ -487,6 +487,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="z9L-W9-BCL"/>
+        <segue reference="xBw-lg-4Ws"/>
     </inferredMetricsTieBreakers>
 </document>

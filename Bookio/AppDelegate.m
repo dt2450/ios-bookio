@@ -43,4 +43,11 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)applicationDidFinishLaunching:(UIApplication *)application{
+    
+    UIStoryboard *storyboard =[ UIStoryboard storyboardWithName:@"Main" bundle:nil] ;
+    UITabBarController *tabBarCotroller = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+    [self.window setRootViewController:tabBarCotroller];
+}
+
 @end

@@ -27,5 +27,6 @@
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
+    [self.tabBarController.tabBar setAlpha:0.0];
 }
 @end
