@@ -34,12 +34,21 @@
                         <barButtonItem key="rightBarButtonItem" image="menu" id="9a6-s5-B3c"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchDisplayController" destination="Vlf-dY-BAu" id="h7J-Ic-PKp"/>
                         <outlet property="sidebarButton" destination="9a6-s5-B3c" id="X1Z-RB-8Ny"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lCM-QH-fFR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Vlf-dY-BAu">
+                    <connections>
+                        <outlet property="delegate" destination="NuY-nz-8ia" id="eEC-NL-Dxw"/>
+                        <outlet property="searchContentsController" destination="NuY-nz-8ia" id="sLP-xJ-IH2"/>
+                        <outlet property="searchResultsDataSource" destination="NuY-nz-8ia" id="wrB-uP-f8m"/>
+                        <outlet property="searchResultsDelegate" destination="NuY-nz-8ia" id="bO1-UU-EXm"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1938" y="359"/>
+            <point key="canvasLocation" x="1949" y="353"/>
         </scene>
         <!--Side Bar Menu View Controller-->
         <scene sceneID="WY4-n9-mSW">
@@ -365,13 +374,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6j-EN-1uI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2420" y="359"/>
+            <point key="canvasLocation" x="2420" y="353"/>
         </scene>
         <!--Navigation Controller - My Books-->
         <scene sceneID="gmS-0y-RTy">
             <objects>
                 <navigationController definesPresentationContext="YES" id="onW-GQ-ECh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Books" id="JhV-ZW-ca8"/>
+                    <tabBarItem key="tabBarItem" title="My Books" image="MyBooks" id="JhV-ZW-ca8"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="abf-2z-1ji">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -387,7 +396,7 @@
         <scene sceneID="7UG-iH-0sO">
             <objects>
                 <navigationController definesPresentationContext="YES" id="SMg-nb-s9O" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Rentals" id="qmL-hx-BqH"/>
+                    <tabBarItem key="tabBarItem" title="Rentals" image="rental" id="qmL-hx-BqH"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3SR-FC-nzd">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -505,9 +514,11 @@
     <resources>
         <image name="AddNewBooks" width="38" height="38"/>
         <image name="Logout" width="38" height="38"/>
+        <image name="MyBooks" width="30" height="30"/>
         <image name="MyProfile" width="38" height="38"/>
         <image name="menu" width="28" height="20"/>
         <image name="plus-sign" width="512" height="512"/>
+        <image name="rental" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
