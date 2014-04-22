@@ -1,20 +1,17 @@
 //
-//  RentalsViewController.m
+//  SearchResultViewController.m
 //  Bookio
 //
-//  Created by Devashi Tandon on 4/20/14.
+//  Created by Pooja Jain on 4/22/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
-#import "RentalsViewController.h"
+#import "SearchResultViewController.h"
 #import "SWRevealViewController.h"
 
-@implementation RentalsViewController
-
+@implementation SearchResultViewController
 -(void) viewDidLoad {
     [super viewDidLoad];
-    self.RentedFromView.hidden = NO;
-    self.RentedToView.hidden = YES;
     
 }
 
@@ -27,21 +24,6 @@
     
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-
-}
-
-- (IBAction)rentalSegmentChanged:(id)sender {
     
-    UISegmentedControl *seg = sender;
-    
-    if (seg.selectedSegmentIndex == 0) {
-        self.RentedFromView.hidden = NO;
-        self.RentedToView.hidden = YES;
-    }
-    else if (seg.selectedSegmentIndex == 1) {
-        self.RentedFromView.hidden = YES;
-        self.RentedToView.hidden = NO;
-    }
 }
-
 @end
