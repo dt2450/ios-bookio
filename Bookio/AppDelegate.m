@@ -1,14 +1,14 @@
-
-//  BookioAppDelegate.m
+//
+//  AppDelegate.m
 //  Bookio
 //
-//  Created by Pooja Jain on 4/19/14.
-//  Copyright (c) 2014 BookioTeam. All rights reserved.
+//  Created by Devashi Tandon on 4/20/14.
+//  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
-#import "BookioAppDelegate.h"
+#import "AppDelegate.h"
 
-@implementation BookioAppDelegate
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
