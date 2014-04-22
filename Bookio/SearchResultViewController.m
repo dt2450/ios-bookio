@@ -1,19 +1,17 @@
 //
-//  AddNewBooksViewController.m
+//  SearchResultViewController.m
 //  Bookio
 //
-//  Created by Pooja Jain on 4/21/14.
+//  Created by Pooja Jain on 4/22/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
-#import "AddNewBooksViewController.h"
+#import "SearchResultViewController.h"
 #import "SWRevealViewController.h"
 
-@implementation AddNewBooksViewController
-
+@implementation SearchResultViewController
 -(void) viewDidLoad {
     [super viewDidLoad];
-
     
 }
 
@@ -27,7 +25,5 @@
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
-    [self.tabBarController.tabBar setAlpha:0.0];
 }
-
 @end

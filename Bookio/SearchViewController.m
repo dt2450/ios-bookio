@@ -14,6 +14,8 @@
 -(void) viewDidLoad {
     [super viewDidLoad];
     
+    // Testing content
+    self.Items = @[@"item1"];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -21,10 +23,33 @@
     
     // Set the side bar button action. When it's tapped, it'll show up the sidebar.
     _sidebarButton.target = self.revealViewController;
-    _sidebarButton.action = @selector(revealToggle:);
+    _sidebarButton.action = @selector(rightRevealToggle:);
     
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
 }
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    // Return the number of rows in the section.
+    return [self.Items count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *CellIdentifier = [self.Items objectAtIndex:indexPath.row];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender{
+    [super prepareForSegue:segue sender:sender];
+    
+}
+
 @end

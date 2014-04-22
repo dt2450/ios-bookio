@@ -11,6 +11,7 @@
 		2D6478411904B3EF007BC48A /* SideBarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6478401904B3EF007BC48A /* SideBarMenuViewController.m */; };
 		2D64784D1904E19D007BC48A /* AddNewBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D64784C1904E19D007BC48A /* AddNewBooksViewController.m */; };
 		2D6478501904E1E8007BC48A /* LogoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D64784F1904E1E8007BC48A /* LogoutViewController.m */; };
+		2D7562F4190632B500C0212C /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7562F3190632B500C0212C /* SearchResultViewController.m */; };
 		2DC3E3FF1904FE080073DB6B /* MyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FA1904FE080073DB6B /* MyAccountViewController.m */; };
 		2DC3E4001904FE080073DB6B /* MyBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FC1904FE080073DB6B /* MyBooksViewController.m */; };
 		2DC3E4011904FE080073DB6B /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FE1904FE080073DB6B /* SearchViewController.m */; };
@@ -49,6 +50,8 @@
 		2D64784C1904E19D007BC48A /* AddNewBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewBooksViewController.m; sourceTree = "<group>"; };
 		2D64784E1904E1E8007BC48A /* LogoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutViewController.h; sourceTree = "<group>"; };
 		2D64784F1904E1E8007BC48A /* LogoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutViewController.m; sourceTree = "<group>"; };
+		2D7562F2190632B500C0212C /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
+		2D7562F3190632B500C0212C /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
 		2DC3E3F91904FE080073DB6B /* MyAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAccountViewController.h; sourceTree = "<group>"; };
 		2DC3E3FA1904FE080073DB6B /* MyAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAccountViewController.m; sourceTree = "<group>"; };
 		2DC3E3FB1904FE080073DB6B /* MyBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBooksViewController.h; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				2DC3E3FC1904FE080073DB6B /* MyBooksViewController.m */,
 				2DC3E3FD1904FE080073DB6B /* SearchViewController.h */,
 				2DC3E3FE1904FE080073DB6B /* SearchViewController.m */,
+				2D7562F2190632B500C0212C /* SearchResultViewController.h */,
+				2D7562F3190632B500C0212C /* SearchResultViewController.m */,
 				882FC5DC1903AEDB003D4946 /* RentalsViewController.h */,
 				882FC5DD1903AEDB003D4946 /* RentalsViewController.m */,
 				2D64783F1904B3EF007BC48A /* SideBarMenuViewController.h */,
@@ -294,6 +299,7 @@
 			files = (
 				882FC5B81903A344003D4946 /* AppDelegate.m in Sources */,
 				2DC3E4011904FE080073DB6B /* SearchViewController.m in Sources */,
+				2D7562F4190632B500C0212C /* SearchResultViewController.m in Sources */,
 				2D64784D1904E19D007BC48A /* AddNewBooksViewController.m in Sources */,
 				2D6478501904E1E8007BC48A /* LogoutViewController.m in Sources */,
 				2D64783E1904AA91007BC48A /* SWRevealViewController.m in Sources */,

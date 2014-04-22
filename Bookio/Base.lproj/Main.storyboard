@@ -13,13 +13,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchResultsCell" id="2mT-4U-IeC">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="item1" id="2mT-4U-IeC">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2mT-4U-IeC" id="q0q-Lf-gio">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="ZnZ-9e-cUW" kind="push" id="csp-TH-EbR"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -28,7 +31,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Search" id="MsE-tJ-bpg">
-                        <barButtonItem key="leftBarButtonItem" image="menu" id="9a6-s5-B3c"/>
+                        <barButtonItem key="rightBarButtonItem" image="menu" id="9a6-s5-B3c"/>
                     </navigationItem>
                     <connections>
                         <outlet property="sidebarButton" destination="9a6-s5-B3c" id="X1Z-RB-8Ny"/>
@@ -170,7 +173,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="My Account" id="gpe-H9-Kzd">
-                                        <barButtonItem key="leftBarButtonItem" image="menu" id="Ny6-XP-IvD"/>
+                                        <barButtonItem key="rightBarButtonItem" image="menu" id="Ny6-XP-IvD"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -202,7 +205,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Add new books" id="fM1-K2-KtX">
-                                        <barButtonItem key="leftBarButtonItem" image="menu" id="4JT-rT-LL3"/>
+                                        <barButtonItem key="rightBarButtonItem" image="menu" id="4JT-rT-LL3"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -236,7 +239,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Logout" id="4Qt-Ma-xPt">
-                                        <barButtonItem key="leftBarButtonItem" image="menu" id="MFR-nF-9WZ"/>
+                                        <barButtonItem key="rightBarButtonItem" image="menu" id="MFR-nF-9WZ"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -272,7 +275,7 @@
             <objects>
                 <viewController id="S9J-k7-2Ci" customClass="SWRevealViewController" sceneMemberID="viewController">
                     <connections>
-                        <segue destination="5kC-LO-cvB" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegue" id="Lex-uO-4hx"/>
+                        <segue destination="5kC-LO-cvB" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegue" id="Lex-uO-4hx"/>
                         <segue destination="WJZ-Mr-e7F" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegue" id="xBw-lg-4Ws"/>
                     </connections>
                 </viewController>
@@ -325,7 +328,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Books" id="Xjo-6e-SaT">
-                        <barButtonItem key="leftBarButtonItem" image="menu" id="5XA-n0-vFy">
+                        <barButtonItem key="rightBarButtonItem" image="menu" id="5XA-n0-vFy">
                             <connections>
                                 <action selector="searchBarITen:" destination="0Mt-ZY-yOT" id="Gsh-HN-bco"/>
                             </connections>
@@ -338,6 +341,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mnq-NP-H1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1938" y="1065"/>
+        </scene>
+        <!--Search Result View Controller - Search Results-->
+        <scene sceneID="gyP-aX-fWd">
+            <objects>
+                <viewController id="ZnZ-9e-cUW" customClass="SearchResultViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OzI-XK-Fit"/>
+                        <viewControllerLayoutGuide type="bottom" id="I7l-Ch-04B"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="s8U-Fd-Bfh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Search Results" id="0rN-eg-Tgg">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="bGI-JC-YbR"/>
+                        <barButtonItem key="rightBarButtonItem" image="menu" id="jW7-9P-iiP"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="sidebarButton" destination="jW7-9P-iiP" id="cHd-Nr-dik"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o6j-EN-1uI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2420" y="359"/>
         </scene>
         <!--Navigation Controller - My Books-->
         <scene sceneID="gmS-0y-RTy">
@@ -449,7 +477,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="fla-wH-Ije">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="menu" id="Qpq-Ud-5rA"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Jnz-4R-94B">
                             <rect key="frame" x="68" y="7" width="185" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -461,6 +488,7 @@
                                 <action selector="rentalSegmentChanged:" destination="RuC-ET-26x" eventType="valueChanged" id="X73-xE-jZs"/>
                             </connections>
                         </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" image="menu" id="Qpq-Ud-5rA"/>
                     </navigationItem>
                     <size key="freeformSize" width="650" height="560"/>
                     <connections>
@@ -487,6 +515,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xBw-lg-4Ws"/>
+        <segue reference="z9L-W9-BCL"/>
     </inferredMetricsTieBreakers>
 </document>
