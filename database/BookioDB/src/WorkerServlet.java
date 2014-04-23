@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 public class WorkerServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    //private static final Charset UTF_8 = Charset.forName("UTF-8");
     
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) {
@@ -20,6 +19,8 @@ public class WorkerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String queryType = req.getParameter("query");     //takes the query type from the URL
 		String user_id = "";
+		String isbn = "";
+		String course_no = "";
 		SqlAPI sqlAPI = new SqlAPI();						//instance of the SqlAPI class
 		switch(queryType) {
 			case "insertUser":
@@ -28,15 +29,16 @@ public class WorkerServlet extends HttpServlet {
 				String lname = req.getParameter("lname");
 				String phone_no = req.getParameter("phone");
 				sqlAPI.insertUser(user_id, fname, lname, phone_no);
+				sqlAPI.close();
 				break;
 			
 			case "getBooksOfCourse":
-				String course_no = req.getParameter("courseno");
+				course_no = req.getParameter("courseno");
 				resp.getWriter().println(sqlAPI.getBooksOfCourse(course_no));
 				break;
 			
 			case "getRentAndSellDetails":
-				String isbn = req.getParameter("isbn");
+				isbn = req.getParameter("isbn");
 				resp.getWriter().println(sqlAPI.getRentAndSellDetails(isbn));
 				break;
 				
@@ -49,11 +51,82 @@ public class WorkerServlet extends HttpServlet {
 				user_id = req.getParameter("userid");
 				resp.getWriter().println(sqlAPI.getBooksOfUser(user_id));
 				break;
+				
+			case "insertBook":
+				user_id = req.getParameter("userid");
+				isbn = req.getParameter("isbn");
+				String book_name = req.getParameter("bookname");
+				String book_author = req.getParameter("bookauthor");
+				course_no = req.getParameter("courseno");
+				sqlAPI.insertBook(user_id, isbn, book_name, book_author, course_no);
+				sqlAPI.close();
+				break;
+				
+			case "insertMyBook":
+				user_id = req.getParameter("userid");
+				isbn = req.getParameter("isbn");
+				sqlAPI.insertMyBook(user_id, isbn);
+				sqlAPI.close();
+				break;
+				
+			case "updateRent":
+				user_id = req.getParameter("userid");
+				isbn = req.getParameter("isbn");
+				String rent = req.getParameter("rent");
+				String rent_cost = "0";
+				if(rent.equals("1")) {
+					rent_cost = req.getParameter("cost");
+				}
+				sqlAPI.updateRent(user_id, isbn, rent, rent_cost);
+				sqlAPI.close();
+				break;
+				
+			case "updateSell":
+				user_id = req.getParameter("userid");
+				isbn = req.getParameter("isbn");
+				String sell = req.getParameter("sell");
+				String sell_cost = "0";
+				if(sell.equals("1")) {
+					sell_cost = req.getParameter("cost");
+				}				
+				sqlAPI.updateSell(user_id, isbn, sell, sell_cost);
+				sqlAPI.close();
+				break;
+				
+			case "deleteMyBook":
+				user_id = req.getParameter("userid");
+				isbn = req.getParameter("isbn");
+				sqlAPI.deleteMyBook(user_id, isbn);
+				sqlAPI.close();
+				break;
+				
+			case "getRentedFrom":
+				user_id = req.getParameter("userid");
+				resp.getWriter().println(sqlAPI.getRentedFrom(user_id));
+				break;
+				
+			case "getRentedTo":
+				user_id = req.getParameter("userid");
+				resp.getWriter().println(sqlAPI.getRentedTo(user_id));
+				break;
+				
+			case "deleteRent":
+				user_id = req.getParameter("userid");
+				isbn = req.getParameter("isbn");
+				sqlAPI.deleteRent(user_id, isbn);
+				sqlAPI.close();
+				break;
+				
+			case "insertRent":
+				user_id = req.getParameter("userid");
+				String to_user_id = req.getParameter("touserid");
+				isbn = req.getParameter("isbn");
+				sqlAPI.insertRent(user_id, to_user_id, isbn);
+				sqlAPI.close();
+				break;
+			
 		}
-		
-		
+				
 	}
-    
-    
-    
+        
 }
