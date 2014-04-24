@@ -15,6 +15,10 @@
 		2DC3E3FF1904FE080073DB6B /* MyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FA1904FE080073DB6B /* MyAccountViewController.m */; };
 		2DC3E4001904FE080073DB6B /* MyBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FC1904FE080073DB6B /* MyBooksViewController.m */; };
 		2DC3E4011904FE080073DB6B /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FE1904FE080073DB6B /* SearchViewController.m */; };
+		2DD1D94C1908A43800BE92C9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD1D94B1908A43800BE92C9 /* CoreData.framework */; };
+		2DD1D9521908A49E00BE92C9 /* Bookio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D9501908A49E00BE92C9 /* Bookio.xcdatamodeld */; };
+		2DD1D9551908A76400BE92C9 /* UserBooks.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D9541908A76400BE92C9 /* UserBooks.m */; };
+		2DD1D9581908A76400BE92C9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D9571908A76400BE92C9 /* User.m */; };
 		882FC5A81903A344003D4946 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882FC5A71903A344003D4946 /* Foundation.framework */; };
 		882FC5AA1903A344003D4946 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882FC5A91903A344003D4946 /* CoreGraphics.framework */; };
 		882FC5AC1903A344003D4946 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882FC5AB1903A344003D4946 /* UIKit.framework */; };
@@ -58,6 +62,12 @@
 		2DC3E3FC1904FE080073DB6B /* MyBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBooksViewController.m; sourceTree = "<group>"; };
 		2DC3E3FD1904FE080073DB6B /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		2DC3E3FE1904FE080073DB6B /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		2DD1D94B1908A43800BE92C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2DD1D9511908A49E00BE92C9 /* Bookio.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bookio.xcdatamodel; sourceTree = "<group>"; };
+		2DD1D9531908A76400BE92C9 /* UserBooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserBooks.h; sourceTree = "<group>"; };
+		2DD1D9541908A76400BE92C9 /* UserBooks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserBooks.m; sourceTree = "<group>"; };
+		2DD1D9561908A76400BE92C9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		2DD1D9571908A76400BE92C9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		882FC5A41903A344003D4946 /* Bookio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882FC5A71903A344003D4946 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		882FC5A91903A344003D4946 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -84,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DD1D94C1908A43800BE92C9 /* CoreData.framework in Frameworks */,
 				882FC5AA1903A344003D4946 /* CoreGraphics.framework in Frameworks */,
 				882FC5AC1903A344003D4946 /* UIKit.framework in Frameworks */,
 				882FC5A81903A344003D4946 /* Foundation.framework in Frameworks */,
@@ -134,6 +145,7 @@
 		882FC5A61903A344003D4946 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2DD1D94B1908A43800BE92C9 /* CoreData.framework */,
 				882FC5A71903A344003D4946 /* Foundation.framework */,
 				882FC5A91903A344003D4946 /* CoreGraphics.framework */,
 				882FC5AB1903A344003D4946 /* UIKit.framework */,
@@ -164,6 +176,11 @@
 				2D64784C1904E19D007BC48A /* AddNewBooksViewController.m */,
 				2D64784E1904E1E8007BC48A /* LogoutViewController.h */,
 				2D64784F1904E1E8007BC48A /* LogoutViewController.m */,
+				2DD1D9501908A49E00BE92C9 /* Bookio.xcdatamodeld */,
+				2DD1D9561908A76400BE92C9 /* User.h */,
+				2DD1D9571908A76400BE92C9 /* User.m */,
+				2DD1D9531908A76400BE92C9 /* UserBooks.h */,
+				2DD1D9541908A76400BE92C9 /* UserBooks.m */,
 				882FC5BF1903A344003D4946 /* Images.xcassets */,
 				2D64783B1904AA3E007BC48A /* Library */,
 				882FC5AE1903A344003D4946 /* Supporting Files */,
@@ -299,10 +316,13 @@
 			files = (
 				882FC5B81903A344003D4946 /* AppDelegate.m in Sources */,
 				2DC3E4011904FE080073DB6B /* SearchViewController.m in Sources */,
+				2DD1D9521908A49E00BE92C9 /* Bookio.xcdatamodeld in Sources */,
 				2D7562F4190632B500C0212C /* SearchResultViewController.m in Sources */,
 				2D64784D1904E19D007BC48A /* AddNewBooksViewController.m in Sources */,
 				2D6478501904E1E8007BC48A /* LogoutViewController.m in Sources */,
+				2DD1D9551908A76400BE92C9 /* UserBooks.m in Sources */,
 				2D64783E1904AA91007BC48A /* SWRevealViewController.m in Sources */,
+				2DD1D9581908A76400BE92C9 /* User.m in Sources */,
 				882FC5DE1903AEDB003D4946 /* RentalsViewController.m in Sources */,
 				2D6478411904B3EF007BC48A /* SideBarMenuViewController.m in Sources */,
 				2DC3E3FF1904FE080073DB6B /* MyAccountViewController.m in Sources */,
@@ -524,6 +544,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2DD1D9501908A49E00BE92C9 /* Bookio.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2DD1D9511908A49E00BE92C9 /* Bookio.xcdatamodel */,
+			);
+			currentVersion = 2DD1D9511908A49E00BE92C9 /* Bookio.xcdatamodel */;
+			path = Bookio.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 882FC59C1903A344003D4946 /* Project object */;
 }
