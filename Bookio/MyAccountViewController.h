@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
 @interface MyAccountViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;

@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
 @interface SearchViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;

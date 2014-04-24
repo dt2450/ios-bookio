@@ -8,6 +8,7 @@
 
 #import "SideBarMenuViewController.h"
 #import "SWRevealViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 //Reference: http://www.appcoda.com/ios-programming-sidebar-navigation-menu/
 
@@ -62,6 +63,25 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *CellIdentifier = [self.menuItems objectAtIndex:indexPath.row];
+   
+    if( [CellIdentifier isEqualToString:@"Logout"])
+    {
+        // If the session state is any of the two "open" states when the button is clicked
+        if (FBSession.activeSession.state == FBSessionStateOpen
+            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+            
+            // Close the session and remove the access token from the cache
+            // The session state handler (in the app delegate) will be called automatically
+            [FBSession.activeSession closeAndClearTokenInformation];
+            
+            // If the session state is not any of the two "open" states when the button is clicked
+        }
+    }
+}
+
 - (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
 {
     [super prepareForSegue:segue sender:sender];
@@ -90,6 +110,7 @@
             }
         };
     }
+
 }
 
 @end
