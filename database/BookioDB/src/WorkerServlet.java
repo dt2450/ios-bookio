@@ -28,10 +28,15 @@ public class WorkerServlet extends HttpServlet {
 				String fname = req.getParameter("fname");
 				String lname = req.getParameter("lname");
 				String phone_no = req.getParameter("phone");
-				sqlAPI.insertUser(user_id, fname, lname, phone_no);
-				sqlAPI.close();
+				resp.getWriter().println(sqlAPI.insertUser(user_id, fname, lname, phone_no));
 				break;
 			
+			case "updateUserPhone":
+				user_id = req.getParameter("userid");
+				String phone = req.getParameter("phone");
+				sqlAPI.updateUserPhone(user_id, phone);
+				break;
+				
 			case "getBooksOfCourse":
 				course_no = req.getParameter("courseno");
 				resp.getWriter().println(sqlAPI.getBooksOfCourse(course_no));
@@ -59,14 +64,12 @@ public class WorkerServlet extends HttpServlet {
 				String book_author = req.getParameter("bookauthor");
 				course_no = req.getParameter("courseno");
 				sqlAPI.insertBook(user_id, isbn, book_name, book_author, course_no);
-				sqlAPI.close();
 				break;
 				
 			case "insertMyBook":
 				user_id = req.getParameter("userid");
 				isbn = req.getParameter("isbn");
 				sqlAPI.insertMyBook(user_id, isbn);
-				sqlAPI.close();
 				break;
 				
 			case "updateRent":
@@ -78,7 +81,6 @@ public class WorkerServlet extends HttpServlet {
 					rent_cost = req.getParameter("cost");
 				}
 				sqlAPI.updateRent(user_id, isbn, rent, rent_cost);
-				sqlAPI.close();
 				break;
 				
 			case "updateSell":
@@ -90,14 +92,12 @@ public class WorkerServlet extends HttpServlet {
 					sell_cost = req.getParameter("cost");
 				}				
 				sqlAPI.updateSell(user_id, isbn, sell, sell_cost);
-				sqlAPI.close();
 				break;
 				
 			case "deleteMyBook":
 				user_id = req.getParameter("userid");
 				isbn = req.getParameter("isbn");
 				sqlAPI.deleteMyBook(user_id, isbn);
-				sqlAPI.close();
 				break;
 				
 			case "getRentedFrom":
@@ -114,7 +114,6 @@ public class WorkerServlet extends HttpServlet {
 				user_id = req.getParameter("userid");
 				isbn = req.getParameter("isbn");
 				sqlAPI.deleteRent(user_id, isbn);
-				sqlAPI.close();
 				break;
 				
 			case "insertRent":
@@ -122,11 +121,10 @@ public class WorkerServlet extends HttpServlet {
 				String to_user_id = req.getParameter("touserid");
 				isbn = req.getParameter("isbn");
 				sqlAPI.insertRent(user_id, to_user_id, isbn);
-				sqlAPI.close();
 				break;
 			
 		}
-				
+		sqlAPI.close();
 	}
         
 }

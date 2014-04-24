@@ -39,9 +39,9 @@ public class SqlAPI {
 		}
 	}
 	
-	public void insertUser(String user_id, String fname, String lname, String phone_no) {
-		query = "insert into User values (\"" + user_id + "\",\"" + fname + "\",\"" + lname + "\",\"" + phone_no + "\");";
-		updateTable(query);
+	public String insertUser(String user_id, String fname, String lname, String phone_no) {
+		query = "select * from User where user_id=\"" + user_id + "\";";
+		return checkUser(query, user_id, fname, lname, phone_no);
 	}
 	
 	public void insertBook(String user_id, String isbn, String book_name,
@@ -106,6 +106,11 @@ public class SqlAPI {
 		updateTable(query);
 	}
 	
+	public void updateUserPhone(String user_id, String phone) {
+		query = "update User set user_phone=\"" + phone + "\" where user_id=\"" + user_id + "\";";
+		updateTable(query);
+	}
+	
 	public void deleteMyBook(String user_id, String isbn) {
 		query = "delete from UserBooks where user_id=\"" + user_id + "\" and ISBN=" + isbn + ";";
 		updateTable(query);
@@ -124,9 +129,29 @@ public class SqlAPI {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		close();
-		return result;
-		
+		return result;		
+	}
+	
+	private String checkUser(String query, String user_id, String fname, String lname, String phone_no) {
+		String status = "";
+		try {
+			resultSet = statement.executeQuery(query);
+			if(resultSet.next()) {
+				if(resultSet.getString("user_phone").equals(phone_no)) {
+					 status = "User Exists";
+				}
+				else {
+					status = "Change Phone";
+				}
+			}
+			else {
+				status = "OK";
+				updateTable("insert into User values (\"" + user_id + "\",\"" + fname + "\",\"" + lname + "\",\"" + phone_no + "\");");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return statusToJSON(status);
 	}
 	
 	private void updateTable(String query) {
@@ -163,7 +188,13 @@ public class SqlAPI {
 			result.add(obj);
 		}
 		results.put("results", result);
-		return results.toString();
+		return results.toJSONString();
+	}
+	
+	private String statusToJSON(String status) {
+		JSONObject results = new JSONObject();
+		results.put("status", status);
+		return results.toJSONString();
 	}
 	
 	public void close() {
@@ -183,11 +214,5 @@ public class SqlAPI {
 
 		}
 	}
-
-	
-
-	
-
-	
 	
 }
