@@ -273,7 +273,7 @@
                     <navigationItem key="navigationItem" id="q0D-nr-ioy"/>
                     <connections>
                         <outlet property="loginButton" destination="edh-CR-WMq" id="Sv2-MT-CXZ"/>
-                        <segue destination="FTo-UO-IOa" kind="push" id="2aK-xb-mXc"/>
+                        <segue destination="FTo-UO-IOa" kind="push" identifier="getPhoneNumber" id="2aK-xb-mXc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XvU-XE-igw" userLabel="First Responder" sceneMemberID="firstResponder"/>
