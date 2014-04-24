@@ -63,7 +63,7 @@ public class WorkerServlet extends HttpServlet {
 				String book_name = req.getParameter("bookname");
 				String book_author = req.getParameter("bookauthor");
 				course_no = req.getParameter("courseno");
-				sqlAPI.insertBook(user_id, isbn, book_name, book_author, course_no);
+				resp.getWriter().println(sqlAPI.insertBook(user_id, isbn, book_name, book_author, course_no));
 				break;
 				
 			case "insertMyBook":

@@ -44,15 +44,28 @@ public class SqlAPI {
 		return checkUser(query, user_id, fname, lname, phone_no);
 	}
 	
-	public void insertBook(String user_id, String isbn, String book_name,
+	public String insertBook(String user_id, String isbn, String book_name,
 			String book_author, String course_no) {
-		query = "insert into Books values (" + isbn + ",\"" + book_name + "\",\"" + book_author + "\");";
-		updateTable(query);
-		query = "insert into CourseBooks values (\"" + course_no + "\"," + isbn + ");";
-		updateTable(query);
-		query = "insert into UserBooks values (\"" + user_id + "\"," + isbn + ",0,0,0,0);";
-		updateTable(query);
-		
+		query = "select course_no from CourseBooks where ISBN=" + isbn + ";";
+		String status = "";
+		try {
+			resultSet = statement.executeQuery(query);		
+			if(resultSet.next()) {
+				status = resultSet.getString("course_no");
+			}
+			else {
+				query = "insert into Books values (" + isbn + ",\"" + book_name + "\",\"" + book_author + "\");";
+				updateTable(query);
+				query = "insert into CourseBooks values (\"" + course_no + "\"," + isbn + ");";
+				updateTable(query);
+				query = "insert into UserBooks values (\"" + user_id + "\"," + isbn + ",0,0,0,0);";
+				updateTable(query);
+				status = "OK";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return statusToJSON(status);
 	}
 
 	public void insertMyBook(String user_id, String isbn) {
@@ -82,7 +95,7 @@ public class SqlAPI {
 	}
 	
 	public String getBooksOfUser(String user_id) {
-		query="select * from (select * from UserBooks where user_id=\"" + user_id + "\") AS temp1 natural join CourseBooks natural join Books natural join Courses;";
+		query="select * from (select * from UserBooks where user_id=\"" + user_id + "\") AS temp1 natural join CourseBooks natural join Books natural join Courses where ISBN not in (select ISBN from Rented where from_user_id=\"" + user_id + "\");";
 		return getResults(query);
 	}
 	
