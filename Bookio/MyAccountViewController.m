@@ -13,7 +13,10 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+    appDelegateSend = [[UIApplication sharedApplication]delegate];
+    NSMutableDictionary *receivedUserData = appDelegateSend.userData;
     
+    NSLog(@"in myAcc page: %@",receivedUserData);
     
 }
 

@@ -7,7 +7,16 @@
 //
 
 #import <FacebookSDK/FacebookSDK.h>
+#import "User.h"
+#import "AppDelegate.h"
+#import "MyAccountViewController.h"
 
-@interface LoginViewController : UIViewController <FBLoginViewDelegate>
+@interface LoginViewController : UIViewController
+{
+    AppDelegate *appDelegateSend;
+}
 @property (strong, nonatomic) IBOutlet UIButton *loginButton;
+
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
 @end

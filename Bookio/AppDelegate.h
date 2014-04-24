@@ -23,9 +23,12 @@
 // This property co-ordinates between the context and the underlying sqlite database(persitent storage)
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator ;
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic,strong) UIWindow *window;
+@property (nonatomic,retain) NSMutableDictionary *userData;
 
 @property (strong, nonatomic) LoginViewController *loginViewController;
+
+
 
 - (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
 - (void)userLoggedIn;

@@ -13,6 +13,7 @@
 @end
 
 @implementation LoginViewController
+@synthesize managedObjectContext;
 
 
 - (IBAction)buttonTouched:(id)sender
@@ -34,6 +35,8 @@
                                       completionHandler:
          ^(FBSession *session, FBSessionState state, NSError *error) {
              
+             [self makeRequestForUserData];
+             
              // Retrieve the app delegate
              AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
              // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
@@ -42,9 +45,45 @@
     }
 }
 
--(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user{
-    NSLog(@"user: %@",user);
+- (void) makeRequestForUserData
+{
+    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // Success! Include your code to handle the results here
+           // NSLog(@"user info: %@", result);
+            
+            NSString *uid = [[NSString alloc] init];
+            uid = [ result objectForKey:@"username"];
+            NSString *ufn = [[NSString alloc] init];
+            ufn = [result objectForKey:@"first_name"];
+            NSString *uln = [[NSString alloc]init];
+            uln = [result objectForKey:@"last_name"];
+            
+           // NSLog(@"uid-->%@\nufn-->%@\nuln-->%@",uid,ufn,uln);
+            
+            User *userDetails = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+            
+            userDetails.user_id=uid;
+            userDetails.user_fname=ufn;
+            userDetails.user_lname=uln;
+            
+            NSMutableDictionary *allUserDetails = [[NSMutableDictionary alloc] init];
+            
+            [allUserDetails setObject:uid forKey:@"user_id"];
+            [allUserDetails setObject:ufn forKey:@"user_fname"];
+            [allUserDetails setObject:uln forKey:@"user_lname"];
+            
+            appDelegateSend.userDetails = allUserDetails;
+            
+            NSLog(@"test:%@",userDetails.user_id);
+            
+        } else {
+            // An error occurred, we need to handle the error
+            NSLog(@"error1 %@", error.description);
+        }
+    }];
 }
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -59,11 +98,24 @@
 {
     [super viewDidLoad];
     
+    appDelegateSend = [[UIApplication sharedApplication]delegate];
+   // self.managedObjectContext = appDelegateCore.managedObjectContext;
+    
   }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (NSManagedObjectContext *)managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
 }
 @end
