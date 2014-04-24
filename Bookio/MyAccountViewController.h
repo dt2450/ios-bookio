@@ -8,5 +8,6 @@
 
 
 @interface MyAccountViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UILabel *user_fname;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @end
