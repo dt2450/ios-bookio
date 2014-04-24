@@ -77,7 +77,33 @@
             // The session state handler (in the app delegate) will be called automatically
             [FBSession.activeSession closeAndClearTokenInformation];
             
-            // If the session state is not any of the two "open" states when the button is clicked
+            [FBSession.activeSession close];
+            [FBSession setActiveSession:nil];
+            [FBRequestConnection startWithGraphPath:@"/me/permissions"
+                                         parameters:nil
+                                         HTTPMethod:@"DELETE"
+                                  completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                      __block NSString *alertText;
+                                      __block NSString *alertTitle;
+                                      NSLog(@"%@",result);
+                                      
+                                      if (!error && result == true) {
+                                          // Revoking the permission worked
+                                          alertTitle = @"Logout";
+                                          alertText = @"You have sucessfully logged out.";
+                                          
+                                      } else {
+                                          // There was an error, handle it
+                                          // See https://developers.facebook.com/docs/ios/errors/
+                                      }
+                                      
+                                      [[[UIAlertView alloc] initWithTitle:alertTitle
+                                                                  message:alertText
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"OK!"
+                                                        otherButtonTitles:nil] show];
+                                  }];
+            
         }
     }
 }
@@ -112,5 +138,6 @@
     }
 
 }
+
 
 @end
