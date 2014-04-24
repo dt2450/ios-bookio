@@ -7,8 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "User.h"
 
 @implementation AppDelegate
+
+// sythesize these properties to get their getter and setter methods.
+@synthesize managedObjectContext = _managedObjectContext;
+@synthesize managedObjectModel = _managedObjectModel;
+@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -45,9 +51,76 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application{
     
+    NSFetchRequest *fetchUserLoggedStatus = [[NSFetchRequest alloc] init];
+    
+    //Setting Entity to be Queried
+    NSEntityDescription *user = [NSEntityDescription entityForName:@"User"
+                                              inManagedObjectContext:self.managedObjectContext];
+    [fetchUserLoggedStatus setEntity:user];
+
+    NSError *error;
+    
+    // Query on managedObjectContext With Generated fetchRequest
+    NSArray *fetchedUser= [self.managedObjectContext executeFetchRequest:fetchUserLoggedStatus error:&error];
+    
     UIStoryboard *storyboard =[ UIStoryboard storyboardWithName:@"Main" bundle:nil] ;
-    UITabBarController *tabBarCotroller = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-    [self.window setRootViewController:tabBarCotroller];
+    
+    if([fetchedUser count] == 0)
+    {
+        UITabBarController *tabBarCotroller = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+        [self.window setRootViewController:tabBarCotroller];
+    
+    }
+    else
+    {
+        UIViewController *loginPage = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        [self.window setRootViewController:loginPage];
+    }
 }
+
+- (NSManagedObjectContext *) managedObjectContext {
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
+    }
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator: coordinator];
+    }
+    
+    return _managedObjectContext;
+}
+
+- (NSManagedObjectModel *)managedObjectModel {
+    if (_managedObjectModel != nil) {
+        return _managedObjectModel;
+    }
+    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+    
+    return _managedObjectModel;
+}
+
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+    if (_persistentStoreCoordinator != nil) {
+        return _persistentStoreCoordinator;
+    }
+    
+    // URL path for the .sqlite file
+    NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory]
+                                               stringByAppendingPathComponent: @"Bookio.sqlite"]];
+    NSError *error = nil;
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
+                                   initWithManagedObjectModel:[self managedObjectModel]];
+    if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                  configuration:nil URL:storeUrl options:nil error:&error]) {
+    }
+    
+    return _persistentStoreCoordinator;
+}
+
+- (NSString *)applicationDocumentsDirectory {
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
+
 
 @end
