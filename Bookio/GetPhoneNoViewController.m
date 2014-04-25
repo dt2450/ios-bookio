@@ -60,23 +60,7 @@ NSMutableDictionary *receivedData;
         [self.SubmitPhoneNumber setEnabled:true];
     }
 }
-/*
-- (IBAction)checkEmptyString:(id)sender {
-    
-     Checks for empty string in the textField box
-     if the String is empty then the update button will remain dissabled
-     the search button will be enabled only if the some text is entered in the text field
- 
-    if(([self.PhoneNumber.text length] != 10) || ([self.PhoneNumber.text length] == 0 ) )
-    {
-        [self.SubmitPhoneNumber setEnabled:NO];
-    }
-    else
-    {
-        [self.SubmitPhoneNumber setEnabled:YES];
-    }
-}
-*/
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
