@@ -24,6 +24,7 @@
 		2DD1D95B1908ADE800BE92C9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D95A1908ADE800BE92C9 /* LoginViewController.m */; };
 		2DD1D95D1908AF4400BE92C9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD1D95C1908AF4400BE92C9 /* FacebookSDK.framework */; };
 		2DD1D9601908B1FD00BE92C9 /* GetPhoneNoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D95F1908B1FD00BE92C9 /* GetPhoneNoViewController.m */; };
+		2DD8397F190B02A40072550F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD8397E190B02A40072550F /* MessageUI.framework */; };
 		882FC5A81903A344003D4946 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882FC5A71903A344003D4946 /* Foundation.framework */; };
 		882FC5AA1903A344003D4946 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882FC5A91903A344003D4946 /* CoreGraphics.framework */; };
 		882FC5AC1903A344003D4946 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882FC5AB1903A344003D4946 /* UIKit.framework */; };
@@ -82,6 +83,7 @@
 		2DD1D95C1908AF4400BE92C9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		2DD1D95E1908B1FD00BE92C9 /* GetPhoneNoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPhoneNoViewController.h; sourceTree = "<group>"; };
 		2DD1D95F1908B1FD00BE92C9 /* GetPhoneNoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPhoneNoViewController.m; sourceTree = "<group>"; };
+		2DD8397E190B02A40072550F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		882FC5A41903A344003D4946 /* Bookio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882FC5A71903A344003D4946 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		882FC5A91903A344003D4946 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -108,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DD8397F190B02A40072550F /* MessageUI.framework in Frameworks */,
 				2DD1D94C1908A43800BE92C9 /* CoreData.framework in Frameworks */,
 				2DD1D95D1908AF4400BE92C9 /* FacebookSDK.framework in Frameworks */,
 				882FC5AA1903A344003D4946 /* CoreGraphics.framework in Frameworks */,
@@ -160,6 +163,7 @@
 		882FC5A61903A344003D4946 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2DD8397E190B02A40072550F /* MessageUI.framework */,
 				2DD1D95C1908AF4400BE92C9 /* FacebookSDK.framework */,
 				2DD1D94B1908A43800BE92C9 /* CoreData.framework */,
 				882FC5A71903A344003D4946 /* Foundation.framework */,

@@ -89,13 +89,6 @@
     }
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    // Show the cancel button
-    self.ResultBooks = nil;
-}
-
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     // Return the number of sections.
     return 1;

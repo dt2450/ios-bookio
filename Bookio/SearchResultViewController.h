@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
+#import <MessageUI/MessageUI.h>
 
-@interface SearchResultViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface SearchResultViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MFMessageComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (strong, nonatomic) IBOutlet UITableView *RentOrBuyTableView;
 @property (nonatomic, strong) NSMutableArray *RentUsers;

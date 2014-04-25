@@ -534,11 +534,22 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDx-NW-2Su">
+                                                    <rect key="frame" x="271" y="3" width="39" height="38"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="message">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="SendMessageButtonPressed:" destination="ZnZ-9e-cUW" eventType="touchUpInside" id="Eys-1D-l6s"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="Cost" destination="luW-um-yBO" id="Kor-ey-DVV"/>
                                             <outlet property="UserId" destination="JU5-co-Oro" id="s5L-Mo-KxO"/>
+                                            <outlet property="sendTextMessage" destination="IDx-NW-2Su" id="OzM-cF-7si"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -702,6 +713,7 @@
         <image name="MyProfile" width="38" height="38"/>
         <image name="home" width="38" height="38"/>
         <image name="menu" width="28" height="20"/>
+        <image name="message" width="38" height="38"/>
         <image name="plus-sign" width="512" height="512"/>
         <image name="rental" width="30" height="30"/>
     </resources>

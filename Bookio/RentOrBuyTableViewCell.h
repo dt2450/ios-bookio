@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *UserId;
 @property (strong, nonatomic) IBOutlet UILabel *Cost;
-
+@property (strong, nonatomic) IBOutlet UIButton *sendTextMessage;
+@property (strong, nonatomic) NSString *phoneNumber;
 @end

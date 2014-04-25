@@ -138,6 +138,7 @@ int selectedView;
         NSDictionary *eachUser = [self.RentUsers objectAtIndex:indexPath.row];
         cell.UserId.text = [eachUser objectForKey:@"user_id"];
         cell.Cost.text = [NSString stringWithFormat:@"%@$",[[eachUser objectForKey:@"rent_cost"] stringValue]];
+        cell.phoneNumber = [eachUser objectForKey:@"user_phone"];
     }
     else if (selectedView == 1)
     {
@@ -145,9 +146,42 @@ int selectedView;
         NSDictionary *eachUser = [self.BuyUsers objectAtIndex:indexPath.row];
         cell.UserId.text = [eachUser objectForKey:@"user_id"];
         cell.Cost.text = [NSString stringWithFormat:@"%@$",[[eachUser objectForKey:@"sell_cost"] stringValue]];
+        cell.phoneNumber = [eachUser objectForKey:@"user_phone"];
     }
     
     return cell;
 }
 
+- (IBAction)SendMessageButtonPressed:(UIButton *)sender
+{
+    NSIndexPath *indexPath = [[self RentOrBuyTableView] indexPathForCell:sender];
+    
+    // get the cell from the index path so that we hav all information for this corresponding cell
+    RentOrBuyTableViewCell *cell  = (RentOrBuyTableViewCell *)[self.RentOrBuyTableView cellForRowAtIndexPath:indexPath];
+    
+    
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
+            break;
+        }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end
