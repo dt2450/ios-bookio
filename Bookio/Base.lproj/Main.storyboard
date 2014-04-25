@@ -365,6 +365,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="DisableSubmitButtonTillEmptyString:" destination="FTo-UO-IOa" eventType="editingChanged" id="f7F-pZ-gYO"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter Phone Number:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5T1-iJ-sMr">
                                 <rect key="frame" x="25" y="89" width="166" height="21"/>
@@ -381,8 +384,6 @@
                                 </state>
                                 <connections>
                                     <action selector="SubmitPhoneNumber:" destination="FTo-UO-IOa" eventType="touchUpInside" id="aT8-Qv-7k4"/>
-                                    <action selector="checkEmptyString:" destination="FTo-UO-IOa" eventType="touchUpInside" id="NIH-nQ-N49"/>
-                                    <action selector="disableSubmitButtonTillEmptyString:" destination="FTo-UO-IOa" eventType="touchUpInside" id="qUh-39-sw3"/>
                                     <segue destination="S9J-k7-2Ci" kind="modal" id="3fI-jz-hzD"/>
                                 </connections>
                             </button>
@@ -399,6 +400,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZU-bs-2ni" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="O0j-9z-SsV">
+                    <connections>
+                        <action selector="screenTapped:" destination="FTo-UO-IOa" id="mJU-4Q-UbC"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-41" y="45"/>
         </scene>

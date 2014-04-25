@@ -31,15 +31,15 @@ NSMutableDictionary *receivedData;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    appDelegateCore = [[UIApplication sharedApplication]delegate];
     self.managedObjectContext =appDelegateCore.managedObjectContext;
     
     self.PhoneNumber.keyboardType = UIKeyboardTypeNumberPad;
-//    
-//    self.PhoneNumber.delegate = self;
-//    
-//    [self.SubmitPhoneNumber setEnabled:NO];
     
+    self.SubmitPhoneNumber.layer.borderWidth = 0.5f;
+    self.SubmitPhoneNumber.layer.cornerRadius = 5;
+    
+    [self.SubmitPhoneNumber setEnabled:false];
     // this viewcontroller will be notified when any changes are made in the search box
     [self.PhoneNumber setDelegate:self];
     
@@ -55,7 +55,7 @@ NSMutableDictionary *receivedData;
 /*
  keeps the search button disabled until soemthing is entered in the search query
  */
-- (IBAction)disableSubmitButtonTillEmptyString:(id)sender
+- (IBAction)DisableSubmitButtonTillEmptyString:(id)sender
 {
     UITextField *phoneNumber = (UITextField*)sender;
     if(phoneNumber.text.length == 0)
@@ -113,7 +113,7 @@ NSMutableDictionary *receivedData;
     {
         [receivedData setObject:user_phone forKey:@"user_phone"];
 
-        delegateApp.userData = receivedData;
+        //delegateApp.userData = receivedData;
 
         [self.PhoneNumber resignFirstResponder];
         
@@ -124,6 +124,14 @@ NSMutableDictionary *receivedData;
         userDetails.user_fname= [receivedData objectForKey:@"user_fname"];
         userDetails.user_lname= [receivedData objectForKey:@"user_lname"];
         userDetails.user_phone =[receivedData objectForKey:@"user_phone"];
+        
+        NSLog(@"-----------%@",userDetails);
+        
+        NSError *error;
+        if(![self.managedObjectContext save:&error])
+        {
+            NSLog(@"saving error: %@",[error localizedDescription]);
+        }
     }
 }
 -(IBAction)screenTapped:(UITapGestureRecognizer *)sender
