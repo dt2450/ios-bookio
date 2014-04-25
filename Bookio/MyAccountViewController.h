@@ -19,4 +19,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *user_phone;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (nonatomic,strong)NSMutableDictionary* userDetailsPassed;
+
+@property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic,retain) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic,retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @end

@@ -19,15 +19,20 @@
     [super viewDidLoad];
     delegateApp = [[UIApplication sharedApplication]delegate];
     NSMutableDictionary *receivedUserData = [[NSMutableDictionary alloc]init];
-    receivedUserData = delegateApp.userData;
-    
+    //receivedUserData = delegateApp.userData;
+    /*
     NSLog(@"in myAcc page: %@",delegateApp.userData);
     
     self.user_fname.text = [receivedUserData objectForKey:@"user_fname"];
     self.user_lname.text = [receivedUserData objectForKey:@"user_lname"];
     self.user_id.text = [receivedUserData objectForKey:@"user_id"];
     self.user_phone.text = [receivedUserData objectForKey:@"user_phone"];
+    */
     
+    // Fetch the devices from persistent data store
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"User"];
+    self.userDetailsPassed = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -64,9 +69,18 @@
        // NSLog(@"%@",user_fname);
       //  self.user_fname.text = user_fname;
     }];
-    
+
+}
 
 
+- (NSManagedObjectContext *)managedObjectContext
+{
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
 }
 
 @end

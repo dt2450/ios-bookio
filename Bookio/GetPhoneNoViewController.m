@@ -35,29 +35,55 @@ NSMutableDictionary *receivedData;
     self.managedObjectContext =appDelegateCore.managedObjectContext;
     
     self.PhoneNumber.keyboardType = UIKeyboardTypeNumberPad;
+//    
+//    self.PhoneNumber.delegate = self;
+//    
+//    [self.SubmitPhoneNumber setEnabled:NO];
     
-    self.PhoneNumber.delegate = self;
-    
-    [self.SubmitPhoneNumber setEnabled:YES];
+    // this viewcontroller will be notified when any changes are made in the search box
+    [self.PhoneNumber setDelegate:self];
     
 }
 
-- (IBAction)checkEmptyString:(id)sender {
-    /*
-     Checks for empty string in the textField box
-     if the String is empty then the update button will remain dissabled
-     the search button will be enabled only if the some text is entered in the text field
-     */
-    if([self.PhoneNumber.text length] != 0)
+-(void) viewWillAppear:(BOOL)animated
+{
+    
+    // disables the search button initially, only enabled when something is entered in the textbox else disabled
+    self.SubmitPhoneNumber.enabled=NO;
+}
+
+/*
+ keeps the search button disabled until soemthing is entered in the search query
+ */
+- (IBAction)disableSubmitButtonTillEmptyString:(id)sender
+{
+    UITextField *phoneNumber = (UITextField*)sender;
+    if(phoneNumber.text.length == 0)
     {
-        [self.SubmitPhoneNumber setEnabled:YES];
+        [self.SubmitPhoneNumber setEnabled:false];
     }
     else
     {
-        [self.SubmitPhoneNumber setEnabled:NO];
+        [self.SubmitPhoneNumber setEnabled:true];
     }
 }
-
+/*
+- (IBAction)checkEmptyString:(id)sender {
+    
+     Checks for empty string in the textField box
+     if the String is empty then the update button will remain dissabled
+     the search button will be enabled only if the some text is entered in the text field
+ 
+    if(([self.PhoneNumber.text length] != 10) || ([self.PhoneNumber.text length] == 0 ) )
+    {
+        [self.SubmitPhoneNumber setEnabled:NO];
+    }
+    else
+    {
+        [self.SubmitPhoneNumber setEnabled:YES];
+    }
+}
+*/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -100,10 +126,8 @@ NSMutableDictionary *receivedData;
         userDetails.user_phone =[receivedData objectForKey:@"user_phone"];
     }
 }
-
-- (IBAction)screenTapped:(UITapGestureRecognizer *)sender {
-    
-    //The textfield has a property called first responder. The keyboard is this textfields accessory view. When the textfield is in first responder mode, it means it is the primary focus on the screen (the textfield cursor is blinking, keyboard is up). To dismiss the keyboard, we tell it to resignFirstResponder status
+-(IBAction)screenTapped:(UITapGestureRecognizer *)sender
+{
     if (self.PhoneNumber.isFirstResponder) {
         [self.PhoneNumber resignFirstResponder];
     }
