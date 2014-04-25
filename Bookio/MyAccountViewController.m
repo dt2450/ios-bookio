@@ -17,25 +17,42 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    delegateApp = [[UIApplication sharedApplication]delegate];
-    NSMutableDictionary *receivedUserData = [[NSMutableDictionary alloc]init];
+   
+   // NSMutableDictionary *receivedUserData = [[NSMutableDictionary alloc]init];
     //receivedUserData = delegateApp.userData;
     /*
     NSLog(@"in myAcc page: %@",delegateApp.userData);
     
-    self.user_fname.text = [receivedUserData objectForKey:@"user_fname"];
-    self.user_lname.text = [receivedUserData objectForKey:@"user_lname"];
-    self.user_id.text = [receivedUserData objectForKey:@"user_id"];
-    self.user_phone.text = [receivedUserData objectForKey:@"user_phone"];
+    
     */
     
-    // Fetch the devices from persistent data store
-    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"User"];
-    self.userDetailsPassed = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+   
+  /*
+    self.user_fname.text = [self.userDetailsPassed ];
+    self.user_lname.text = [self.userDetailsPassed objectForKey:@"user_lname"];
+    self.user_id.text = [self.userDetailsPassed objectForKey:@"user_id"];
+    self.user_phone.text = [self.userDetailsPassed objectForKey:@"user_phone"];
+    */
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    
+    delegateApp = [[UIApplication sharedApplication]delegate];
+    self.managedObjectContext = delegateApp.managedObjectContext;
+    
+    // Fetch the devices from persistent data store
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    self.userDetailsPassed = [[NSArray alloc]init];
+    self.userDetailsPassed = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    
+    
+    NSLog(@"in myAcc page: %@",self.userDetailsPassed);
+    
+    
     _sidebarButton.tintColor = [UIColor colorWithWhite:0.00f alpha:0.9f];
     
     // Set the side bar button action. When it's tapped, it'll show up the sidebar.
@@ -48,7 +65,7 @@
     [self.tabBarController.tabBar setAlpha:0.0];
     
     // Testing querying the api
-    [self displayDetails];
+    //[self displayDetails];
     
 }
 
@@ -73,14 +90,5 @@
 }
 
 
-- (NSManagedObjectContext *)managedObjectContext
-{
-    NSManagedObjectContext *context = nil;
-    id delegate = [[UIApplication sharedApplication] delegate];
-    if ([delegate performSelector:@selector(managedObjectContext)]) {
-        context = [delegate managedObjectContext];
-    }
-    return context;
-}
 
 @end

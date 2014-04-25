@@ -17,6 +17,7 @@
 @end
 
 @implementation SideBarMenuViewController
+@synthesize managedObjectContext;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,6 +34,13 @@
     
     _menuItems = @[@"Title", @"MyAccount", @"AddNewBooks", @"Logout"];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    appDelegate = [[UIApplication sharedApplication]delegate];
+    
+    self.managedObjectContext = appDelegate.managedObjectContext;
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,33 +84,21 @@
             // Close the session and remove the access token from the cache
             // The session state handler (in the app delegate) will be called automatically
             [FBSession.activeSession closeAndClearTokenInformation];
-            
-            [FBSession.activeSession close];
-            [FBSession setActiveSession:nil];
-            [FBRequestConnection startWithGraphPath:@"/me/permissions"
-                                         parameters:nil
-                                         HTTPMethod:@"DELETE"
-                                  completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                      __block NSString *alertText;
-                                      __block NSString *alertTitle;
-                                      NSLog(@"%@",result);
-                                      
-                                      if (!error && result == true) {
-                                          // Revoking the permission worked
-                                          alertTitle = @"Logout";
-                                          alertText = @"You have sucessfully logged out.";
-                                          
-                                      } else {
-                                          // There was an error, handle it
-                                          // See https://developers.facebook.com/docs/ios/errors/
-                                      }
-                                      
-                                      [[[UIAlertView alloc] initWithTitle:alertTitle
-                                                                  message:alertText
-                                                                 delegate:self
-                                                        cancelButtonTitle:@"OK!"
-                                                        otherButtonTitles:nil] show];
-                                  }];
+        NSError *error;
+        //NSManagedObjectContext *managedObject = self.managedObjectContext;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"User"];
+        NSArray *deleteAllArray =[[NSArray alloc]init];
+        [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+      
+        for(NSManagedObject *obj in deleteAllArray)
+        {
+            [self.managedObjectContext deleteObject:obj];
+        }
+      
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+            return;
+        }
             
         }
     }
