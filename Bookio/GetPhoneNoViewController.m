@@ -36,25 +36,28 @@ NSMutableDictionary *receivedData;
     
     self.PhoneNumber.keyboardType = UIKeyboardTypeNumberPad;
     
-    self.PhoneNumber.delegate = self;
+    self.SubmitPhoneNumber.layer.borderWidth = 0.5f;
+    self.SubmitPhoneNumber.layer.cornerRadius = 5;
     
-    [self.SubmitPhoneNumber setEnabled:YES];
+    [self.PhoneNumber setDelegate:self];
+    
+    // disables the search button initially, only enabled when something is entered in the textbox else disabled
+    [self.SubmitPhoneNumber setEnabled:FALSE];
     
 }
 
-- (IBAction)checkEmptyString:(id)sender {
-    /*
-     Checks for empty string in the textField box
-     if the String is empty then the update button will remain dissabled
-     the search button will be enabled only if the some text is entered in the text field
-     */
-    if([self.PhoneNumber.text length] != 0)
+// this method is connected to the textfield -> editing changed segue
+
+- (IBAction)DisableSubmitButtonTillTextFieldEmpty:(id)sender {
+    
+    UITextField *phoneNumber = (UITextField*)sender;
+    if(phoneNumber.text.length == 0)
     {
-        [self.SubmitPhoneNumber setEnabled:YES];
+        self.SubmitPhoneNumber.enabled=NO;
     }
     else
     {
-        [self.SubmitPhoneNumber setEnabled:NO];
+        self.SubmitPhoneNumber.enabled=YES;
     }
 }
 
