@@ -497,9 +497,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="517"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <segmentedControl key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="bEG-ap-c0C">
+                                    <rect key="frame" x="0.0" y="64" width="320" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <segments>
+                                        <segment title="Rent"/>
+                                        <segment title="Buy"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="SegmentChanged:" destination="ZnZ-9e-cUW" eventType="valueChanged" id="k8g-qJ-AUY"/>
+                                    </connections>
+                                </segmentedControl>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RentBuyCell" id="nVI-Lp-dg1" customClass="RentOrBuyTableViewCell">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="116" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nVI-Lp-dg1" id="CSu-aP-MU5">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -538,17 +549,6 @@
                     <navigationItem key="navigationItem" id="0rN-eg-Tgg">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title="Back" id="bGI-JC-YbR"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="bEG-ap-c0C">
-                            <rect key="frame" x="70" y="7" width="180" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Rent"/>
-                                <segment title="Buy"/>
-                            </segments>
-                            <connections>
-                                <action selector="SegmentChanged:" destination="ZnZ-9e-cUW" eventType="valueChanged" id="k8g-qJ-AUY"/>
-                            </connections>
-                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="menu" id="jW7-9P-iiP"/>
                     </navigationItem>
                     <connections>
