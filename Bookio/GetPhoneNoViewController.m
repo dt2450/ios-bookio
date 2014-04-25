@@ -15,6 +15,7 @@
 @implementation GetPhoneNoViewController
 @synthesize PhoneNumber;
 @synthesize SubmitPhoneNumber;
+@synthesize managedObjectContext;
 
 NSMutableDictionary *receivedData;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -31,11 +32,14 @@ NSMutableDictionary *receivedData;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.managedObjectContext =appDelegateCore.managedObjectContext;
+    
     self.PhoneNumber.keyboardType = UIKeyboardTypeNumberPad;
     
     self.PhoneNumber.delegate = self;
     
     [self.SubmitPhoneNumber setEnabled:YES];
+    
 }
 
 - (IBAction)checkEmptyString:(id)sender {
@@ -86,6 +90,14 @@ NSMutableDictionary *receivedData;
         delegateApp.userData = receivedData;
 
         [self.PhoneNumber resignFirstResponder];
+        
+        
+        User *userDetails = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+        
+        userDetails.user_id= [receivedData objectForKey:@"user_id"];
+        userDetails.user_fname= [receivedData objectForKey:@"user_fname"];
+        userDetails.user_lname= [receivedData objectForKey:@"user_lname"];
+        userDetails.user_phone =[receivedData objectForKey:@"user_phone"];
     }
 }
 

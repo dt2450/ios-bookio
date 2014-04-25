@@ -11,8 +11,12 @@
 @interface GetPhoneNoViewController : UIViewController<UITextFieldDelegate>
 {
     AppDelegate *delegateApp;
+    AppDelegate *appDelegateCore;
 }
 @property (strong, nonatomic) IBOutlet UITextField *PhoneNumber;
 @property (strong, nonatomic) IBOutlet UIButton *SubmitPhoneNumber;
+
+
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @end

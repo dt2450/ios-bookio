@@ -15,6 +15,7 @@
 @implementation LoginViewController
 {
     AppDelegate *delegateApp;
+    AppDelegate *appDelegateCore;
 }
 @synthesize managedObjectContext;
 
@@ -65,12 +66,6 @@
             
            // NSLog(@"uid-->%@\nufn-->%@\nuln-->%@",uid,ufn,uln);
             
-            User *userDetails = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
-            
-            userDetails.user_id=uid;
-            userDetails.user_fname=ufn;
-            userDetails.user_lname=uln;
-            
             NSMutableDictionary *allUserDetails = [[NSMutableDictionary alloc] init];
             
             [allUserDetails setObject:uid forKey:@"user_id"];
@@ -103,7 +98,7 @@
     [super viewDidLoad];
     
     delegateApp = [[UIApplication sharedApplication]delegate];
-   // self.managedObjectContext = appDelegateCore.managedObjectContext;
+    self.managedObjectContext = appDelegateCore.managedObjectContext;
     
   }
 
