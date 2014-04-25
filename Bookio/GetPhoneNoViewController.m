@@ -7,6 +7,7 @@
 //
 
 #import "GetPhoneNoViewController.h"
+#import "SWRevealViewController.h"
 
 @interface GetPhoneNoViewController ()
 
@@ -94,7 +95,6 @@ NSMutableDictionary *receivedData;
 
         [self.PhoneNumber resignFirstResponder];
         
-        
         User *userDetails = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
         
         userDetails.user_id= [receivedData objectForKey:@"user_id"];
@@ -109,8 +109,16 @@ NSMutableDictionary *receivedData;
         {
             NSLog(@"saving error: %@",[error localizedDescription]);
         }
+        
+        
+        UIStoryboard *storyboard =[ UIStoryboard storyboardWithName:@"Main" bundle:nil] ;
+        UIViewController *swrevealViewController  = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+
+        [self presentViewController:swrevealViewController animated:TRUE completion:nil];
+        
     }
 }
+
 -(IBAction)screenTapped:(UITapGestureRecognizer *)sender
 {
     if (self.PhoneNumber.isFirstResponder) {
