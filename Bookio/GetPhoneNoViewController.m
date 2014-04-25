@@ -45,13 +45,6 @@ NSMutableDictionary *receivedData;
     
 }
 
--(void) viewWillAppear:(BOOL)animated
-{
-    
-    // disables the search button initially, only enabled when something is entered in the textbox else disabled
-    self.SubmitPhoneNumber.enabled=NO;
-}
-
 /*
  keeps the search button disabled until soemthing is entered in the search query
  */
