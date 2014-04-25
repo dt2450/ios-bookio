@@ -2,7 +2,7 @@
 //  AppDelegate.h
 //  Bookio
 //
-//  Created by Devashi Tandon on 4/20/14.
+//  Created by Bookio Team on 4/20/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
@@ -24,15 +24,23 @@
 // This property co-ordinates between the context and the underlying sqlite database(persitent storage)
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator ;
 
-@property (nonatomic,strong) UIWindow *window;
-@property (nonatomic,retain) NSMutableDictionary *userData;
+//This variable identifies the current window
+@property (nonatomic, strong) UIWindow *window;
 
+//Global variable used to pass data between view controllers
+@property (nonatomic, retain) NSMutableDictionary *userData;
+
+//instance of login view controller
 @property (strong, nonatomic) LoginViewController *loginViewController;
 
 
-
+// This function is called whenever a user's facebook session state changes.
 - (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
+
+// this function is called when user logs in the app using facebook authentication
 - (void)userLoggedIn;
+
+// this fucntion is called when a user logs out of the app i.e. facebook session
 - (void)userLoggedOut;
 
 @end

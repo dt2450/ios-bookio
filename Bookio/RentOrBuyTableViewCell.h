@@ -2,12 +2,12 @@
 //  RentOrBuyTableViewCell.h
 //  Bookio
 //
-//  Created by Pooja Jain on 4/25/14.
+//  Created by Bookio Team on 4/25/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
+// custom cell to display information about the user renting or selling his book
 @interface RentOrBuyTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *UserId;

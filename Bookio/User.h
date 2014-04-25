@@ -2,7 +2,7 @@
 //  User.h
 //  Bookio
 //
-//  Created by Pooja Jain on 4/23/14.
+//  Created by Bookio Team on 4/24/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
