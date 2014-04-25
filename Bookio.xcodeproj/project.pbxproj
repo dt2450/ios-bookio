@@ -10,6 +10,8 @@
 		2D64783E1904AA91007BC48A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D64783C1904AA91007BC48A /* SWRevealViewController.m */; };
 		2D6478411904B3EF007BC48A /* SideBarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6478401904B3EF007BC48A /* SideBarMenuViewController.m */; };
 		2D64784D1904E19D007BC48A /* AddNewBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D64784C1904E19D007BC48A /* AddNewBooksViewController.m */; };
+		2D68FC8B190A1F2100ABC060 /* BookDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D68FC8A190A1F2100ABC060 /* BookDetailTableViewCell.m */; };
+		2D68FC8E190A2FFF00ABC060 /* RentOrBuyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D68FC8D190A2FFF00ABC060 /* RentOrBuyTableViewCell.m */; };
 		2D7562F4190632B500C0212C /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7562F3190632B500C0212C /* SearchResultViewController.m */; };
 		2DB93C241908E18C00C4B3A9 /* BookioApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB93C231908E18C00C4B3A9 /* BookioApi.m */; };
 		2DC3E3FF1904FE080073DB6B /* MyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FA1904FE080073DB6B /* MyAccountViewController.m */; };
@@ -55,6 +57,10 @@
 		2D6478401904B3EF007BC48A /* SideBarMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideBarMenuViewController.m; sourceTree = "<group>"; };
 		2D64784B1904E19D007BC48A /* AddNewBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewBooksViewController.h; sourceTree = "<group>"; };
 		2D64784C1904E19D007BC48A /* AddNewBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewBooksViewController.m; sourceTree = "<group>"; };
+		2D68FC89190A1F2100ABC060 /* BookDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailTableViewCell.h; sourceTree = "<group>"; };
+		2D68FC8A190A1F2100ABC060 /* BookDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetailTableViewCell.m; sourceTree = "<group>"; };
+		2D68FC8C190A2FFF00ABC060 /* RentOrBuyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentOrBuyTableViewCell.h; sourceTree = "<group>"; };
+		2D68FC8D190A2FFF00ABC060 /* RentOrBuyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentOrBuyTableViewCell.m; sourceTree = "<group>"; };
 		2D7562F2190632B500C0212C /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
 		2D7562F3190632B500C0212C /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
 		2DB93C221908E18C00C4B3A9 /* BookioApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookioApi.h; sourceTree = "<group>"; };
@@ -178,8 +184,12 @@
 				2DC3E3FC1904FE080073DB6B /* MyBooksViewController.m */,
 				2DC3E3FD1904FE080073DB6B /* SearchViewController.h */,
 				2DC3E3FE1904FE080073DB6B /* SearchViewController.m */,
+				2D68FC89190A1F2100ABC060 /* BookDetailTableViewCell.h */,
+				2D68FC8A190A1F2100ABC060 /* BookDetailTableViewCell.m */,
 				2D7562F2190632B500C0212C /* SearchResultViewController.h */,
 				2D7562F3190632B500C0212C /* SearchResultViewController.m */,
+				2D68FC8C190A2FFF00ABC060 /* RentOrBuyTableViewCell.h */,
+				2D68FC8D190A2FFF00ABC060 /* RentOrBuyTableViewCell.m */,
 				882FC5DC1903AEDB003D4946 /* RentalsViewController.h */,
 				882FC5DD1903AEDB003D4946 /* RentalsViewController.m */,
 				2D64783F1904B3EF007BC48A /* SideBarMenuViewController.h */,
@@ -329,10 +339,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				882FC5B81903A344003D4946 /* AppDelegate.m in Sources */,
+				2D68FC8B190A1F2100ABC060 /* BookDetailTableViewCell.m in Sources */,
 				2DC3E4011904FE080073DB6B /* SearchViewController.m in Sources */,
 				2DD1D9521908A49E00BE92C9 /* Bookio.xcdatamodeld in Sources */,
 				2DB93C241908E18C00C4B3A9 /* BookioApi.m in Sources */,
 				2D7562F4190632B500C0212C /* SearchResultViewController.m in Sources */,
+				2D68FC8E190A2FFF00ABC060 /* RentOrBuyTableViewCell.m in Sources */,
 				2D64784D1904E19D007BC48A /* AddNewBooksViewController.m in Sources */,
 				2DD1D9551908A76400BE92C9 /* UserBooks.m in Sources */,
 				2D64783E1904AA91007BC48A /* SWRevealViewController.m in Sources */,

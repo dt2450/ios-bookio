@@ -7,7 +7,10 @@
 //
 
 
-@interface SearchViewController : UITableViewController
+@interface SearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
-@property (nonatomic, strong) NSArray *Items;
+@property (strong, nonatomic) IBOutlet UITableView *SearchResultsTableView;
+@property (strong, nonatomic) IBOutlet UIButton *SearchButton;
+@property (strong, nonatomic) IBOutlet UITextField *courseNumber;
+@property (nonatomic, strong) NSArray *ResultBooks;
 @end

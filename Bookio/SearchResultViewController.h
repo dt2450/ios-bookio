@@ -7,6 +7,11 @@
 //
 
 
-@interface SearchResultViewController : UIViewController
+@interface SearchResultViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (strong, nonatomic) IBOutlet UITableView *RentOrBuyTableView;
+@property (nonatomic, strong) NSMutableArray *RentUsers;
+@property (nonatomic, strong) NSMutableArray *BuyUsers;
+@property (strong,nonatomic) id isbn;
+
 @end

@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     
-    _menuItems = @[@"Title", @"MyAccount", @"AddNewBooks", @"Logout"];
+    _menuItems = @[@"Title",@"Home", @"MyAccount", @"AddNewBooks", @"Logout"];
     
 }
 
