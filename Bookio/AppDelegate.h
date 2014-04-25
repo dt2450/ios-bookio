@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "LoginViewController.h"
+#import "User.h"
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

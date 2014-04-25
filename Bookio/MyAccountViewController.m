@@ -10,13 +10,23 @@
 #import "SWRevealViewController.h"
 
 @implementation MyAccountViewController
+@synthesize user_phone;
+@synthesize user_fname;
+@synthesize user_id;
+@synthesize user_lname;
 
 -(void) viewDidLoad {
     [super viewDidLoad];
-    appDelegateSend = [[UIApplication sharedApplication]delegate];
-    NSMutableDictionary *receivedUserData = appDelegateSend.userData;
+    delegateApp = [[UIApplication sharedApplication]delegate];
+    NSMutableDictionary *receivedUserData = [[NSMutableDictionary alloc]init];
+    receivedUserData = delegateApp.userData;
     
-    NSLog(@"in myAcc page: %@",receivedUserData);
+    NSLog(@"in myAcc page: %@",delegateApp.userData);
+    
+    self.user_fname.text = [receivedUserData objectForKey:@"user_fname"];
+    self.user_lname.text = [receivedUserData objectForKey:@"user_lname"];
+    self.user_id.text = [receivedUserData objectForKey:@"user_id"];
+    self.user_phone.text = [receivedUserData objectForKey:@"user_phone"];
     
 }
 
@@ -50,9 +60,9 @@
     {
         NSArray *value = [results objectForKey:@"results"];
         NSDictionary *keys = [value objectAtIndex:0];
-        NSString *user_fname = [keys objectForKey:@"user_fname"];
-        NSLog(@"%@",user_fname);
-        self.user_fname.text = user_fname;
+       // NSString *user_fname = [keys objectForKey:@"user_fname"];
+       // NSLog(@"%@",user_fname);
+      //  self.user_fname.text = user_fname;
     }];
     
 

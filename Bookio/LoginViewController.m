@@ -13,7 +13,11 @@
 @end
 
 @implementation LoginViewController
+{
+    AppDelegate *delegateApp;
+}
 @synthesize managedObjectContext;
+
 
 
 - (IBAction)buttonTouched:(id)sender
@@ -73,9 +77,9 @@
             [allUserDetails setObject:ufn forKey:@"user_fname"];
             [allUserDetails setObject:uln forKey:@"user_lname"];
             
-            appDelegateSend.userDetails = allUserDetails;
+            delegateApp.userData = allUserDetails;
             
-            NSLog(@"test:%@",userDetails.user_id);
+//            NSLog(@"test:%@",delegateApp.userData);
             
         } else {
             // An error occurred, we need to handle the error
@@ -98,7 +102,7 @@
 {
     [super viewDidLoad];
     
-    appDelegateSend = [[UIApplication sharedApplication]delegate];
+    delegateApp = [[UIApplication sharedApplication]delegate];
    // self.managedObjectContext = appDelegateCore.managedObjectContext;
     
   }

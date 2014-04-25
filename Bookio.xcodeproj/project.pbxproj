@@ -167,9 +167,9 @@
 		882FC5AD1903A344003D4946 /* Bookio */ = {
 			isa = PBXGroup;
 			children = (
+				882FC5B91903A344003D4946 /* Main.storyboard */,
 				882FC5B61903A344003D4946 /* AppDelegate.h */,
 				882FC5B71903A344003D4946 /* AppDelegate.m */,
-				882FC5B91903A344003D4946 /* Main.storyboard */,
 				2DD1D9591908ADE800BE92C9 /* LoginViewController.h */,
 				2DD1D95A1908ADE800BE92C9 /* LoginViewController.m */,
 				2DD1D95E1908B1FD00BE92C9 /* GetPhoneNoViewController.h */,
