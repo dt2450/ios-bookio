@@ -2,7 +2,7 @@
 //  MyAccountViewController.m
 //  Bookio
 //
-//  Created by Pooja Jain on 4/21/14.
+//  Created by Bookio Team on 4/21/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
@@ -19,13 +19,13 @@
     [super viewDidLoad];
    
 }
-
+#pragma mark -Function for setting up the My Account page.
 -(void) viewWillAppear:(BOOL)animated{
     
     delegateApp = [[UIApplication sharedApplication]delegate];
     self.managedObjectContext = delegateApp.managedObjectContext;
     
-    // Fetch the devices from persistent data store
+    // Fetch the devices from persistent data store from the 'User' table
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -33,9 +33,7 @@
     self.userDetailsPassed = [[NSArray alloc]init];
     self.userDetailsPassed = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
     
-    NSLog(@"%@",self.userDetailsPassed);
-    
-    
+   //Assigning all the values that are retrieved from the Dictionary to the UI labels for display
     User *userInfo = [self.userDetailsPassed objectAtIndex:0];
     
     self.user_fname.text = userInfo.user_fname;

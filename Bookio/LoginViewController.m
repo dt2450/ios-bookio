@@ -2,8 +2,8 @@
 //  LoginViewController.m
 //  Bookio
 //
-//  Created by Shrutika Dasgupta on 4/20/14.
-//  Copyright (c) 2014 Shrutika Dasgupta. All rights reserved.
+//  Created by Bookio Team on 4/20/14.
+//  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
 #import "LoginViewController.h"
@@ -25,9 +25,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    //Application Delegate made for passing data across class files
     delegateApp = [[UIApplication sharedApplication]delegate];
     self.managedObjectContext = appDelegateCore.managedObjectContext;
+    
+    //Setting the login button UI
+    self.loginButton.layer.borderWidth = 0.5f;
+    self.loginButton.layer.cornerRadius = 5;
     
 }
 
@@ -35,7 +39,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         
     }
     return self;
@@ -47,9 +50,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -Facebook Login Functions
+
+//ref: https://developers.facebook.com/docs/facebook-login/permissions#reference-basic-info
+
 - (IBAction)LoginButtonClicked:(UIButton *)sender {
-    // Open a session showing the user the login UI
-    // You must ALWAYS ask for basic_info permissions when opening a session
+   /*
+        Creating a session when the user logs in the requests the user for information to be accessd from
+        his facebook account
+    */
     [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
                                        allowLoginUI:YES
                                   completionHandler:
@@ -64,15 +73,20 @@
 
      }];
 }
-
+/*
+    The function that actually requests for the different kinds of data that is to be retrieved from the user.
+    Here we request from the user his "basic_info" from which we retrieve "username","first_name","last_name".
+ */
 - (void) makeRequestForUserData
 {
  
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
-            // Success! Include your code to handle the results here
         
-            
+            /*
+                If no error is found then a dictionary is created that is used for passing the details of the user to the getPhoneNoView
+                using the global object passing functionality with AppDelegate that was initially declared.
+             */
             NSString *uid  = [[NSString alloc] init];
             uid = [ result objectForKey:@"username"];
             NSString *ufn = [[NSString alloc] init];
@@ -87,6 +101,7 @@
             [allUserDetails setObject:ufn forKey:@"user_fname"];
             [allUserDetails setObject:uln forKey:@"user_lname"];
             
+            //The Dictionary  "allUserDetails" is asssigned to the appDelegate object for being shared across the Views.
             delegateApp.userData = allUserDetails;
             
         } else {

@@ -2,7 +2,7 @@
 //  GetPhoneNoViewController.h
 //  Bookio
 //
-//  Created by Pooja Jain on 4/23/14.
+//  Created by Bookio Team on 4/23/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
@@ -10,13 +10,20 @@
 
 @interface GetPhoneNoViewController : UIViewController<UITextFieldDelegate>
 {
+    //Application Delegate used for data passing across Views
     AppDelegate *delegateApp;
+    
+    //Application Delegate for accessing the Core data.
     AppDelegate *appDelegateCore;
 }
-@property (strong, nonatomic) IBOutlet UITextField *PhoneNumber;
-@property (strong, nonatomic) IBOutlet UIButton *SubmitPhoneNumber;
-@property (strong, nonatomic) NSString *user_id;
 
+//UI element for the Phone number text field
+@property (strong, nonatomic) IBOutlet UITextField *PhoneNumber;
+
+//UI element for the submit button
+@property (strong, nonatomic) IBOutlet UIButton *SubmitPhoneNumber;
+
+//For accessing the Core data information.
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @end
