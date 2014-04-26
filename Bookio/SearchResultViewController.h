@@ -13,6 +13,6 @@
 @property (strong, nonatomic) IBOutlet UITableView *RentOrBuyTableView;
 @property (nonatomic, strong) NSMutableArray *RentUsers;
 @property (nonatomic, strong) NSMutableArray *BuyUsers;
-@property (strong,nonatomic) id isbn;
-
+@property (strong, nonatomic) id isbn;
+@property (strong, nonatomic) id book_name;
 @end

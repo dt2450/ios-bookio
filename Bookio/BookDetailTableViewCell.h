@@ -12,4 +12,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *BookName;
 @property (strong, nonatomic) IBOutlet UILabel *BookAuthor;
 @property (strong, nonatomic) NSString *isbn;
+@property (strong, nonatomic) NSString *Bname;
 @end

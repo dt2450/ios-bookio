@@ -154,11 +154,39 @@ int selectedView;
 
 - (IBAction)SendMessageButtonPressed:(UIButton *)sender
 {
-    NSIndexPath *indexPath = [[self RentOrBuyTableView] indexPathForCell:sender];
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.RentOrBuyTableView];
+    NSIndexPath *indexPath = [[self RentOrBuyTableView] indexPathForRowAtPoint:buttonPosition];
     
     // get the cell from the index path so that we hav all information for this corresponding cell
     RentOrBuyTableViewCell *cell  = (RentOrBuyTableViewCell *)[self.RentOrBuyTableView cellForRowAtIndexPath:indexPath];
     
+    NSString *status;
+    
+    if(selectedView == 0)
+    {
+        status = @"renting";
+    }
+    else if (selectedView == 1)
+    {
+        status = @"buying";
+    }
+        
+    if(![MFMessageComposeViewController canSendText]) {
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+    
+    NSArray *recipents = @[cell.phoneNumber];
+    NSString *message = [NSString stringWithFormat:@"Hey, My user id is prj2113 and I am interested in %@ the %@ book",status, [self.book_name description]];
+    
+    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+    messageController.messageComposeDelegate = self;
+    [messageController setRecipients:recipents];
+    [messageController setBody:message];
+    
+    // Present message view controller on screen
+    [self presentViewController:messageController animated:YES completion:nil];
     
 }
 

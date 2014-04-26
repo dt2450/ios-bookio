@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D5B9CB9190B70ED00F3FFEB /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5B9CB8190B70ED00F3FFEB /* FacebookSDK.framework */; };
 		2D64783E1904AA91007BC48A /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D64783C1904AA91007BC48A /* SWRevealViewController.m */; };
 		2D6478411904B3EF007BC48A /* SideBarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6478401904B3EF007BC48A /* SideBarMenuViewController.m */; };
 		2D64784D1904E19D007BC48A /* AddNewBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D64784C1904E19D007BC48A /* AddNewBooksViewController.m */; };
@@ -22,7 +23,6 @@
 		2DD1D9551908A76400BE92C9 /* UserBooks.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D9541908A76400BE92C9 /* UserBooks.m */; };
 		2DD1D9581908A76400BE92C9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D9571908A76400BE92C9 /* User.m */; };
 		2DD1D95B1908ADE800BE92C9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D95A1908ADE800BE92C9 /* LoginViewController.m */; };
-		2DD1D95D1908AF4400BE92C9 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD1D95C1908AF4400BE92C9 /* FacebookSDK.framework */; };
 		2DD1D9601908B1FD00BE92C9 /* GetPhoneNoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D95F1908B1FD00BE92C9 /* GetPhoneNoViewController.m */; };
 		2DD8397F190B02A40072550F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD8397E190B02A40072550F /* MessageUI.framework */; };
 		882FC5A81903A344003D4946 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882FC5A71903A344003D4946 /* Foundation.framework */; };
@@ -52,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D5B9CB8190B70ED00F3FFEB /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		2D64783C1904AA91007BC48A /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		2D64783D1904AA91007BC48A /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		2D64783F1904B3EF007BC48A /* SideBarMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideBarMenuViewController.h; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 		2DD1D9571908A76400BE92C9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		2DD1D9591908ADE800BE92C9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		2DD1D95A1908ADE800BE92C9 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		2DD1D95C1908AF4400BE92C9 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		2DD1D95E1908B1FD00BE92C9 /* GetPhoneNoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetPhoneNoViewController.h; sourceTree = "<group>"; };
 		2DD1D95F1908B1FD00BE92C9 /* GetPhoneNoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetPhoneNoViewController.m; sourceTree = "<group>"; };
 		2DD8397E190B02A40072550F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -110,9 +110,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D5B9CB9190B70ED00F3FFEB /* FacebookSDK.framework in Frameworks */,
 				2DD8397F190B02A40072550F /* MessageUI.framework in Frameworks */,
 				2DD1D94C1908A43800BE92C9 /* CoreData.framework in Frameworks */,
-				2DD1D95D1908AF4400BE92C9 /* FacebookSDK.framework in Frameworks */,
 				882FC5AA1903A344003D4946 /* CoreGraphics.framework in Frameworks */,
 				882FC5AC1903A344003D4946 /* UIKit.framework in Frameworks */,
 				882FC5A81903A344003D4946 /* Foundation.framework in Frameworks */,
@@ -163,8 +163,8 @@
 		882FC5A61903A344003D4946 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2D5B9CB8190B70ED00F3FFEB /* FacebookSDK.framework */,
 				2DD8397E190B02A40072550F /* MessageUI.framework */,
-				2DD1D95C1908AF4400BE92C9 /* FacebookSDK.framework */,
 				2DD1D94B1908A43800BE92C9 /* CoreData.framework */,
 				882FC5A71903A344003D4946 /* Foundation.framework */,
 				882FC5A91903A344003D4946 /* CoreGraphics.framework */,
@@ -292,6 +292,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Columbia University";
 				TargetAttributes = {
+					882FC5A31903A344003D4946 = {
+						DevelopmentTeam = D5G7A73C8V;
+					};
 					882FC5C41903A344003D4946 = {
 						TestTargetID = 882FC5A31903A344003D4946;
 					};
@@ -425,7 +428,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -443,6 +447,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "2F106815-FC23-4642-8E19-0AB1D565992F";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -463,7 +468,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -474,6 +480,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PROVISIONING_PROFILE = "2F106815-FC23-4642-8E19-0AB1D565992F";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -484,14 +491,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					/Users/poojajain/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bookio/Bookio-Prefix.pch";
 				INFOPLIST_FILE = "Bookio/Bookio-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2F106815-FC23-4642-8E19-0AB1D565992F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -501,14 +512,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					/Users/poojajain/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bookio/Bookio-Prefix.pch";
 				INFOPLIST_FILE = "Bookio/Bookio-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2F106815-FC23-4642-8E19-0AB1D565992F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

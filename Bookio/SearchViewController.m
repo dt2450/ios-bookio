@@ -111,10 +111,10 @@
     }
     
     NSDictionary *eachBook = [self.ResultBooks objectAtIndex:indexPath.row];
-    cell.BookName.text = [eachBook objectForKey:@"book_name"];
+    cell.Bname = [eachBook objectForKey:@"book_name"];
+    cell.BookName.text = cell.Bname;
     cell.BookAuthor.text = [eachBook objectForKey:@"book_author"];
     cell.isbn = [eachBook objectForKey:@"ISBN"];
-    
     return cell;
 }
 
@@ -128,6 +128,7 @@
     
     // passes the input query to the capturedQuery object of type id in the destination view
     searchResultViewController.isbn=cell.isbn;
+    searchResultViewController.book_name = cell.Bname;
 }
 
 @end
