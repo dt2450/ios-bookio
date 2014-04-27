@@ -19,68 +19,13 @@
 }
 @synthesize managedObjectContext;
 
-
-
-- (IBAction)buttonTouched:(id)sender
+- (void)viewDidLoad
 {
-    // If the session state is any of the two "open" states when the button is clicked
-    if (FBSession.activeSession.state == FBSessionStateOpen
-        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
-        
-        // Close the session and remove the access token from the cache
-        // The session state handler (in the app delegate) will be called automatically
-        [FBSession.activeSession closeAndClearTokenInformation];
-        
-        // If the session state is not any of the two "open" states when the button is clicked
-    } else {
-        // Open a session showing the user the login UI
-        // You must ALWAYS ask for basic_info permissions when opening a session
-        [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
-                                           allowLoginUI:YES
-                                      completionHandler:
-         ^(FBSession *session, FBSessionState state, NSError *error) {
-             
-             [self makeRequestForUserData];
-             
-             // Retrieve the app delegate
-             AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-             // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
-             [appDelegate sessionStateChanged:session state:state error:error];
-         }];
-    }
-}
-
-- (void) makeRequestForUserData
-{
-    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        if (!error) {
-            // Success! Include your code to handle the results here
-           // NSLog(@"user info: %@", result);
-            
-            NSString *uid = [[NSString alloc] init];
-            uid = [ result objectForKey:@"username"];
-            NSString *ufn = [[NSString alloc] init];
-            ufn = [result objectForKey:@"first_name"];
-            NSString *uln = [[NSString alloc]init];
-            uln = [result objectForKey:@"last_name"];
-            
-           // NSLog(@"uid-->%@\nufn-->%@\nuln-->%@",uid,ufn,uln);
-            
-            NSMutableDictionary *allUserDetails = [[NSMutableDictionary alloc] init];
-            
-            [allUserDetails setObject:uid forKey:@"user_id"];
-            [allUserDetails setObject:ufn forKey:@"user_fname"];
-            [allUserDetails setObject:uln forKey:@"user_lname"];
-            
-            delegateApp.userData = allUserDetails;
-            
-//            NSLog(@"test:%@",delegateApp.userData);
-            
-        } else {
-            // An error occurred, we need to handle the error
-            NSLog(@"error1 %@", error.description);
-        }
-    }];
+    [super viewDidLoad];
+    
+    delegateApp = [[UIApplication sharedApplication]delegate];
+    self.managedObjectContext = appDelegateCore.managedObjectContext;
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -93,19 +38,61 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    delegateApp = [[UIApplication sharedApplication]delegate];
-    self.managedObjectContext = appDelegateCore.managedObjectContext;
-    
-  }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)LoginButtonClicked:(UIButton *)sender {
+    // Open a session showing the user the login UI
+    // You must ALWAYS ask for basic_info permissions when opening a session
+    [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
+                                       allowLoginUI:YES
+                                  completionHandler:
+     ^(FBSession *session, FBSessionState state, NSError *error) {
+         NSLog(@"called1");
+         [self makeRequestForUserData];
+         
+         // Retrieve the app delegate
+         AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+         // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
+         [appDelegate sessionStateChanged:session state:state error:error];
+     }];
+}
+
+- (void) makeRequestForUserData
+{
+    NSLog(@"called");
+    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // Success! Include your code to handle the results here
+        
+            
+            NSString *uid = [[NSString alloc] init];
+            uid = [ result objectForKey:@"username"];
+            NSString *ufn = [[NSString alloc] init];
+            ufn = [result objectForKey:@"first_name"];
+            NSString *uln = [[NSString alloc]init];
+            uln = [result objectForKey:@"last_name"];
+        
+            
+            NSMutableDictionary *allUserDetails = [[NSMutableDictionary alloc] init];
+            
+            [allUserDetails setObject:uid forKey:@"user_id"];
+            [allUserDetails setObject:ufn forKey:@"user_fname"];
+            [allUserDetails setObject:uln forKey:@"user_lname"];
+            
+            delegateApp.userData = allUserDetails;
+            
+          
+            
+        } else {
+            // An error occurred, we need to handle the error
+            NSLog(@"error: %@", error.description);
+        }
+    }];
+}
+
 
 @end

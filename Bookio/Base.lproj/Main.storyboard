@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="fXp-ds-mBH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="fXp-ds-mBH">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -155,9 +155,6 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="fXp-ds-mBH" kind="modal" id="vFM-Re-4wD"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
@@ -318,7 +315,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
-                                    <action selector="buttonTouched:" destination="fXp-ds-mBH" eventType="touchUpInside" id="0Nn-W5-042"/>
+                                    <action selector="LoginButtonClicked:" destination="fXp-ds-mBH" eventType="touchUpInside" id="QXp-Pd-azA"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -327,7 +324,6 @@
                     <navigationItem key="navigationItem" id="q0D-nr-ioy"/>
                     <connections>
                         <outlet property="loginButton" destination="edh-CR-WMq" id="Sv2-MT-CXZ"/>
-                        <segue destination="FTo-UO-IOa" kind="push" identifier="getPhoneNumber" id="2aK-xb-mXc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XvU-XE-igw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -651,6 +647,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xBw-lg-4Ws"/>
+        <segue reference="z9L-W9-BCL"/>
     </inferredMetricsTieBreakers>
 </document>

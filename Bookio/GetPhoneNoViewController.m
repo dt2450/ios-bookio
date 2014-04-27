@@ -91,32 +91,92 @@ NSMutableDictionary *receivedData;
     {
         [receivedData setObject:user_phone forKey:@"user_phone"];
 
-        //delegateApp.userData = receivedData;
-
         [self.PhoneNumber resignFirstResponder];
+                
+        BookioApi *apiCall= [[ BookioApi alloc] init];
+        // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
+        NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=insertUser&userid=%@&fname=%@&lname=%@&phone=%@", [receivedData objectForKey:@"user_id"],[receivedData objectForKey:@"user_fname"], [receivedData objectForKey:@"user_lname"], [receivedData objectForKey:@"user_phone"]];
         
-        User *userDetails = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
-        
-        userDetails.user_id= [receivedData objectForKey:@"user_id"];
-        userDetails.user_fname= [receivedData objectForKey:@"user_fname"];
-        userDetails.user_lname= [receivedData objectForKey:@"user_lname"];
-        userDetails.user_phone =[receivedData objectForKey:@"user_phone"];
-        
-        NSLog(@"-----------%@",userDetails);
-        
-        NSError *error;
-        if(![self.managedObjectContext save:&error])
-        {
-            NSLog(@"saving error: %@",[error localizedDescription]);
-        }
-        
-        
-        UIStoryboard *storyboard =[ UIStoryboard storyboardWithName:@"Main" bundle:nil] ;
-        UIViewController *swrevealViewController  = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-
-        [self presentViewController:swrevealViewController animated:TRUE completion:nil];
+        // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
+        [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
+         {
+             NSString *value = [results objectForKey:@"status"];
+             if([value isEqualToString:@"Change Phone"])
+             {
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Do you want to update your phone number?" message:@"" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"YES", nil];
+                 [alert show];
+                 [alert setTag:11];
+             }
+             else if([value isEqualToString:@"User Exists"] || [value isEqualToString:@"OK"])
+             {
+                 [self updateLocalData];
+             }
+         }];
         
     }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 11)
+    {
+        if(buttonIndex == 1)
+        {
+            BookioApi *apiCall= [[ BookioApi alloc] init];
+            // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
+            NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=updateUserPhone&userid=%@&phone=%@", [receivedData objectForKey:@"user_id"],[receivedData objectForKey:@"user_phone"]];
+            
+            // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
+            [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
+             {
+                 [self updateLocalData];
+            }];
+
+        }
+        if(buttonIndex == 0)
+        {
+            BookioApi *apiCall= [[ BookioApi alloc] init];
+            // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
+            NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=getMyAccount&userid=%@", [receivedData objectForKey:@"user_id"]];
+            
+            // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
+            [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
+             {
+                 NSArray *result = [results objectForKey:@"results"];
+                 NSDictionary *user = [result objectAtIndex:0];
+                 NSString *userPhone = [user objectForKey:@"user_phone"];
+                 [receivedData setObject:userPhone forKey:@"user_phone"];
+                 NSLog(@"%@",[receivedData objectForKey:@"user_phone"]);
+                  [self updateLocalData];
+             }];
+            
+        }
+       
+    }
+   
+}
+
+-(void)updateLocalData
+{
+    
+     User *userDetails = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+     
+     userDetails.user_id= [receivedData objectForKey:@"user_id"];
+     userDetails.user_fname= [receivedData objectForKey:@"user_fname"];
+     userDetails.user_lname= [receivedData objectForKey:@"user_lname"];
+     userDetails.user_phone =[receivedData objectForKey:@"user_phone"];
+    
+     NSError *error;
+     if(![self.managedObjectContext save:&error])
+     {
+         NSLog(@"saving error: %@",[error localizedDescription]);
+     }
+        
+     UIStoryboard *storyboard =[ UIStoryboard storyboardWithName:@"Main" bundle:nil] ;
+     UIViewController *swrevealViewController  = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
+     
+     [self presentViewController:swrevealViewController animated:TRUE completion:nil];
+
 }
 
 -(IBAction)screenTapped:(UITapGestureRecognizer *)sender

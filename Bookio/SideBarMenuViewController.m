@@ -79,27 +79,26 @@
     {
         // If the session state is any of the two "open" states when the button is clicked
         if (FBSession.activeSession.state == FBSessionStateOpen
-            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
-            
+            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended)
+        {
             // Close the session and remove the access token from the cache
             // The session state handler (in the app delegate) will be called automatically
             [FBSession.activeSession closeAndClearTokenInformation];
-        NSError *error;
-        //NSManagedObjectContext *managedObject = self.managedObjectContext;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"User"];
-        NSArray *deleteAllArray =[[NSArray alloc]init];
-        [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-      
-        for(NSManagedObject *obj in deleteAllArray)
-        {
-            [self.managedObjectContext deleteObject:obj];
-        }
-      
-        if (![self.managedObjectContext save:&error]) {
-            NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
-            return;
-        }
             
+            NSError *error;
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"User"];
+            NSArray *deleteAllArray =[self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+          
+            for(NSManagedObject *obj in deleteAllArray)
+            {
+                [self.managedObjectContext deleteObject:obj];
+            }
+          
+            if (![self.managedObjectContext save:&error]) {
+                NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+                return;
+            }
+           
         }
     }
 }

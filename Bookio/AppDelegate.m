@@ -101,6 +101,7 @@
         UITabBarController *SWRevealViewController = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
         
         NSLog(@"Found a cached session");
+        
         // If there's one, just open the session silently, without showing the user the login UI
         [FBSession openActiveSessionWithReadPermissions:@[@"basic_info"]
                                            allowLoginUI:NO
@@ -116,16 +117,11 @@
     else
     {
         
-        // Create a LoginUIViewController instance where the login button will be
-        LoginViewController *loginViewController = [[LoginViewController alloc] init];
         
         // Set loginUIViewController as root view controller
         UIViewController *loginPage = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
         [[self window] setRootViewController:loginPage];
-        
-        UIButton *loginButton = [loginViewController loginButton];
-        [loginButton setTitle:@"Log in with Facebook" forState:UIControlStateNormal];
-        
+    
         self.window.backgroundColor = [UIColor whiteColor];
         [self.window makeKeyAndVisible];
         
@@ -193,7 +189,13 @@
 
 - (void)userLoggedOut
 {
+    UIStoryboard *storyboard =[ UIStoryboard storyboardWithName:@"Main" bundle:nil] ;
+    // Set loginUIViewController as root view controller
+    UIViewController *loginPage = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    [self.window setRootViewController:loginPage];
     
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
 }
 
 // Show the user the logged-in UI

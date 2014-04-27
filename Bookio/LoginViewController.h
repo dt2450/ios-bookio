@@ -15,5 +15,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *loginButton;
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+- (IBAction)LoginButtonClicked:(UIButton *)sender;
 
 @end
