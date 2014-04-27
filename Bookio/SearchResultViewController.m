@@ -23,11 +23,15 @@ int selectedView;
     
     self.RentUsers = [[NSMutableArray alloc] init];
     self.BuyUsers = [[NSMutableArray alloc] init];
+
     
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    
+    AppDelegate *delegateApp = [[UIApplication sharedApplication]delegate];
+    self.managedObjectContext = delegateApp.managedObjectContext;
     _sidebarButton.tintColor = [UIColor colorWithWhite:0.00f alpha:0.9f];
     
     // Set the side bar button action. When it's tapped, it'll show up the sidebar.
@@ -178,8 +182,20 @@ int selectedView;
     }
     
     NSArray *recipents = @[cell.phoneNumber];
+    
+    // Fetch the devices from persistent data store
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    NSArray *user = [[NSArray alloc]init];
+    user = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    
+
+    User *userInfo = [user objectAtIndex:0];
+    
     // extract user id from core data and pass it in the message so that the user can add the rental for the user
-    NSString *message = [NSString stringWithFormat:@"Hey, My user id is prj2113 and I am interested in %@ the %@ book",status, [self.book_name description]];
+    NSString *message = [NSString stringWithFormat:@"Hey, My user id is %@ and I am interested in %@ the %@ book",userInfo.user_id,status, [self.book_name description]];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;
