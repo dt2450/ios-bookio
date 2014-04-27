@@ -365,7 +365,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="DisableSubmitButtonTillTextFieldEmpty:" destination="FTo-UO-IOa" eventType="editingChanged" id="Ktj-XU-aLm"/>
+                                    <action selector="DisableSubmitButtonTillTextFieldEmptyString:" destination="FTo-UO-IOa" eventType="editingChanged" id="lwc-B6-H2q"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter Phone Number:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5T1-iJ-sMr">
@@ -388,6 +388,10 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="RyI-Ip-Ap1" appends="YES" id="EmS-fB-Sax"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="B1Y-fC-aei"/>
                     <connections>
@@ -396,6 +400,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZU-bs-2ni" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="RyI-Ip-Ap1">
+                    <connections>
+                        <action selector="screenTapped:" destination="FTo-UO-IOa" id="Amw-Uq-Ll7"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-41" y="45"/>
         </scene>

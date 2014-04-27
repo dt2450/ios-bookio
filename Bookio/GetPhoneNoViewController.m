@@ -31,7 +31,7 @@ NSMutableDictionary *receivedData;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    appDelegateCore = [[UIApplication sharedApplication]delegate];
     self.managedObjectContext =appDelegateCore.managedObjectContext;
     
     self.PhoneNumber.keyboardType = UIKeyboardTypeNumberPad;
@@ -48,16 +48,16 @@ NSMutableDictionary *receivedData;
 
 // this method is connected to the textfield -> editing changed segue
 
-- (IBAction)DisableSubmitButtonTillTextFieldEmpty:(id)sender {
+- (IBAction)DisableSubmitButtonTillTextFieldEmptyString:(id)sender {
     
     UITextField *phoneNumber = (UITextField*)sender;
     if(phoneNumber.text.length == 0)
     {
-        self.SubmitPhoneNumber.enabled=NO;
+        [self.SubmitPhoneNumber setEnabled:FALSE];
     }
     else
     {
-        self.SubmitPhoneNumber.enabled=YES;
+        [self.SubmitPhoneNumber setEnabled:TRUE];
     }
 }
 
@@ -90,7 +90,7 @@ NSMutableDictionary *receivedData;
     {
         [receivedData setObject:user_phone forKey:@"user_phone"];
 
-        delegateApp.userData = receivedData;
+        //delegateApp.userData = receivedData;
 
         [self.PhoneNumber resignFirstResponder];
         
