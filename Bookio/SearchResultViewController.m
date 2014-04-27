@@ -178,6 +178,7 @@ int selectedView;
     }
     
     NSArray *recipents = @[cell.phoneNumber];
+    // extract user id from core data and pass it in the message so that the user can add the rental for the user
     NSString *message = [NSString stringWithFormat:@"Hey, My user id is prj2113 and I am interested in %@ the %@ book",status, [self.book_name description]];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
