@@ -147,7 +147,7 @@ NSMutableDictionary *receivedData;
                  NSString *userPhone = [user objectForKey:@"user_phone"];
                  [receivedData setObject:userPhone forKey:@"user_phone"];
                  NSLog(@"%@",[receivedData objectForKey:@"user_phone"]);
-                  [self updateLocalData];
+                 [self updateLocalData];
              }];
             
         }
