@@ -26,6 +26,14 @@
     
     [self.SearchButton setEnabled:false];
     
+    //for resigning keyboard on tap on table view
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.SearchResultsTableView addGestureRecognizer:gestureRecognizer];
+    
+}
+
+- (void) hideKeyboard {
+    [self.courseNumber resignFirstResponder];
 }
 
 /*

@@ -14,10 +14,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *myBooksTableView;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
-@property (strong, nonatomic) NSArray *CourseList;
-@property (strong, nonatomic) NSArray *BookCount;
-@property (strong, nonatomic) NSArray *BooksList;
-@property (strong, nonatomic) NSArray *Books1;
-@property (strong, nonatomic) NSArray *Books2;
-@property (strong, nonatomic) NSArray *Books3;
+@property (strong, nonatomic) NSMutableArray *CourseList;
+@property (strong, nonatomic) NSMutableArray *BooksList;
+@property (strong, nonatomic) NSMutableArray *AuthorsList;
+
 @end

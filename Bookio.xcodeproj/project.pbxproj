@@ -21,7 +21,6 @@
 		2DC3E4011904FE080073DB6B /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC3E3FE1904FE080073DB6B /* SearchViewController.m */; };
 		2DD1D94C1908A43800BE92C9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD1D94B1908A43800BE92C9 /* CoreData.framework */; };
 		2DD1D9521908A49E00BE92C9 /* Bookio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D9501908A49E00BE92C9 /* Bookio.xcdatamodeld */; };
-		2DD1D9551908A76400BE92C9 /* UserBooks.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D9541908A76400BE92C9 /* UserBooks.m */; };
 		2DD1D9581908A76400BE92C9 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D9571908A76400BE92C9 /* User.m */; };
 		2DD1D95B1908ADE800BE92C9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D95A1908ADE800BE92C9 /* LoginViewController.m */; };
 		2DD1D9601908B1FD00BE92C9 /* GetPhoneNoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1D95F1908B1FD00BE92C9 /* GetPhoneNoViewController.m */; };
@@ -44,6 +43,7 @@
 		88827D3D190E61240029CFDB /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5B9CB8190B70ED00F3FFEB /* FacebookSDK.framework */; };
 		88827D43190E7E1B0029CFDB /* RentedFromUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88827D42190E7E1B0029CFDB /* RentedFromUIView.m */; };
 		88827D46190E7E3D0029CFDB /* RentedToUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88827D45190E7E3D0029CFDB /* RentedToUIView.m */; };
+		888DCC0E190F146D0001C512 /* UserBooks.m in Sources */ = {isa = PBXBuildFile; fileRef = 888DCC0D190F146D0001C512 /* UserBooks.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,8 +84,6 @@
 		2DC3E3FE1904FE080073DB6B /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		2DD1D94B1908A43800BE92C9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2DD1D9511908A49E00BE92C9 /* Bookio.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bookio.xcdatamodel; sourceTree = "<group>"; };
-		2DD1D9531908A76400BE92C9 /* UserBooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserBooks.h; sourceTree = "<group>"; };
-		2DD1D9541908A76400BE92C9 /* UserBooks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserBooks.m; sourceTree = "<group>"; };
 		2DD1D9561908A76400BE92C9 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		2DD1D9571908A76400BE92C9 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		2DD1D9591908ADE800BE92C9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -118,6 +116,8 @@
 		88827D42190E7E1B0029CFDB /* RentedFromUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentedFromUIView.m; sourceTree = "<group>"; };
 		88827D44190E7E3D0029CFDB /* RentedToUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentedToUIView.h; sourceTree = "<group>"; };
 		88827D45190E7E3D0029CFDB /* RentedToUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentedToUIView.m; sourceTree = "<group>"; };
+		888DCC0C190F146D0001C512 /* UserBooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserBooks.h; sourceTree = "<group>"; };
+		888DCC0D190F146D0001C512 /* UserBooks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserBooks.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,10 +230,10 @@
 				2DB93C221908E18C00C4B3A9 /* BookioApi.h */,
 				2DB93C231908E18C00C4B3A9 /* BookioApi.m */,
 				2DD1D9501908A49E00BE92C9 /* Bookio.xcdatamodeld */,
+				888DCC0C190F146D0001C512 /* UserBooks.h */,
+				888DCC0D190F146D0001C512 /* UserBooks.m */,
 				2DD1D9561908A76400BE92C9 /* User.h */,
 				2DD1D9571908A76400BE92C9 /* User.m */,
-				2DD1D9531908A76400BE92C9 /* UserBooks.h */,
-				2DD1D9541908A76400BE92C9 /* UserBooks.m */,
 				882FC5BF1903A344003D4946 /* Images.xcassets */,
 				2D64783B1904AA3E007BC48A /* Library */,
 				882FC5AE1903A344003D4946 /* Supporting Files */,
@@ -381,7 +381,6 @@
 				2D3BEB63190E03DA00D1A384 /* AddNotFoundBookViewController.m in Sources */,
 				2D68FC8E190A2FFF00ABC060 /* RentOrBuyTableViewCell.m in Sources */,
 				2D64784D1904E19D007BC48A /* AddNewBooksViewController.m in Sources */,
-				2DD1D9551908A76400BE92C9 /* UserBooks.m in Sources */,
 				2D64783E1904AA91007BC48A /* SWRevealViewController.m in Sources */,
 				2DD1D9581908A76400BE92C9 /* User.m in Sources */,
 				882FC5DE1903AEDB003D4946 /* RentalsViewController.m in Sources */,
@@ -389,6 +388,7 @@
 				2D6478411904B3EF007BC48A /* SideBarMenuViewController.m in Sources */,
 				2DD1D9601908B1FD00BE92C9 /* GetPhoneNoViewController.m in Sources */,
 				2DC3E3FF1904FE080073DB6B /* MyAccountViewController.m in Sources */,
+				888DCC0E190F146D0001C512 /* UserBooks.m in Sources */,
 				882FC5B41903A344003D4946 /* main.m in Sources */,
 				2DC3E4001904FE080073DB6B /* MyBooksViewController.m in Sources */,
 				88827D3C190E5FBE0029CFDB /* MyBooksTableViewCell.m in Sources */,

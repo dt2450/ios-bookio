@@ -8,6 +8,7 @@
 
 #import "MyBooksViewController.h"
 #import "SWRevealViewController.h"
+#import "UserBooks.h"
 
 @implementation MyBooksViewController
 
@@ -20,13 +21,39 @@
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     self.managedObjectContext = appDelegate.managedObjectContext;
     
-    //for testing
-    self.CourseList = @[@"CSEE 4121", @"CSOR 4151", @"COMS E6198"];
-    self.BookCount = @[@2,@1,@3];
-    self.Books1 = @[@"Book 1", @"Book 2", @"Book 3"];
-    self.Books2 = @[@"Book 4", @"Book 5", @"Book 6"];
-    self.Books3 = @[@"Book 7", @"Book 8", @"Book 9"];
-    self.BooksList = @[self.Books1, self.Books2, self.Books3];
+    self.CourseList = [[NSMutableArray alloc] init];
+    self.BooksList = [[NSMutableArray alloc] init];
+    self.AuthorsList = [[NSMutableArray alloc] init];
+    
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    NSArray *userBooks = [[NSArray alloc]init];
+    userBooks = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    for(UserBooks *userBookEntity in userBooks) {
+        //NSUInteger courseIndex = NSNotFound;
+        //NSUInteger courseCount = [self.CourseList count];
+        
+        //if(courseCount != 0) {
+            NSUInteger courseIndex = [self.CourseList indexOfObject:userBookEntity.courseno];
+        //}
+        if (courseIndex == NSNotFound) {
+            [self.CourseList addObject:userBookEntity.courseno];
+            courseIndex = [self.CourseList count] - 1;
+            //NSMutableArray *courseBooksList = [NSMutableArray alloc];
+            [self.BooksList addObject:[[NSMutableArray alloc] init]];
+            [self.AuthorsList addObject:[[NSMutableArray alloc] init]];
+        }
+        NSMutableArray *courseBooksList = [self.BooksList objectAtIndex:courseIndex];
+        [courseBooksList addObject:userBookEntity.name];
+        
+        NSMutableArray *bookAuthorsList = [self.AuthorsList objectAtIndex:courseIndex];
+        [bookAuthorsList addObject:userBookEntity.authors];
+    }
+
     
     
 }
@@ -41,13 +68,29 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[self.BookCount objectAtIndex:section] intValue];
+    NSMutableArray *courseBooksList = [self.BooksList objectAtIndex:section];
+    
+    return [courseBooksList count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 
 {
     return [self.CourseList objectAtIndex:section];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    myLabel.frame = CGRectMake(5, 2, 320, 20);
+    myLabel.font = [UIFont boldSystemFontOfSize:16];
+    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    
+    UIView *headerView = [[UIView alloc] init];
+    [headerView addSubview:myLabel];
+    headerView.backgroundColor = [UIColor lightGrayColor];
+    
+    return headerView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,7 +105,7 @@
     }
     
     cell.MyBookName.text = [[self.BooksList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    cell.MyBookAuthors.text = [NSString stringWithFormat:@"Author: %ld", (long)indexPath.row];
+    cell.MyBookAuthors.text = [[self.AuthorsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     cell.clipsToBounds = YES;
     
