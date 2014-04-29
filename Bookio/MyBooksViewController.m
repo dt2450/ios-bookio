@@ -321,8 +321,9 @@
     if ([[[self.rentSelectList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] intValue] == 1) {
         cell.RentSelect.selected = YES;
         [cell.RentSelect setImage:[UIImage imageNamed:@"checkbox-ticked.png"] forState:UIControlStateNormal];
-        //for debugging
-        //cell.RentPrice = [[self.rentPriceList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        
+        NSString *currentRentPrice = [NSString stringWithFormat:@"%@", [[self.rentPriceList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+        cell.RentPrice.text = currentRentPrice;
     } else {
         cell.RentSelect.selected = NO;
         [cell.RentSelect setImage:[UIImage imageNamed:@"checkbox-unticked.png"] forState:UIControlStateNormal];
@@ -331,8 +332,9 @@
     if ([[[self.sellSelectList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] intValue] == 1) {
         cell.SellSelect.selected = YES;
         [cell.SellSelect setImage:[UIImage imageNamed:@"checkbox-ticked.png"] forState:UIControlStateNormal];
-        //for debugging
-        //cell.SellPrice = [[self.sellPriceList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        
+        NSString *currentSellPrice = [NSString stringWithFormat:@"%@", [[self.sellPriceList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+        cell.SellPrice.text = currentSellPrice;
     } else {
         cell.SellSelect.selected = NO;
         [cell.SellSelect setImage:[UIImage imageNamed:@"checkbox-unticked.png"] forState:UIControlStateNormal];
