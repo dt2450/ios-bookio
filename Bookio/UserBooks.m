@@ -2,7 +2,7 @@
 //  UserBooks.m
 //  Bookio
 //
-//  Created by Pooja Jain on 4/23/14.
+//  Created by Devashi Tandon on 4/28/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
@@ -11,11 +11,14 @@
 
 @implementation UserBooks
 
-@dynamic user_id;
 @dynamic isbn;
 @dynamic rent;
 @dynamic rent_cost;
 @dynamic sell;
 @dynamic sell_cost;
+@dynamic user_id;
+@dynamic courseno;
+@dynamic name;
+@dynamic authors;
 
 @end

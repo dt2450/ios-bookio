@@ -44,6 +44,14 @@ NSMutableDictionary *receivedData;
     // this viewcontroller will be notified when any changes are made in the search box
     [self.PhoneNumber setDelegate:self];
     
+    //for resigning keyboard on tap on table view
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    [gestureRecognizer setCancelsTouchesInView:NO];
+}
+
+- (void) hideKeyboard {
+    [self.PhoneNumber resignFirstResponder];
 }
 
 /*
