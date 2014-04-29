@@ -91,7 +91,7 @@
 }
 
 
-/*- (IBAction)finishedRentPriceEdit:(id)sender {
+- (IBAction)finishedRentPriceEdit:(id)sender {
     if (self.RentPrice.isFirstResponder) {
         [self.RentPrice resignFirstResponder];
     }
@@ -120,6 +120,6 @@
         [alertView show];
     }
 
-}*/
+}
 
 @end

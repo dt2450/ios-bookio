@@ -53,11 +53,18 @@
         NSMutableArray *bookAuthorsList = [self.AuthorsList objectAtIndex:courseIndex];
         [bookAuthorsList addObject:userBookEntity.authors];
     }
-
     
-    
+    //for resigning keyboard on tap on table view
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
 }
 
+- (void) hideKeyboard {
+        [self.myBooksTableView endEditing:YES];
+        
+        //[cell.RentPrice resignFirstResponder];
+        //[cell.SellPrice resignFirstResponder];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -113,7 +120,6 @@
     
     return cell;
 }
-
 
 -(void) viewWillAppear:(BOOL)animated{
     
