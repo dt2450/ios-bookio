@@ -167,10 +167,10 @@ NSString *courseno;
     addMyBook.name = cell.bookName.text;
     addMyBook.authors = cell.bookAuthor.text;
     addMyBook.courseno = courseno;
-    addMyBook.rent = 0;
-    addMyBook.rent_cost = 0;
-    addMyBook.sell = 0;
-    addMyBook.sell_cost = 0;
+    addMyBook.rent = [NSNumber numberWithInt:0];
+    addMyBook.rent_cost = [NSNumber numberWithInt:0];
+    addMyBook.sell = [NSNumber numberWithInt:0];
+    addMyBook.sell_cost = [NSNumber numberWithInt:0];
     
 
     
