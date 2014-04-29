@@ -106,10 +106,10 @@
     userBooks.authors = authors;
     userBooks.courseno = courseno;
     
-    userBooks.rent = 0;
-    userBooks.rent_cost = 0;
-    userBooks.sell = 0;
-    userBooks.sell_cost = 0;
+    userBooks.rent = [NSNumber numberWithInt:0];
+    userBooks.rent_cost = [NSNumber numberWithInt:0];
+    userBooks.sell = [NSNumber numberWithInt:0];
+    userBooks.sell_cost = [NSNumber numberWithInt:0];
     
     NSError *error;
     if(![self.managedObjectContext save:&error])

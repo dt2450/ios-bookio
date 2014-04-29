@@ -732,6 +732,7 @@
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
                                                 <action selector="finishedRentPriceEdit:" destination="Npc-2p-E1Y" eventType="editingDidEnd" id="VnT-Bp-NdK"/>
+                                                <outlet property="delegate" destination="0Mt-ZY-yOT" id="elF-Iy-NVZ"/>
                                             </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6GJ-Cl-coK">
@@ -741,6 +742,7 @@
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
                                                 <action selector="finishedSellPriceEdit:" destination="Npc-2p-E1Y" eventType="editingDidEnd" id="8hl-Bp-WtY"/>
+                                                <outlet property="delegate" destination="0Mt-ZY-yOT" id="qig-61-OC6"/>
                                             </connections>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lB9-QF-pAE">
