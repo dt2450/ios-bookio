@@ -57,6 +57,7 @@
     //for resigning keyboard on tap on table view
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
+    [gestureRecognizer setCancelsTouchesInView:NO];
 }
 
 - (void) hideKeyboard {
