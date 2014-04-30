@@ -102,6 +102,7 @@
     [gestureRecognizer setCancelsTouchesInView:NO];
 }
 
+
 - (void) hideKeyboard {
         [self.myBooksTableView endEditing:YES];
         
@@ -351,6 +352,7 @@
     
     cell.clipsToBounds = YES;
     
+    
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
@@ -369,6 +371,8 @@
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
+    //trick for making the cell scroll up when the keyboard appears and then scroll back when it disappears
+    [super viewWillAppear:animated];
 }
 
 @end
