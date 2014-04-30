@@ -79,10 +79,14 @@
     NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory]
                                                stringByAppendingPathComponent: @"Bookio.sqlite"]];
     NSError *error = nil;
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+    						 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+    						 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+    
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
                                    initWithManagedObjectModel:[self managedObjectModel]];
     if(![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
-                                                  configuration:nil URL:storeUrl options:nil error:&error]) {
+                                                  configuration:nil URL:storeUrl options:options error:&error]) {
     }
     
     return _persistentStoreCoordinator;
@@ -112,7 +116,55 @@
                                           [self sessionStateChanged:session state:state error:error];
                                       }];
         
-        [self.window setRootViewController:SWRevealViewController];
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        [fetchRequest setReturnsObjectsAsFaults:NO];
+        NSArray *user = [[NSArray alloc]init];
+        user = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+        
+        User *userInfo = [user objectAtIndex:0];
+
+        // Load the user books table
+        BookioApi *apiCall= [[ BookioApi alloc] init];
+        // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
+        NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=getBooksOfUser&userid=%@", userInfo.user_id];
+        
+        // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
+        [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
+         {
+             NSArray *value = [results objectForKey:@"results"];
+             if([results count] != 0)
+             {
+                 for(NSDictionary *book in value)
+                 {
+                     
+                     UserBooks *userBooks = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
+                     
+                     userBooks.isbn = [[book objectForKey:@"ISBN"] stringValue];
+                     userBooks.rent = [NSNumber numberWithInt:[[book objectForKey:@"rent"] intValue]];
+                     userBooks.rent_cost = [NSNumber numberWithInt:[[book objectForKey:@"rent_cost"] intValue]];
+                     userBooks.sell = [NSNumber numberWithInt:[[book objectForKey:@"sell"] intValue]];
+                     userBooks.sell_cost = [NSNumber numberWithInt:[[book objectForKey:@"sell_cost"] intValue]];
+                     userBooks.user_id = [book objectForKey:@"user_id"];
+                     
+                     userBooks.courseno= [book objectForKey:@"course_no"];
+                     userBooks.name = [book objectForKey:@"book_name"];
+                     userBooks.authors= [book objectForKey:@"book_author"];
+                     
+                     NSError *error;
+                     if(![self.managedObjectContext save:&error])
+                     {
+                         NSLog(@"saving error: %@",[error localizedDescription]);
+                     }
+                     
+                 }
+             }
+             [self.window setRootViewController:SWRevealViewController];
+        }];
+        
+        
     }
     else
     {
@@ -201,6 +253,7 @@
 // Show the user the logged-in UI
 - (void)userLoggedIn
 {
+    
     UIStoryboard *storyboard =[ UIStoryboard storyboardWithName:@"Main" bundle:nil] ;
     UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"GetPhoneNoViewController"];
     [self.window setRootViewController:viewController];

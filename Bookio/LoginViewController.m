@@ -8,10 +8,12 @@
 
 #import "LoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "GetPhoneNoViewController.h"
 
 @interface LoginViewController ()
 
 @end
+
 
 @implementation LoginViewController
 {
@@ -52,25 +54,26 @@
                                        allowLoginUI:YES
                                   completionHandler:
      ^(FBSession *session, FBSessionState state, NSError *error) {
-         NSLog(@"called1");
+
          [self makeRequestForUserData];
          
          // Retrieve the app delegate
          AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
          // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
          [appDelegate sessionStateChanged:session state:state error:error];
+
      }];
 }
 
 - (void) makeRequestForUserData
 {
-    NSLog(@"called");
+ 
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             // Success! Include your code to handle the results here
         
             
-            NSString *uid = [[NSString alloc] init];
+            NSString *uid  = [[NSString alloc] init];
             uid = [ result objectForKey:@"username"];
             NSString *ufn = [[NSString alloc] init];
             ufn = [result objectForKey:@"first_name"];
@@ -86,14 +89,13 @@
             
             delegateApp.userData = allUserDetails;
             
-          
-            
         } else {
             // An error occurred, we need to handle the error
             NSLog(@"error: %@", error.description);
         }
+        
     }];
-}
 
+}
 
 @end

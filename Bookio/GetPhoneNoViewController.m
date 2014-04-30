@@ -19,6 +19,7 @@
 @synthesize managedObjectContext;
 
 NSMutableDictionary *receivedData;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -31,6 +32,8 @@ NSMutableDictionary *receivedData;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
     // Do any additional setup after loading the view.
     appDelegateCore = [[UIApplication sharedApplication]delegate];
     self.managedObjectContext =appDelegateCore.managedObjectContext;
@@ -40,10 +43,27 @@ NSMutableDictionary *receivedData;
     self.SubmitPhoneNumber.layer.borderWidth = 0.5f;
     self.SubmitPhoneNumber.layer.cornerRadius = 5;
     
-    [self.SubmitPhoneNumber setEnabled:false];
     // this viewcontroller will be notified when any changes are made in the search box
     [self.PhoneNumber setDelegate:self];
     
+    //for resigning keyboard on tap on table view
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    [gestureRecognizer setCancelsTouchesInView:NO];
+    
+    
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    
+    [self.SubmitPhoneNumber setEnabled:false];
+    
+}
+
+
+- (void) hideKeyboard {
+    [self.PhoneNumber resignFirstResponder];
 }
 
 /*
@@ -67,6 +87,8 @@ NSMutableDictionary *receivedData;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 - (IBAction)SubmitPhoneNumber:(UIButton *)sender {
    
     delegateApp = [[UIApplication sharedApplication] delegate];
@@ -74,8 +96,7 @@ NSMutableDictionary *receivedData;
     
     receivedData = delegateApp.userData;
     
-    NSString *user_phone = [[NSString alloc]init];
-    user_phone = self.PhoneNumber.text;
+    NSString *user_phone = self.PhoneNumber.text;
     
     if(([self.PhoneNumber.text length] > 10 )|| ([self.PhoneNumber.text length] <10))
     {
@@ -90,14 +111,14 @@ NSMutableDictionary *receivedData;
     else
     {
         [receivedData setObject:user_phone forKey:@"user_phone"];
-
+        NSLog(@"%@",receivedData);
         [self.PhoneNumber resignFirstResponder];
                 
         BookioApi *apiCall= [[ BookioApi alloc] init];
         // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
         NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=insertUser&userid=%@&fname=%@&lname=%@&phone=%@", [receivedData objectForKey:@"user_id"],[receivedData objectForKey:@"user_fname"], [receivedData objectForKey:@"user_lname"], [receivedData objectForKey:@"user_phone"]];
         
-        // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
+        
         [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
          {
              NSString *value = [results objectForKey:@"status"];
@@ -174,9 +195,47 @@ NSMutableDictionary *receivedData;
         
      UIStoryboard *storyboard =[ UIStoryboard storyboardWithName:@"Main" bundle:nil] ;
      UIViewController *swrevealViewController  = [storyboard instantiateViewControllerWithIdentifier:@"SWRevealViewController"];
-     
-     [self presentViewController:swrevealViewController animated:TRUE completion:nil];
 
+    
+    // Load the user books table
+    BookioApi *apiCall= [[ BookioApi alloc] init];
+    // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
+    NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=getBooksOfUser&userid=%@", [receivedData objectForKey:@"user_id"]];
+    
+    // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
+    [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
+     {
+         NSArray *value = [results objectForKey:@"results"];
+         // check if retrival is successful
+         if([results count] != 0)
+         {
+             for(NSDictionary *book in value)
+             {
+                 
+                 UserBooks *userBooks = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
+                 
+                 userBooks.isbn = [[book objectForKey:@"ISBN"] stringValue];
+                 userBooks.rent = [NSNumber numberWithInt:[[book objectForKey:@"rent"] intValue]];
+                 userBooks.rent_cost = [NSNumber numberWithInt:[[book objectForKey:@"rent_cost"] intValue]];
+                 userBooks.sell = [NSNumber numberWithInt:[[book objectForKey:@"sell"] intValue]];
+                 userBooks.sell_cost = [NSNumber numberWithInt:[[book objectForKey:@"sell_cost"] intValue]];
+                 userBooks.user_id = [book objectForKey:@"user_id"];
+                 
+                 userBooks.courseno= [book objectForKey:@"course_no"];
+                 userBooks.name = [book objectForKey:@"book_name"];
+                 userBooks.authors= [book objectForKey:@"book_author"];
+                 
+                 NSError *error;
+                 if(![self.managedObjectContext save:&error])
+                 {
+                     NSLog(@"saving error: %@",[error localizedDescription]);
+                 }
+                 
+             }
+         }
+     }];
+    [self presentViewController:swrevealViewController animated:TRUE completion:nil];
+    
 }
 
 -(IBAction)screenTapped:(UITapGestureRecognizer *)sender

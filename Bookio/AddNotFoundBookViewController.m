@@ -82,7 +82,7 @@
              NSString *value = [results objectForKey:@"status"];
              if([value isEqualToString:@"OK"])
              {
-                 [self updateLocalData:self.isbnText.text userid:userInfo.user_id];
+                 [self updateLocalData:self.bookNameText.text authors:self.bookAuthorText.text courseno: self.courseNoText.text isbn:self.isbnText.text userid:userInfo.user_id];
              }
              else
              {
@@ -95,17 +95,21 @@
     }
 }
 
--(void)updateLocalData:(NSString *)isbn userid:(NSString *)userid
+-(void)updateLocalData:(NSString *)name authors:(NSString *)authors courseno:(NSString *)courseno isbn:(NSString *)isbn userid:(NSString *)userid
 {
     
     UserBooks *userBooks = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
     
     userBooks.user_id = userid;
     userBooks.isbn = isbn;
-    userBooks.rent = 0;
-    userBooks.rent_cost = 0;
-    userBooks.sell = 0;
-    userBooks.sell_cost = 0;
+    userBooks.name = name;
+    userBooks.authors = authors;
+    userBooks.courseno = courseno;
+    
+    userBooks.rent = [NSNumber numberWithInt:0];
+    userBooks.rent_cost = [NSNumber numberWithInt:0];
+    userBooks.sell = [NSNumber numberWithInt:0];
+    userBooks.sell_cost = [NSNumber numberWithInt:0];
     
     NSError *error;
     if(![self.managedObjectContext save:&error])

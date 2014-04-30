@@ -10,7 +10,10 @@
 #import "SWRevealViewController.h"
 #import "AddNewBooksTableViewCell.h"
 
+NSString *courseno;
+
 @implementation AddNewBooksViewController
+
 
 -(void) viewDidLoad {
     [super viewDidLoad];
@@ -29,6 +32,14 @@
     
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     self.managedObjectContext = appDelegate.managedObjectContext;
+    
+    //for resigning keyboard on tap on table view
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.addNewBooksView addGestureRecognizer:gestureRecognizer];
+}
+
+- (void) hideKeyboard {
+    [self.courseNo resignFirstResponder];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -61,7 +72,7 @@
 - (IBAction)SearchButtonPressed:(UIButton *)sender {
     
     [self.courseNo resignFirstResponder];
-    NSString *courseno=self.courseNo.text;
+    courseno=self.courseNo.text;
     NSString *formattedCourseNo = [courseno stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     
     BookioApi *apiCall= [[ BookioApi alloc] init];
@@ -153,10 +164,15 @@
                                                          inManagedObjectContext:self.managedObjectContext];
     addMyBook.user_id = userInfo.user_id;
     addMyBook.isbn = cell.isbn;
-    addMyBook.rent = 0;
-    addMyBook.rent_cost = 0;
-    addMyBook.sell = 0;
-    addMyBook.sell_cost = 0;
+    addMyBook.name = cell.bookName.text;
+    addMyBook.authors = cell.bookAuthor.text;
+    addMyBook.courseno = courseno;
+    addMyBook.rent = [NSNumber numberWithInt:0];
+    addMyBook.rent_cost = [NSNumber numberWithInt:0];
+    addMyBook.sell = [NSNumber numberWithInt:0];
+    addMyBook.sell_cost = [NSNumber numberWithInt:0];
+    
+
     
     NSError *error;
     // save this insert query, so that the persistant store is updated
