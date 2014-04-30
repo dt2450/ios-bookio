@@ -330,6 +330,9 @@
     cell.RentPrice.enabled = NO;
     cell.SellPrice.enabled = NO;
     
+    cell.RentPrice.keyboardType = UIKeyboardTypeNumberPad;
+    cell.SellPrice.keyboardType = UIKeyboardTypeNumberPad;
+    
 
     if ([[[self.rentSelectList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] intValue] == 1) {
         cell.RentSelect.selected = YES;

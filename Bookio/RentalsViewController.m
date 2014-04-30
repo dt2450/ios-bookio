@@ -168,9 +168,8 @@ int selectedSegment;
                  addMyBook.user_id = self.userID;
                  addMyBook.isbn = cell.isbn;
                  addMyBook.name = cell.bookName.text;
-                 //TODO: Get the author and courseno information
-                 //addMyBook.authors = cell.bookAuthor.text;
-                 //addMyBook.courseno = cell.courseno;
+                 addMyBook.authors = cell.bookAuthors.text;
+                 addMyBook.courseno = cell.courseno;
                  addMyBook.rent = [NSNumber numberWithInt:0];
                  addMyBook.rent_cost = [NSNumber numberWithInt:0];
                  addMyBook.sell = [NSNumber numberWithInt:0];
@@ -228,9 +227,11 @@ int selectedSegment;
         eachBook = [self.RentedFromUsers objectAtIndex:indexPath.row];
         if(eachBook) {
             cell.bookName.text = [eachBook objectForKey:@"book_name"];
+            cell.bookAuthors.text = [eachBook objectForKey:@"book_author"];
             cell.userId.text = [NSString stringWithFormat:@"User: %@",[eachBook objectForKey:@"from_user_id"]];
             cell.date.text = [NSString stringWithFormat:@"Till Date: %@", [eachBook objectForKey:@"end_date"]];
             cell.isbn = [NSString stringWithFormat:@"%@", [eachBook objectForKey:@"ISBN"]];
+            cell.courseno = [NSString stringWithFormat:@"%@", [eachBook objectForKey:@"course_no"]];
         }
         
     }

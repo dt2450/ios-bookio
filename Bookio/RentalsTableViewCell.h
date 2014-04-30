@@ -10,7 +10,10 @@
 
 @interface RentalsTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *bookName;
+@property (weak, nonatomic) IBOutlet UILabel *bookAuthors;
 @property (weak, nonatomic) IBOutlet UILabel *userId;
 @property (weak, nonatomic) IBOutlet UILabel *date;
 @property (strong, nonatomic) NSString *isbn;
+@property (strong, nonatomic) NSString *courseno;
+
 @end
