@@ -94,7 +94,7 @@
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    [self fetchMyBooksDataFromLocalDB];
+    //[self fetchMyBooksDataFromLocalDB];
     
     //for resigning keyboard on tap on table view
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
@@ -304,8 +304,10 @@
                 }
             }
         }
+        [self fetchMyBooksDataFromLocalDB];
+        [self.tableView reloadData];
     }
-    [self fetchMyBooksDataFromLocalDB];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
