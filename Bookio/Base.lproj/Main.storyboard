@@ -574,6 +574,7 @@
                     <navigationItem key="navigationItem" id="q0D-nr-ioy"/>
                     <connections>
                         <outlet property="loginButton" destination="edh-CR-WMq" id="Sv2-MT-CXZ"/>
+                        <segue destination="FTo-UO-IOa" kind="modal" identifier="passUserID" id="hMc-e3-hv2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XvU-XE-igw" userLabel="First Responder" sceneMemberID="firstResponder"/>

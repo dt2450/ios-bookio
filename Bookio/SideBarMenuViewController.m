@@ -93,7 +93,15 @@
             {
                 [self.managedObjectContext deleteObject:obj];
             }
-          
+            
+            fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"UserBooks"];
+            deleteAllArray =[self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+            
+            for(NSManagedObject *obj in deleteAllArray)
+            {
+                [self.managedObjectContext deleteObject:obj];
+            }
+
             if (![self.managedObjectContext save:&error]) {
                 NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
                 return;
