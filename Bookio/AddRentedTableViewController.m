@@ -50,6 +50,18 @@
     
     NSArray *userBooks = [[NSArray alloc]init];
     userBooks = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    
+    //error if no books
+    if([userBooks count] == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"You don't have any books to rent!!"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+
     for(UserBooks *userBookEntity in userBooks) {
         //NSUInteger courseIndex = NSNotFound;
         //NSUInteger courseCount = [self.CourseList count];
@@ -77,8 +89,6 @@
 }
 
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -89,7 +99,7 @@
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     self.managedObjectContext = appDelegate.managedObjectContext;
     
-    [self fetchMyBooksDataFromLocalDB];
+    //[self fetchMyBooksDataFromLocalDB];
     
     //for resigning keyboard on tap on table view
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
@@ -117,7 +127,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return self.CourseList.count;
 }
 
@@ -179,6 +188,7 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    [self fetchMyBooksDataFromLocalDB];
     [self.tableView reloadData];
     
     //trick for making the cell scroll up when the keyboard appears and then scroll back when it disappears
@@ -197,12 +207,12 @@
     [formattedDate insertString:@"-" atIndex:4];
     [formattedDate insertString:@"-" atIndex:7];
     
-    NSLog(@"Date is: %@", formattedDate);
+    //NSLog(@"Date is: %@", formattedDate);
     
     // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
     NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=insertRent&userid=%@&touserid=%@&isbn=%@&enddate=%@",self.userID, cell.rentedTo.text, cell.isbn, formattedDate];
     
-    NSLog(@"url is: %@", url);
+    //NSLog(@"url is: %@", url);
     
     // make the api call by calling the function below which is implemented in the BookioApi class
     [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
