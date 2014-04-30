@@ -12,5 +12,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *bookName;
 @property (weak, nonatomic) IBOutlet UILabel *userId;
 @property (weak, nonatomic) IBOutlet UILabel *date;
-
+@property (strong, nonatomic) NSString *isbn;
 @end

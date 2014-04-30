@@ -131,7 +131,7 @@
         // make the api call by calling the function below which is implemented in the BookioApi class
         [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
          {
-             //Need to verify and delete from core data only when this query succeeds
+             //TODO: Need to verify and delete from core data only when this query succeeds
              NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
              NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
              [fetchRequest setEntity:entity];

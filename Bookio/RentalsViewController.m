@@ -9,6 +9,7 @@
 #import "RentalsViewController.h"
 #import "SWRevealViewController.h"
 #import "RentalsTableViewCell.h"
+#import "UserBooks.h"
 
 @implementation RentalsViewController
 
@@ -109,6 +110,85 @@ int selectedSegment;
 
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:( UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    RentalsTableViewCell *cell= (RentalsTableViewCell *)[self.rentedFromToTableView cellForRowAtIndexPath:indexPath];
+    
+    // Check if it's a delete button or edit button...
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        
+        // Update the database
+        
+        BookioApi *apiCall= [[ BookioApi alloc] init];
+        
+        // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
+        
+        NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=deleteRent&userid=%@&isbn=%@",self.userID, cell.isbn];
+        
+        //NSLog(@"URL is: %@", url);
+        // make the api call by calling the function below which is implemented in the BookioApi class
+        [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
+         {
+             //TODO: Verify the query succeeded
+             
+             //TODO: Not a good way to run the query again. See if something better can be done
+             self.RentedToUsers = [[NSMutableArray alloc] init];
+             
+             NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=getRentedTo&userid=%@", self.userID];
+             NSMutableDictionary * newResults = [apiCall asyncurlOfQuery:url];
+             NSArray *books = [newResults objectForKey:@"results"];
+             if([books count] != 0)
+             {
+                 for(NSDictionary *eachBook in books)
+                 {
+                     [self.RentedToUsers addObject:eachBook];
+                 }
+             }
+             
+             //TODO: Add to users books in core data if not already there
+             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+             NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
+             [fetchRequest setEntity:entity];
+             [fetchRequest setReturnsObjectsAsFaults:NO];
+             NSArray *userBooks = [[NSArray alloc]init];
+             Boolean found = false;
+             userBooks = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+             for(UserBooks *userBookEntity in userBooks) {
+                 if([userBookEntity.isbn isEqualToString:cell.isbn]) {
+                     found = true;
+                     break;
+                 }
+             }
+             if(found == false) {
+                 //Add book back to core data UsersBooks
+                 UserBooks *addMyBook = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks"
+                                                                      inManagedObjectContext:self.managedObjectContext];
+                 addMyBook.user_id = self.userID;
+                 addMyBook.isbn = cell.isbn;
+                 addMyBook.name = cell.bookName.text;
+                 //TODO: Get the author and courseno information
+                 //addMyBook.authors = cell.bookAuthor.text;
+                 //addMyBook.courseno = courseno;
+                 addMyBook.rent = [NSNumber numberWithInt:0];
+                 addMyBook.rent_cost = [NSNumber numberWithInt:0];
+                 addMyBook.sell = [NSNumber numberWithInt:0];
+                 addMyBook.sell_cost = [NSNumber numberWithInt:0];
+                 
+                 NSError *error;
+                 // save this insert query, so that the persistant store is updated
+                 if (![self.managedObjectContext save:&error]) {
+                     NSLog(@"entry not saved to database due to error: %@", [error localizedDescription]);
+                 }    
+             }
+             [self.rentedFromToTableView reloadData];
+         }];
+    }
+}
+
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
@@ -150,6 +230,7 @@ int selectedSegment;
             cell.bookName.text = [eachBook objectForKey:@"book_name"];
             cell.userId.text = [NSString stringWithFormat:@"User: %@",[eachBook objectForKey:@"from_user_id"]];
             cell.date.text = [NSString stringWithFormat:@"Till Date: %@", [eachBook objectForKey:@"end_date"]];
+            cell.isbn = [NSString stringWithFormat:@"%@", [eachBook objectForKey:@"ISBN"]];
         }
         
     }
@@ -160,14 +241,28 @@ int selectedSegment;
             cell.bookName.text = [eachBook objectForKey:@"book_name"];
             cell.userId.text = [NSString stringWithFormat:@"User: %@",[eachBook objectForKey:@"to_user_id"]];
             cell.date.text = [NSString stringWithFormat:@"Till Date: %@", [eachBook objectForKey:@"end_date"]];
+            cell.isbn = [NSString stringWithFormat:@"%@", [eachBook objectForKey:@"ISBN"]];
         }
     }
+    
+    //NSLog(@"ISBN = %@", cell.isbn);
     
     //NSLog(@"From books = %@", eachBook);
     
     cell.clipsToBounds = YES;
     
     return cell;
+}
+
+- (void) setEditing:(BOOL)editing animated:(BOOL)animated {
+    
+    [super setEditing:editing animated:animated];
+    [self.rentedFromToTableView setEditing:editing animated:animated];
+    if (editing == YES) {
+        
+    } else {
+        
+    }
 }
 
 - (IBAction)rentalSegmentChanged:(id)sender {
@@ -177,6 +272,7 @@ int selectedSegment;
     if (seg.selectedSegmentIndex == 0) {
         selectedSegment = 0;
         self.addRentalsButton.hidden = YES;
+        self.navigationItem.leftBarButtonItem = nil;
         // Annoying so commenting out
         /*
         if([self.RentedFromUsers count] == 0) {
@@ -188,6 +284,7 @@ int selectedSegment;
     else if (seg.selectedSegmentIndex == 1) {
         selectedSegment = 1;
         self.addRentalsButton.hidden = NO;
+        self.navigationItem.leftBarButtonItem = self.editButtonItem;
         // Annoying so commenting out
         /*if([self.RentedToUsers count] == 0) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Information" message:@"You have not rented books to any one yet" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
