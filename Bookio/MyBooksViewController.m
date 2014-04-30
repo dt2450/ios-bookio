@@ -361,6 +361,7 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     
+    [self fetchMyBooksDataFromLocalDB];
     [self.tableView reloadData];
     
     _sidebarButton.tintColor = [UIColor colorWithWhite:0.00f alpha:0.9f];

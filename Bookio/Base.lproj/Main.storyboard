@@ -1071,6 +1071,9 @@
                                             <state key="normal" title="Add">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="addButtonPressed:" destination="dMt-X2-JfG" eventType="touchUpInside" id="YJ6-Gv-NWk"/>
+                                            </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pb2-69-gsA">
                                             <rect key="frame" x="145" y="101" width="155" height="30"/>

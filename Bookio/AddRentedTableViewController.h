@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddRentedTableViewCell.h"
 
-@interface AddRentedTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface AddRentedTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, AddRentalCellDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *addRentalView;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSMutableArray *CourseList;

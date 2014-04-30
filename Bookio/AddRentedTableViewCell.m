@@ -45,6 +45,26 @@
     return YES;
 }
 
+/* Returns true if the string has valid ID */
+-(BOOL)hasValidDate:(NSString *)inputString
+{
+    NSCharacterSet *validChars = [NSCharacterSet characterSetWithCharactersInString:@"1234567890"];
+    NSCharacterSet *invalidChars = [validChars invertedSet];
+    
+    NSRange r = [inputString rangeOfCharacterFromSet:invalidChars];
+    if (r.location != NSNotFound) {
+        NSLog(@"the date contains illegal characters");
+        return NO;
+    }
+    if([inputString length] != 8) {
+        //TODO: Do proper validation for date
+        NSLog(@"date is not in format YYYYMMDD");
+        return NO;
+    }
+    return YES;
+}
+
+
 - (IBAction)finishedUserIdEdit:(id)sender {
     if (self.addToRentals.isFirstResponder) {
         [self.addToRentals resignFirstResponder];
@@ -59,5 +79,16 @@
         [alertView show];
     }
 }
+
+- (IBAction)addButtonPressed:(id)sender {
+    
+    if ([self.delegate respondsToSelector:@selector(addRentalButtonPressedAtIndexpath:)]) {
+        
+        //activate delegate method
+        [self.delegate addRentalButtonPressedAtIndexpath:self.path];
+    }
+
+}
+
 
 @end

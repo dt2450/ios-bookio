@@ -169,6 +169,9 @@
     
     cell.clipsToBounds = YES;
     
+    cell.delegate = self;
+    cell.path = indexPath;
+    
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
@@ -180,6 +183,49 @@
     
     //trick for making the cell scroll up when the keyboard appears and then scroll back when it disappears
     [super viewWillAppear:animated];
+}
+
+-(void)addRentalButtonPressedAtIndexpath:(NSIndexPath *)indexPath{
+    
+    AddRentedTableViewCell *cell = (AddRentedTableViewCell *) [self.addRentalView cellForRowAtIndexPath:indexPath];
+    
+    //add the book to rental database
+    BookioApi *apiCall= [[ BookioApi alloc] init];
+    
+    NSMutableString *formattedDate = [NSMutableString stringWithString: cell.tillDate.text];
+    
+    [formattedDate insertString:@"-" atIndex:4];
+    [formattedDate insertString:@"-" atIndex:7];
+    
+    NSLog(@"Date is: %@", formattedDate);
+    
+    // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
+    NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=insertRent&userid=%@&touserid=%@&isbn=%@&enddate=%@",self.userID, cell.rentedTo.text, cell.isbn, formattedDate];
+    
+    NSLog(@"url is: %@", url);
+    
+    // make the api call by calling the function below which is implemented in the BookioApi class
+    [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
+     {
+         //TODO: Need to verify and delete from core data only when this query succeeds
+         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+         NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
+         [fetchRequest setEntity:entity];
+         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isbn == %@", cell.isbn]];
+         
+         NSArray *booksToRemove = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+         
+         for (NSManagedObject *book in booksToRemove) {
+             [self.managedObjectContext deleteObject:book];
+         }
+         
+         NSError *error;
+         if (![self.managedObjectContext save:&error]) {
+             NSLog(@"There was an error in deleting book %@", [error localizedDescription]);
+         }
+         [self fetchMyBooksDataFromLocalDB];
+         [self.tableView reloadData];
+     }];
 }
 
 /*
