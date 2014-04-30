@@ -86,6 +86,45 @@ completionBlock setResult;
     setResult = completionHandler;
 }
 
-
+-(NSMutableDictionary *)asyncurlOfQuery:(id)url
+{
+    NSString *query = url;
+    
+    NSMutableDictionary *Result = NULL;
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:query]];
+    
+    NSURLResponse *response;
+    NSError *error;
+    //send it synchronous
+    //NSLog(@"url = %@", url);
+    
+    NSData *asyncResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    //NSString *responseString = [[NSString alloc] initWithData:asyncResponseData encoding:NSUTF8StringEncoding];
+    //NSLog(@"Response = %@", responseString);
+    //NSLog(@"data = %@", asyncResponseData);
+    
+    // check for an error. If there is a network error, you should handle it here.
+    if(!error)
+    {
+        //NSLog(@"Is valid JSON = %d", [NSJSONSerialization isValidJSONObject:asyncResponseData]);
+        Result = (NSMutableDictionary*)[NSJSONSerialization  JSONObjectWithData:asyncResponseData options:kNilOptions error:&error];
+        if(error) {
+            NSString *errorString = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
+            NSLog(@"Error = %@", errorString);
+        }
+        //NSLog(@"Result = %@", Result);
+    } else {
+        NSString *errorString = [NSString stringWithFormat:@"Error: %@", [error localizedDescription]];
+        UIAlertView *gotError = [[UIAlertView alloc]
+                                 initWithTitle:@"Error in request"
+                                 message:errorString
+                                 delegate:nil
+                                 cancelButtonTitle:@"OK"
+                                 otherButtonTitles:nil];
+        [gotError show];
+    }
+    return Result;
+}
 
 @end

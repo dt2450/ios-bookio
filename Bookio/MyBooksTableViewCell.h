@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *SellSelect;
 @property (weak, nonatomic) IBOutlet UITextField *RentPrice;
 @property (weak, nonatomic) IBOutlet UITextField *SellPrice;
+@property (strong, nonatomic) NSString *isbn;
 
 @end

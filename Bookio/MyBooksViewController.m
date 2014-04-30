@@ -102,6 +102,7 @@
     [gestureRecognizer setCancelsTouchesInView:NO];
 }
 
+
 - (void) hideKeyboard {
         [self.myBooksTableView endEditing:YES];
         
@@ -127,10 +128,10 @@
         // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
         NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=deleteMyBook&userid=%@&isbn=%@",self.userID, bookISBN];
         
-        // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
+        // make the api call by calling the function below which is implemented in the BookioApi class
         [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
          {
-             //Need to verify and delete from core data only when this query succeeds
+             //TODO: Need to verify and delete from core data only when this query succeeds
              NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
              NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
              [fetchRequest setEntity:entity];
@@ -226,7 +227,7 @@
                 int oldSellPrice = [[[self.sellPriceList objectAtIndex:section] objectAtIndex:row] intValue];
                 NSString *bookISBN = [[self.ISBNList objectAtIndex:section] objectAtIndex:row];
                 
-                NSLog(@"isbn=%@ section=%d row=%d", bookISBN, section, row);
+                //NSLog(@"isbn=%@ section=%d row=%d", bookISBN, section, row);
                 
                 BookioApi *apiCall= [[ BookioApi alloc] init];
                 
@@ -234,58 +235,67 @@
                     //update the rent price and state
                     NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=updateRent&userid=%@&isbn=%@&rent=%d&cost=%@",self.userID, bookISBN, cell.RentSelect.selected, cell.RentPrice.text];
                     // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
-                    [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
+                    /*[apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
                      {
                          //update in core data
                          //PS: We can't update core data in asynchronous code since we are running a loop here and the last updated ISBN is getting picked when this block is called.
                          //Hence we have to update core data outside this block. Need to see if something better can be done.
-                     }];
+                     }];*/
                     
-                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
-                    [fetchRequest setEntity:entity];
-                    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isbn == %@", bookISBN]];
+                    NSMutableDictionary *results = [apiCall asyncurlOfQuery:url];
                     
-                    //NSLog(@"isbn rent here=%@", bookISBN);
-                    
-                    NSArray *booksToUpdate = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-                    
-                    for (UserBooks *book in booksToUpdate) {
-                        book.rent = [NSNumber numberWithInt:cell.RentSelect.selected];
-                        book.rent_cost = [NSNumber numberWithInt:cell.RentPrice.text.intValue];
-                        //NSLog(@"rent = %@ cost = %@", book.rent, book.rent_cost);
-                    }
-                    
-                    NSError *error;
-                    if (![self.managedObjectContext save:&error]) {
-                        NSLog(@"There was an error in updating my books: %@", [error localizedDescription]);
-                    }
-
+                    //TODO: This needs to be fixed once server returns something
+                    //if(results != NULL) {
+                        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
+                        [fetchRequest setEntity:entity];
+                        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isbn == %@", bookISBN]];
+                        
+                        //NSLog(@"isbn rent here=%@", bookISBN);
+                        
+                        NSArray *booksToUpdate = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+                        
+                        for (UserBooks *book in booksToUpdate) {
+                            book.rent = [NSNumber numberWithInt:cell.RentSelect.selected];
+                            book.rent_cost = [NSNumber numberWithInt:cell.RentPrice.text.intValue];
+                            //NSLog(@"rent = %@ cost = %@", book.rent, book.rent_cost);
+                        }
+                        
+                        NSError *error;
+                        if (![self.managedObjectContext save:&error]) {
+                            NSLog(@"There was an error in updating my books: %@", [error localizedDescription]);
+                        }
+                    //}
                 }
                 if((oldSellSelect != cell.SellSelect.selected) || (oldSellPrice != cell.SellPrice.text.intValue)) {
                     //update the sell price and state
                     NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=updateSell&userid=%@&isbn=%@&sell=%d&cost=%@",self.userID, bookISBN, cell.SellSelect.selected, cell.SellPrice.text];
                     // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
-                    [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
+                    /*[apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
                      {
                          //update in core data
                          //PS: We can't update core data in asynchronous code since we are running a loop here and the last updated ISBN is getting picked when this block is called.
                          //Hence we have to update core data outside this block. Need to see if something better can be done.
-                    }];
+                    }];*/
                     
-                    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-                    NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
-                    [fetchRequest setEntity:entity];
-                    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isbn == %@", bookISBN]];
-                    //NSLog(@"isbn sell here=%@", bookISBN);
+                    NSMutableDictionary *results = [apiCall asyncurlOfQuery:url];
                     
-                    NSArray *booksToUpdate = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-                    
-                    for (UserBooks *book in booksToUpdate) {
-                        book.sell = [NSNumber numberWithInt:cell.SellSelect.selected];
-                        book.sell_cost = [NSNumber numberWithInt:cell.SellPrice.text.intValue];
-                        //NSLog(@"sell = %@ cost = %@", book.sell, book.sell_cost);
-                    }
+                    //TODO: This needs to be fixed once server returns something
+                    //if(results != NULL) {
+                        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                        NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
+                        [fetchRequest setEntity:entity];
+                        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isbn == %@", bookISBN]];
+                        //NSLog(@"isbn sell here=%@", bookISBN);
+                        
+                        NSArray *booksToUpdate = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+                        
+                        for (UserBooks *book in booksToUpdate) {
+                            book.sell = [NSNumber numberWithInt:cell.SellSelect.selected];
+                            book.sell_cost = [NSNumber numberWithInt:cell.SellPrice.text.intValue];
+                            //NSLog(@"sell = %@ cost = %@", book.sell, book.sell_cost);
+                        }
+                    //}
                     
                     NSError *error;
                     if (![self.managedObjectContext save:&error]) {
@@ -311,6 +321,7 @@
     
     cell.MyBookName.text = [[self.BooksList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.MyBookAuthors.text = [[self.AuthorsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    cell.isbn = [[self.ISBNList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     cell.RentSelect.enabled = NO;
     cell.SellSelect.enabled = NO;
@@ -342,6 +353,7 @@
     
     cell.clipsToBounds = YES;
     
+    
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
@@ -349,6 +361,7 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     
+    [self fetchMyBooksDataFromLocalDB];
     [self.tableView reloadData];
     
     _sidebarButton.tintColor = [UIColor colorWithWhite:0.00f alpha:0.9f];
@@ -360,6 +373,8 @@
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
+    //trick for making the cell scroll up when the keyboard appears and then scroll back when it disappears
+    [super viewWillAppear:animated];
 }
 
 @end

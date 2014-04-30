@@ -20,4 +20,6 @@
 
 -(void)urlOfQuery:url queryCompletion:(void (^)(NSMutableDictionary *results))completionHandler;
 
+-(NSMutableDictionary *)asyncurlOfQuery:url;
+
 @end
