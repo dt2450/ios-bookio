@@ -321,6 +321,7 @@
     
     cell.MyBookName.text = [[self.BooksList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.MyBookAuthors.text = [[self.AuthorsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    cell.isbn = [[self.ISBNList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     cell.RentSelect.enabled = NO;
     cell.SellSelect.enabled = NO;

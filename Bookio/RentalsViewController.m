@@ -170,7 +170,7 @@ int selectedSegment;
                  addMyBook.name = cell.bookName.text;
                  //TODO: Get the author and courseno information
                  //addMyBook.authors = cell.bookAuthor.text;
-                 //addMyBook.courseno = courseno;
+                 //addMyBook.courseno = cell.courseno;
                  addMyBook.rent = [NSNumber numberWithInt:0];
                  addMyBook.rent_cost = [NSNumber numberWithInt:0];
                  addMyBook.sell = [NSNumber numberWithInt:0];
@@ -250,6 +250,8 @@ int selectedSegment;
     //NSLog(@"From books = %@", eachBook);
     
     cell.clipsToBounds = YES;
+    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
 }
