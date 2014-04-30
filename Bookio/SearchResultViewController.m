@@ -18,6 +18,8 @@ int selectedView;
     
     [super viewDidLoad];
     
+    selectedView = 0;
+    
     self.RentOrBuyTableView.delegate=self;
     self.RentOrBuyTableView.dataSource=self;
     
@@ -41,7 +43,8 @@ int selectedView;
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
-    selectedView = 0;
+    //devashi: Moved this to viewDidLoad so that last view is retained
+    //selectedView = 0;
     
     NSString *isbn = [self.isbn description];
     

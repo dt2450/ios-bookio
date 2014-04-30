@@ -41,9 +41,8 @@
 		882FC5DE1903AEDB003D4946 /* RentalsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 882FC5DD1903AEDB003D4946 /* RentalsViewController.m */; };
 		88827D3C190E5FBE0029CFDB /* MyBooksTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88827D3B190E5FBE0029CFDB /* MyBooksTableViewCell.m */; };
 		88827D3D190E61240029CFDB /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5B9CB8190B70ED00F3FFEB /* FacebookSDK.framework */; };
-		88827D43190E7E1B0029CFDB /* RentedFromUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88827D42190E7E1B0029CFDB /* RentedFromUIView.m */; };
-		88827D46190E7E3D0029CFDB /* RentedToUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88827D45190E7E3D0029CFDB /* RentedToUIView.m */; };
 		888DCC0E190F146D0001C512 /* UserBooks.m in Sources */ = {isa = PBXBuildFile; fileRef = 888DCC0D190F146D0001C512 /* UserBooks.m */; };
+		888DCC111910627C0001C512 /* RentalsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 888DCC101910627C0001C512 /* RentalsTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,12 +111,10 @@
 		882FC5DD1903AEDB003D4946 /* RentalsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentalsViewController.m; sourceTree = "<group>"; };
 		88827D3A190E5FBE0029CFDB /* MyBooksTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBooksTableViewCell.h; sourceTree = "<group>"; };
 		88827D3B190E5FBE0029CFDB /* MyBooksTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBooksTableViewCell.m; sourceTree = "<group>"; };
-		88827D41190E7E1B0029CFDB /* RentedFromUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentedFromUIView.h; sourceTree = "<group>"; };
-		88827D42190E7E1B0029CFDB /* RentedFromUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentedFromUIView.m; sourceTree = "<group>"; };
-		88827D44190E7E3D0029CFDB /* RentedToUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentedToUIView.h; sourceTree = "<group>"; };
-		88827D45190E7E3D0029CFDB /* RentedToUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentedToUIView.m; sourceTree = "<group>"; };
 		888DCC0C190F146D0001C512 /* UserBooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserBooks.h; sourceTree = "<group>"; };
 		888DCC0D190F146D0001C512 /* UserBooks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserBooks.m; sourceTree = "<group>"; };
+		888DCC0F1910627C0001C512 /* RentalsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentalsTableViewCell.h; sourceTree = "<group>"; };
+		888DCC101910627C0001C512 /* RentalsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentalsTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,12 +208,10 @@
 				2D7562F3190632B500C0212C /* SearchResultViewController.m */,
 				2D68FC8C190A2FFF00ABC060 /* RentOrBuyTableViewCell.h */,
 				2D68FC8D190A2FFF00ABC060 /* RentOrBuyTableViewCell.m */,
-				88827D41190E7E1B0029CFDB /* RentedFromUIView.h */,
-				88827D42190E7E1B0029CFDB /* RentedFromUIView.m */,
-				88827D44190E7E3D0029CFDB /* RentedToUIView.h */,
-				88827D45190E7E3D0029CFDB /* RentedToUIView.m */,
 				882FC5DC1903AEDB003D4946 /* RentalsViewController.h */,
 				882FC5DD1903AEDB003D4946 /* RentalsViewController.m */,
+				888DCC0F1910627C0001C512 /* RentalsTableViewCell.h */,
+				888DCC101910627C0001C512 /* RentalsTableViewCell.m */,
 				2D64783F1904B3EF007BC48A /* SideBarMenuViewController.h */,
 				2D6478401904B3EF007BC48A /* SideBarMenuViewController.m */,
 				2DC3E3F91904FE080073DB6B /* MyAccountViewController.h */,
@@ -370,9 +365,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88827D43190E7E1B0029CFDB /* RentedFromUIView.m in Sources */,
-				88827D46190E7E3D0029CFDB /* RentedToUIView.m in Sources */,
 				882FC5B81903A344003D4946 /* AppDelegate.m in Sources */,
+				888DCC111910627C0001C512 /* RentalsTableViewCell.m in Sources */,
 				2D68FC8B190A1F2100ABC060 /* BookDetailTableViewCell.m in Sources */,
 				2DC3E4011904FE080073DB6B /* SearchViewController.m in Sources */,
 				2DD1D9521908A49E00BE92C9 /* Bookio.xcdatamodeld in Sources */,
