@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "LoginViewController.h"
 #import "User.h"
-
+#import "UserBooks.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
