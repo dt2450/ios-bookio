@@ -251,7 +251,7 @@
             [alertView show];
             return NO;
         }
-        //TODO: Do proper validation for date
+        //Do proper validation for date
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyyMMdd"];
         NSDate *date = [formatter dateFromString:inputString];
@@ -301,13 +301,14 @@
     return YES;
 }
 
--(void)addRentalButtonPressedAtIndexpath:(NSIndexPath *)indexPath{
+-(void)addRentalButtonPressedAtIndexpath:(NSIndexPath *)indexPath
+{
     
     AddRentedTableViewCell *cell = (AddRentedTableViewCell *) [self.addRentalView cellForRowAtIndexPath:indexPath];
     
     if(([self hasValidUserId: cell.rentedTo.text] == YES) && ([self hasValidDate:cell.tillDate.text] == YES)) {
         //add the book to rental database
-        /*BookioApi *apiCall= [[ BookioApi alloc] init];
+        BookioApi *apiCall= [[ BookioApi alloc] init];
         
         NSMutableString *formattedDate = [NSMutableString stringWithString: cell.tillDate.text];
         
@@ -324,25 +325,37 @@
         // make the api call by calling the function below which is implemented in the BookioApi class
         [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
          {
-             //TODO: Need to verify and delete from core data only when this query succeeds
-             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-             NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
-             [fetchRequest setEntity:entity];
-             [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isbn == %@", cell.isbn]];
-             
-             NSArray *booksToRemove = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-             
-             for (NSManagedObject *book in booksToRemove) {
-                 [self.managedObjectContext deleteObject:book];
+             //Need to verify and delete from core data only when this query succeeds
+             NSString *status = [results objectForKey:@"status"];
+             if([status isEqualToString:@"OK"])
+             {
+                 NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
+                 [fetchRequest setEntity:entity];
+                 [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isbn == %@", cell.isbn]];
+                 
+                 NSArray *booksToRemove = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+                 
+                 for (NSManagedObject *book in booksToRemove) {
+                     [self.managedObjectContext deleteObject:book];
+                 }
+                 
+                 NSError *error;
+                 if (![self.managedObjectContext save:&error]) {
+                     NSLog(@"There was an error in deleting book %@", [error localizedDescription]);
+                 }
+                 [self fetchMyBooksDataFromLocalDB];
+                 [self.tableView reloadData];
+             } else {
+                 UIAlertView *alertView = [[UIAlertView alloc]
+                                           initWithTitle:@"Alert"
+                                           message:@"Failed to insert into rented list. Maybe the user id is not valid or there is a connection problem!!"
+                                           delegate:nil
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil];
+                 [alertView show];
              }
-             
-             NSError *error;
-             if (![self.managedObjectContext save:&error]) {
-                 NSLog(@"There was an error in deleting book %@", [error localizedDescription]);
-             }
-             [self fetchMyBooksDataFromLocalDB];
-             [self.tableView reloadData];
-         }];*/
+         }];
     }
 }
 

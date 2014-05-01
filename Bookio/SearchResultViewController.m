@@ -23,14 +23,16 @@ int selectedView;
     self.RentOrBuyTableView.delegate=self;
     self.RentOrBuyTableView.dataSource=self;
     
-    self.RentUsers = [[NSMutableArray alloc] init];
-    self.BuyUsers = [[NSMutableArray alloc] init];
+    //self.RentUsers = [[NSMutableArray alloc] init];
+    //self.BuyUsers = [[NSMutableArray alloc] init];
 
     
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    self.RentUsers = [[NSMutableArray alloc] init];
+    self.BuyUsers = [[NSMutableArray alloc] init];
     
     AppDelegate *delegateApp = [[UIApplication sharedApplication]delegate];
     self.managedObjectContext = delegateApp.managedObjectContext;
