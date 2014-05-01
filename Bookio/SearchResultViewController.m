@@ -25,6 +25,20 @@ int selectedView;
     
     //self.RentUsers = [[NSMutableArray alloc] init];
     //self.BuyUsers = [[NSMutableArray alloc] init];
+    
+    AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    self.managedObjectContext = appDelegate.managedObjectContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    NSArray *user = [[NSArray alloc]init];
+    user = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    
+    User *userInfo = [user objectAtIndex:0];
+    
+    self.myUserID = userInfo.user_id;
 
     
 }
@@ -63,13 +77,21 @@ int selectedView;
          {
              for(NSDictionary *eachUser in users)
              {
+                 NSString *bookUserId = [eachUser objectForKey:@"user_id"];
+                 
                  if([[eachUser objectForKey:@"rent"] intValue] == 1)
                  {
-                     [self.RentUsers addObject:eachUser];
+                     //TODO: Do not show books I own
+                     if([bookUserId isEqualToString:self.myUserID] != YES) {
+                         [self.RentUsers addObject:eachUser];
+                     }
                  }
                  if([[eachUser objectForKey:@"sell"] intValue] == 1)
                  {
-                     [self.BuyUsers addObject:eachUser];
+                     //TODO: Do not show books I own
+                     if([bookUserId isEqualToString:self.myUserID] != YES) {
+                         [self.BuyUsers addObject:eachUser];
+                     }
                  }
              }
              [self.RentOrBuyTableView reloadData];
