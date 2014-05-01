@@ -131,58 +131,75 @@ int selectedSegment;
         // make the api call by calling the function below which is implemented in the BookioApi class
         [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
          {
-             //TODO: Verify the query succeeded
-             
-             //TODO: Not a good way to run the query again. See if something better can be done
-             self.RentedToUsers = [[NSMutableArray alloc] init];
-             
-             NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=getRentedTo&userid=%@", self.userID];
-             NSMutableDictionary * newResults = [apiCall asyncurlOfQuery:url];
-             NSArray *books = [newResults objectForKey:@"results"];
-             if([books count] != 0)
+             //Verify the query succeeded
+             NSString *status = [results objectForKey:@"status"];
+             if([status isEqualToString:@"OK"])
              {
-                 for(NSDictionary *eachBook in books)
-                 {
-                     [self.RentedToUsers addObject:eachBook];
-                 }
-             }
-             
-             //TODO: Add to users books in core data if not already there
-             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-             NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
-             [fetchRequest setEntity:entity];
-             [fetchRequest setReturnsObjectsAsFaults:NO];
-             NSArray *userBooks = [[NSArray alloc]init];
-             Boolean found = false;
-             userBooks = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-             for(UserBooks *userBookEntity in userBooks) {
-                 if([userBookEntity.isbn isEqualToString:cell.isbn]) {
-                     found = true;
-                     break;
-                 }
-             }
-             if(found == false) {
-                 //Add book back to core data UsersBooks
-                 UserBooks *addMyBook = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks"
-                                                                      inManagedObjectContext:self.managedObjectContext];
-                 addMyBook.user_id = self.userID;
-                 addMyBook.isbn = cell.isbn;
-                 addMyBook.name = cell.bookName.text;
-                 //TODO: Get the author and courseno information
-                 //addMyBook.authors = cell.bookAuthor.text;
-                 //addMyBook.courseno = cell.courseno;
-                 addMyBook.rent = [NSNumber numberWithInt:0];
-                 addMyBook.rent_cost = [NSNumber numberWithInt:0];
-                 addMyBook.sell = [NSNumber numberWithInt:0];
-                 addMyBook.sell_cost = [NSNumber numberWithInt:0];
+                 //TODO: Not a good way to run the query again. See if something better can be done
+                 self.RentedToUsers = [[NSMutableArray alloc] init];
                  
-                 NSError *error;
-                 // save this insert query, so that the persistant store is updated
-                 if (![self.managedObjectContext save:&error]) {
-                     NSLog(@"entry not saved to database due to error: %@", [error localizedDescription]);
-                 }    
+                 NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=getRentedTo&userid=%@", self.userID];
+                 NSMutableDictionary * newResults = [apiCall asyncurlOfQuery:url];
+                 NSArray *books = [newResults objectForKey:@"results"];
+                 if([books count] != 0)
+                 {
+                     for(NSDictionary *eachBook in books)
+                     {
+                         [self.RentedToUsers addObject:eachBook];
+                     }
+                 }
+                 
+                 //Add to users books in core data if not already there
+                 NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
+                 [fetchRequest setEntity:entity];
+                 [fetchRequest setReturnsObjectsAsFaults:NO];
+                 NSArray *userBooks = [[NSArray alloc]init];
+                 Boolean found = false;
+                 userBooks = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+                 for(UserBooks *userBookEntity in userBooks) {
+                     if([userBookEntity.isbn isEqualToString:cell.isbn]) {
+                         found = true;
+                         break;
+                     }
+                 }
+                 if(found == false) {
+                     //Add book back to core data UsersBooks
+                     UserBooks *addMyBook = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks"
+                                                                          inManagedObjectContext:self.managedObjectContext];
+                     addMyBook.user_id = self.userID;
+                     addMyBook.isbn = cell.isbn;
+                     addMyBook.name = cell.bookName.text;
+                     addMyBook.authors = cell.bookAuthors.text;
+                     addMyBook.courseno = cell.courseno;
+                     addMyBook.rent = [NSNumber numberWithInt:0];
+                     addMyBook.rent_cost = [NSNumber numberWithInt:0];
+                     addMyBook.sell = [NSNumber numberWithInt:0];
+                     addMyBook.sell_cost = [NSNumber numberWithInt:0];
+                     
+                     NSError *error;
+                     // save this insert query, so that the persistant store is updated
+                     if (![self.managedObjectContext save:&error]) {
+                         NSLog(@"entry not saved to database due to error: %@", [error localizedDescription]);
+                         UIAlertView *alertView = [[UIAlertView alloc]
+                                                   initWithTitle:@"Alert"
+                                                   message:@"There was a problem in updating local cache of My Books database"
+                                                   delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles:nil];
+                         [alertView show];
+                     }    
+                 }
+                 [self.rentedFromToTableView reloadData];
+             } else {
+                 UIAlertView *alertView = [[UIAlertView alloc]
+                                           initWithTitle:@"Alert"
+                                           message:@"There was a problem in deleting rented book from global database"
+                                           delegate:nil
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil];
+                 [alertView show];
              }
-             [self.rentedFromToTableView reloadData];
          }];
     }
 }
@@ -228,9 +245,11 @@ int selectedSegment;
         eachBook = [self.RentedFromUsers objectAtIndex:indexPath.row];
         if(eachBook) {
             cell.bookName.text = [eachBook objectForKey:@"book_name"];
+            cell.bookAuthors.text = [eachBook objectForKey:@"book_author"];
             cell.userId.text = [NSString stringWithFormat:@"User: %@",[eachBook objectForKey:@"from_user_id"]];
             cell.date.text = [NSString stringWithFormat:@"Till Date: %@", [eachBook objectForKey:@"end_date"]];
             cell.isbn = [NSString stringWithFormat:@"%@", [eachBook objectForKey:@"ISBN"]];
+            cell.courseno = [NSString stringWithFormat:@"%@", [eachBook objectForKey:@"course_no"]];
         }
         
     }

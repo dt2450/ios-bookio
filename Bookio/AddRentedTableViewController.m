@@ -181,6 +181,9 @@
     cell.delegate = self;
     cell.path = indexPath;
     
+    //for numeric keyboard only
+    cell.tillDate.keyboardType = UIKeyboardTypeNumberPad;
+    
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
@@ -195,47 +198,165 @@
     [super viewWillAppear:animated];
 }
 
--(void)addRentalButtonPressedAtIndexpath:(NSIndexPath *)indexPath{
+/* Returns true if the string has valid ID */
+-(BOOL)hasValidUserId:(NSString *)inputString
+{
+    NSCharacterSet *validChars = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_."];
+    NSCharacterSet *invalidChars = [validChars invertedSet];
+    
+    NSRange r = [inputString rangeOfCharacterFromSet:invalidChars];
+    if ((r.location != NSNotFound) || [inputString length] == 0) {
+        NSLog(@"the string contains illegal characters or is empty");
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"The user ID is invalid!!"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+        return NO;
+    }
+    return YES;
+}
+
+/* Returns true if the string has valid date */
+-(BOOL)hasValidDate:(NSString *)inputString
+{
+    NSCharacterSet *validChars = [NSCharacterSet characterSetWithCharactersInString:@"1234567890"];
+    NSCharacterSet *invalidChars = [validChars invertedSet];
+    
+    NSRange r = [inputString rangeOfCharacterFromSet:invalidChars];
+    if (r.location != NSNotFound) {
+        NSLog(@"the date contains illegal characters");
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"The date is invalid!!"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+        return NO;
+    }
+    
+    //validate date
+    if([inputString length] != 0) {
+        if([inputString length] != 8) {
+            NSLog(@"date is not in format YYYYMMDD");
+            UIAlertView *alertView = [[UIAlertView alloc]
+                                      initWithTitle:@"Alert"
+                                      message:@"The date is not in format YYYYMMDD"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+            [alertView show];
+            return NO;
+        }
+        //Do proper validation for date
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyyMMdd"];
+        NSDate *date = [formatter dateFromString:inputString];
+        NSDate *currentDate = [[NSDate alloc] init];
+        
+        if(date != NULL) {
+            NSString *inputDateString = [formatter stringFromDate:date];
+            NSString *currentDateString = [formatter stringFromDate:currentDate];
+            
+            NSComparisonResult dateCompare = [inputDateString compare:currentDateString];
+            if ((dateCompare == NSOrderedAscending) || (dateCompare == NSOrderedSame)) {
+                NSLog(@"input date is in the past");
+                UIAlertView *alertView = [[UIAlertView alloc]
+                                          initWithTitle:@"Alert"
+                                          message:@"The date is in the past"
+                                          delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+                [alertView show];
+                return NO;
+            }
+            //NSLog(@"date is: %@", inputDateString);
+            //NSLog(@"current date is: %@", currentDateString);
+        } else {
+            NSLog(@"date is not correct");
+            UIAlertView *alertView = [[UIAlertView alloc]
+                                      initWithTitle:@"Alert"
+                                      message:@"The date is not correct"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+            [alertView show];
+            return NO;
+        }
+    } else {
+        NSLog(@"date is empty");
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"The date is empty!!"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+        return NO;
+    }
+    
+    return YES;
+}
+
+-(void)addRentalButtonPressedAtIndexpath:(NSIndexPath *)indexPath
+{
     
     AddRentedTableViewCell *cell = (AddRentedTableViewCell *) [self.addRentalView cellForRowAtIndexPath:indexPath];
     
-    //add the book to rental database
-    BookioApi *apiCall= [[ BookioApi alloc] init];
-    
-    NSMutableString *formattedDate = [NSMutableString stringWithString: cell.tillDate.text];
-    
-    [formattedDate insertString:@"-" atIndex:4];
-    [formattedDate insertString:@"-" atIndex:7];
-    
-    //NSLog(@"Date is: %@", formattedDate);
-    
-    // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
-    NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=insertRent&userid=%@&touserid=%@&isbn=%@&enddate=%@",self.userID, cell.rentedTo.text, cell.isbn, formattedDate];
-    
-    //NSLog(@"url is: %@", url);
-    
-    // make the api call by calling the function below which is implemented in the BookioApi class
-    [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
-     {
-         //TODO: Need to verify and delete from core data only when this query succeeds
-         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-         NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
-         [fetchRequest setEntity:entity];
-         [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isbn == %@", cell.isbn]];
-         
-         NSArray *booksToRemove = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-         
-         for (NSManagedObject *book in booksToRemove) {
-             [self.managedObjectContext deleteObject:book];
-         }
-         
-         NSError *error;
-         if (![self.managedObjectContext save:&error]) {
-             NSLog(@"There was an error in deleting book %@", [error localizedDescription]);
-         }
-         [self fetchMyBooksDataFromLocalDB];
-         [self.tableView reloadData];
-     }];
+    if(([self hasValidUserId: cell.rentedTo.text] == YES) && ([self hasValidDate:cell.tillDate.text] == YES)) {
+        //add the book to rental database
+        BookioApi *apiCall= [[ BookioApi alloc] init];
+        
+        NSMutableString *formattedDate = [NSMutableString stringWithString: cell.tillDate.text];
+        
+        [formattedDate insertString:@"-" atIndex:4];
+        [formattedDate insertString:@"-" atIndex:7];
+        
+        //NSLog(@"Date is: %@", formattedDate);
+        
+        // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
+        NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=insertRent&userid=%@&touserid=%@&isbn=%@&enddate=%@",self.userID, cell.rentedTo.text, cell.isbn, formattedDate];
+        
+        //NSLog(@"url is: %@", url);
+        
+        // make the api call by calling the function below which is implemented in the BookioApi class
+        [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
+         {
+             //Need to verify and delete from core data only when this query succeeds
+             NSString *status = [results objectForKey:@"status"];
+             if([status isEqualToString:@"OK"])
+             {
+                 NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
+                 [fetchRequest setEntity:entity];
+                 [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"isbn == %@", cell.isbn]];
+                 
+                 NSArray *booksToRemove = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+                 
+                 for (NSManagedObject *book in booksToRemove) {
+                     [self.managedObjectContext deleteObject:book];
+                 }
+                 
+                 NSError *error;
+                 if (![self.managedObjectContext save:&error]) {
+                     NSLog(@"There was an error in deleting book %@", [error localizedDescription]);
+                 }
+                 [self fetchMyBooksDataFromLocalDB];
+                 [self.tableView reloadData];
+             } else {
+                 UIAlertView *alertView = [[UIAlertView alloc]
+                                           initWithTitle:@"Alert"
+                                           message:@"Failed to insert into rented list. Maybe the user id is not valid or there is a connection problem!!"
+                                           delegate:nil
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil];
+                 [alertView show];
+             }
+         }];
+    }
 }
 
 /*
