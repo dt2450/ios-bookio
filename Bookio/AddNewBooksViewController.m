@@ -170,8 +170,6 @@ NSString *courseno;
          //Verify the query succeeded
          NSString *status = [results objectForKey:@"status"];
          
-         NSLog(@"STATUS IS: %@", status);
-         
          if([status isEqualToString:@"OK"])
          {
              UserBooks *addMyBook = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks"
