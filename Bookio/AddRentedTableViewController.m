@@ -171,7 +171,10 @@
     cell.bookName.text = [[self.BooksList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.bookAuthors.text = [[self.AuthorsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.isbn = [[self.ISBNList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-
+    
+    cell.rentedTo.text = @"";
+    cell.tillDate.text = @"";
+    
     [cell.addToRentals.layer setBorderWidth:1];
     [cell.addToRentals.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
     [cell.addToRentals.layer setCornerRadius:5];

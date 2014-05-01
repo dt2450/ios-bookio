@@ -45,6 +45,23 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    //TODO: Need to check where to put this code Commenting for now
+    /*
+    NSError *error;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"UserBooks"];
+    NSArray *deleteAllArray =[self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    for(NSManagedObject *obj in deleteAllArray)
+    {
+        [self.managedObjectContext deleteObject:obj];
+    }
+    
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+        return;
+    }*/
+
 }
 
 
