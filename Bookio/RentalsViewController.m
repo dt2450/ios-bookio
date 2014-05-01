@@ -149,6 +149,7 @@ int selectedSegment;
                      }
                  }
                  
+                 //NSLog(@"To books here = %@", books);
                  //Add to users books in core data if not already there
                  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
                  NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
@@ -258,9 +259,11 @@ int selectedSegment;
         eachBook = [self.RentedToUsers objectAtIndex:indexPath.row];
         if(eachBook) {
             cell.bookName.text = [eachBook objectForKey:@"book_name"];
+            cell.bookAuthors.text = [eachBook objectForKey:@"book_author"];
             cell.userId.text = [NSString stringWithFormat:@"User: %@",[eachBook objectForKey:@"to_user_id"]];
             cell.date.text = [NSString stringWithFormat:@"Till Date: %@", [eachBook objectForKey:@"end_date"]];
             cell.isbn = [NSString stringWithFormat:@"%@", [eachBook objectForKey:@"ISBN"]];
+            cell.courseno = [NSString stringWithFormat:@"%@", [eachBook objectForKey:@"course_no"]];
         }
     }
     
