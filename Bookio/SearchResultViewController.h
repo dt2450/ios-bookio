@@ -16,5 +16,5 @@
 @property (strong, nonatomic) id isbn;
 @property (strong, nonatomic) id book_name;
 @property (nonatomic,retain) NSManagedObjectContext *managedObjectContext;
-
+@property (strong, nonatomic) NSString *myUserID;
 @end

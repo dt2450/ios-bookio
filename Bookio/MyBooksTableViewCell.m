@@ -57,12 +57,15 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *) event
 {
     UITouch *touch = [[event allTouches] anyObject];
+    NSString *zeroPrice = [NSString stringWithFormat:@"0"];
+    
     if ([self.RentPrice isFirstResponder] && (self.RentPrice != touch.view))
     {
         if (self.RentPrice.isFirstResponder) {
             [self.RentPrice resignFirstResponder];
         }
         if ([self hasValidPrice: self.RentPrice.text] == NO) {
+            
             UIAlertView *alertView = [[UIAlertView alloc]
                                       initWithTitle:@"Alert"
                                       message:@"The rent price is invalid!!"
@@ -70,6 +73,12 @@
                                       cancelButtonTitle:@"OK"
                                       otherButtonTitles:nil];
             [alertView show];
+            
+            //TODO: This is not working for some reason
+            self.RentPrice.text = zeroPrice;
+        }
+        if([self.RentPrice.text isEqualToString:@""]) {
+            self.RentPrice.text = zeroPrice;
         }
     }
     
@@ -79,6 +88,7 @@
             [self.SellPrice resignFirstResponder];
         }
         if ([self hasValidPrice: self.SellPrice.text] == NO) {
+            
             UIAlertView *alertView = [[UIAlertView alloc]
                                       initWithTitle:@"Alert"
                                       message:@"The sell price is invalid!!"
@@ -86,6 +96,10 @@
                                       cancelButtonTitle:@"OK"
                                       otherButtonTitles:nil];
             [alertView show];
+            self.SellPrice.text = zeroPrice;
+        }
+        if([self.SellPrice.text isEqualToString:@""]) {
+            self.SellPrice.text = zeroPrice;
         }
     }
 }

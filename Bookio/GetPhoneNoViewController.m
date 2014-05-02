@@ -209,6 +209,21 @@ NSMutableDictionary *receivedData;
          // check if retrival is successful
          if([results count] != 0)
          {
+             //TODO: Verify this is at the right place
+             NSError *error;
+             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"UserBooks"];
+             NSArray *deleteAllArray =[self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+             
+             for(NSManagedObject *obj in deleteAllArray)
+             {
+                 [self.managedObjectContext deleteObject:obj];
+             }
+             
+             if (![self.managedObjectContext save:&error]) {
+                 NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+                 return;
+             }
+
              for(NSDictionary *book in value)
              {
                  

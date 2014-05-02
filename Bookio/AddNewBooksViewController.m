@@ -160,26 +160,6 @@ NSString *courseno;
     
     User *userInfo = [user objectAtIndex:0];
  
-    UserBooks *addMyBook = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks"
-                                                         inManagedObjectContext:self.managedObjectContext];
-    addMyBook.user_id = userInfo.user_id;
-    addMyBook.isbn = cell.isbn;
-    addMyBook.name = cell.bookName.text;
-    addMyBook.authors = cell.bookAuthor.text;
-    addMyBook.courseno = courseno;
-    addMyBook.rent = [NSNumber numberWithInt:0];
-    addMyBook.rent_cost = [NSNumber numberWithInt:0];
-    addMyBook.sell = [NSNumber numberWithInt:0];
-    addMyBook.sell_cost = [NSNumber numberWithInt:0];
-    
-
-    
-    NSError *error;
-    // save this insert query, so that the persistant store is updated
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"entry not saved to database due to error: %@", [error localizedDescription]);
-    }
-        
     BookioApi *apiCall= [[BookioApi alloc] init];
     // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
     NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=insertMyBook&userid=%@&isbn=%@", userInfo.user_id, cell.isbn];
@@ -187,7 +167,47 @@ NSString *courseno;
     // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
     [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
      {
-         [cell.addButton setEnabled:NO];
+         //Verify the query succeeded
+         NSString *status = [results objectForKey:@"status"];
+         
+         if([status isEqualToString:@"OK"])
+         {
+             UserBooks *addMyBook = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks"
+                                                                  inManagedObjectContext:self.managedObjectContext];
+             addMyBook.user_id = userInfo.user_id;
+             addMyBook.isbn = cell.isbn;
+             addMyBook.name = cell.bookName.text;
+             addMyBook.authors = cell.bookAuthor.text;
+             addMyBook.courseno = courseno;
+             addMyBook.rent = [NSNumber numberWithInt:0];
+             addMyBook.rent_cost = [NSNumber numberWithInt:0];
+             addMyBook.sell = [NSNumber numberWithInt:0];
+             addMyBook.sell_cost = [NSNumber numberWithInt:0];
+             
+             NSError *error;
+             // save this insert query, so that the persistant store is updated
+             if (![self.managedObjectContext save:&error]) {
+                 NSLog(@"entry not saved to database due to error: %@", [error localizedDescription]);
+             }
+             [cell.addButton setEnabled:NO];
+         } else if([status isEqualToString:@"exists"]){
+             UIAlertView *alertView = [[UIAlertView alloc]
+                                       initWithTitle:@"Alert"
+                                       message:@"The book is already present in your list. Maybe you have rented it."
+                                       delegate:nil
+                                       cancelButtonTitle:@"OK"
+                                       otherButtonTitles:nil];
+             [alertView show];
+         } else {
+             UIAlertView *alertView = [[UIAlertView alloc]
+                                       initWithTitle:@"Alert"
+                                       message:@"Failed to update global My Books database."
+                                       delegate:nil
+                                       cancelButtonTitle:@"OK"
+                                       otherButtonTitles:nil];
+             [alertView show];
+
+         }
      }];
 }
 

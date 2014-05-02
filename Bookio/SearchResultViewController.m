@@ -18,17 +18,35 @@ int selectedView;
     
     [super viewDidLoad];
     
+    selectedView = 0;
+    
     self.RentOrBuyTableView.delegate=self;
     self.RentOrBuyTableView.dataSource=self;
     
-    self.RentUsers = [[NSMutableArray alloc] init];
-    self.BuyUsers = [[NSMutableArray alloc] init];
+    //self.RentUsers = [[NSMutableArray alloc] init];
+    //self.BuyUsers = [[NSMutableArray alloc] init];
+    
+    AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    self.managedObjectContext = appDelegate.managedObjectContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setReturnsObjectsAsFaults:NO];
+    NSArray *user = [[NSArray alloc]init];
+    user = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    
+    User *userInfo = [user objectAtIndex:0];
+    
+    self.myUserID = userInfo.user_id;
 
     
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    self.RentUsers = [[NSMutableArray alloc] init];
+    self.BuyUsers = [[NSMutableArray alloc] init];
     
     AppDelegate *delegateApp = [[UIApplication sharedApplication]delegate];
     self.managedObjectContext = delegateApp.managedObjectContext;
@@ -41,7 +59,8 @@ int selectedView;
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
-    selectedView = 0;
+    //devashi: Moved this to viewDidLoad so that last view is retained
+    //selectedView = 0;
     
     NSString *isbn = [self.isbn description];
     
@@ -58,13 +77,21 @@ int selectedView;
          {
              for(NSDictionary *eachUser in users)
              {
+                 NSString *bookUserId = [eachUser objectForKey:@"user_id"];
+                 
                  if([[eachUser objectForKey:@"rent"] intValue] == 1)
                  {
-                     [self.RentUsers addObject:eachUser];
+                     //TODO: Do not show books I own
+                     if([bookUserId isEqualToString:self.myUserID] != YES) {
+                         [self.RentUsers addObject:eachUser];
+                     }
                  }
                  if([[eachUser objectForKey:@"sell"] intValue] == 1)
                  {
-                     [self.BuyUsers addObject:eachUser];
+                     //TODO: Do not show books I own
+                     if([bookUserId isEqualToString:self.myUserID] != YES) {
+                         [self.BuyUsers addObject:eachUser];
+                     }
                  }
              }
              [self.RentOrBuyTableView reloadData];
