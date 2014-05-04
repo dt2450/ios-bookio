@@ -82,7 +82,38 @@
              NSString *value = [results objectForKey:@"status"];
              if([value isEqualToString:@"OK"])
              {
-                 [self updateLocalData:self.bookNameText.text authors:self.bookAuthorText.text courseno: self.courseNoText.text isbn:self.isbnText.text userid:userInfo.user_id];
+                 // send message to admin
+                 if(![MFMessageComposeViewController canSendText]) {
+                     UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                     [warningAlert show];
+                     return;
+                 }
+                 
+                 NSArray *recipents = @[@"9177050153"];   //Admin phone number
+                 
+                 // Fetch the devices from persistent data store
+                 NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+                 [fetchRequest setEntity:entity];
+                 [fetchRequest setReturnsObjectsAsFaults:NO];
+                 NSArray *user = [[NSArray alloc]init];
+                 user = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+                 
+                 
+                 User *userInfo = [user objectAtIndex:0];
+                 
+                 // extract user id from core data and pass it in the message so that the user can add the rental for the user
+                 NSString *message = [NSString stringWithFormat:@"Hey, My user id is %@ and I request you to add the book:\n ISBN = %@ \n Book Name = %@ \n Book Author = %@ \n Course No. = %@ ",userInfo.user_id, self.isbnText.text, self.bookNameText.text , self.bookAuthorText.text , self.courseNoText.text];
+                 
+                 MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+                 messageController.messageComposeDelegate = self;
+                 [messageController setRecipients:recipents];
+                 [messageController setBody:message];
+                 
+                 // Present message view controller on screen
+                 [self presentViewController:messageController animated:YES completion:nil];
+                 
+                 
              }
              else
              {
@@ -95,33 +126,34 @@
     }
 }
 
--(void)updateLocalData:(NSString *)name authors:(NSString *)authors courseno:(NSString *)courseno isbn:(NSString *)isbn userid:(NSString *)userid
+
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
 {
-    
-    UserBooks *userBooks = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
-    
-    userBooks.user_id = userid;
-    userBooks.isbn = isbn;
-    userBooks.name = name;
-    userBooks.authors = authors;
-    userBooks.courseno = courseno;
-    
-    userBooks.rent = [NSNumber numberWithInt:0];
-    userBooks.rent_cost = [NSNumber numberWithInt:0];
-    userBooks.sell = [NSNumber numberWithInt:0];
-    userBooks.sell_cost = [NSNumber numberWithInt:0];
-    
-    NSError *error;
-    if(![self.managedObjectContext save:&error])
-    {
-        NSLog(@"saving error: %@",[error localizedDescription]);
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
+            break;
+        }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
     }
     
+    [self dismissViewControllerAnimated:YES completion:nil];
     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"A request has been sent to the admin. You will receive a message when the book is added." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alert show];
+    [alert setTag:5];
+
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -137,16 +169,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 
 

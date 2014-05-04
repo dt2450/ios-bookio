@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 #import "UserBooks.h"
 
-@interface AddNotFoundBookViewController : UIViewController
+@interface AddNotFoundBookViewController : UIViewController <MFMessageComposeViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (strong, nonatomic) IBOutlet UITextField *isbnText;
