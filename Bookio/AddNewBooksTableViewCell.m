@@ -2,7 +2,7 @@
 //  AddNewBooksTableViewCell.m
 //  Bookio
 //
-//  Created by Pooja Jain on 4/27/14.
+//  Created by Bookio Team on 4/27/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
@@ -17,11 +17,6 @@
         // Initialization code
     }
     return self;
-}
-
-- (void)awakeFromNib
-{
-    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

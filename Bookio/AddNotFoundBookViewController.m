@@ -2,31 +2,31 @@
 //  AddNotFoundBookViewController.m
 //  Bookio
 //
-//  Created by Pooja Jain on 4/27/14.
+//  Created by Bookio Team on 4/27/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
 #import "AddNotFoundBookViewController.h"
 #import "SWRevealViewController.h"
 
-@interface AddNotFoundBookViewController ()
-
-@end
-
 @implementation AddNotFoundBookViewController
 
+#pragma mark - view load methods
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    // assign numeric keyboard for the ISBN text feild
     self.isbnText.keyboardType = UIKeyboardTypeNumberPad;
     
+    // instanstiate the manangedObjectContext with the one in app delegate
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     self.managedObjectContext = appDelegate.managedObjectContext;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    
     _sidebarButton.tintColor = [UIColor colorWithWhite:0.00f alpha:0.9f];
     
     // Set the side bar button action. When it's tapped, it'll show up the sidebar.
@@ -40,29 +40,44 @@
     
 }
 
--(IBAction)addButtonPressed:(id)sender {
+
+#pragma mark - Button action methods
+
+-(IBAction)addButtonPressed:(id)sender
+{
     NSMutableString *errorMessage = [[NSMutableString alloc] init];
-    if(self.isbnText.text.length != 13) {
+    // Validation of user entered input
+    if(self.isbnText.text.length != 13)
+    {
         [errorMessage appendString:@"\n- ISBN should be 13 digits long."];
     }
-    if(self.bookNameText.text.length == 0) {
+    if(self.bookNameText.text.length == 0)
+    {
         [errorMessage appendString:@"\n- Enter a book name."];
     }
-    if(self.bookAuthorText.text.length == 0) {
+    if(self.bookAuthorText.text.length == 0)
+    {
         [errorMessage appendString:@"\n- Enter a book author."];
     }
-    if(self.courseNoText.text.length == 0) {
+    if(self.courseNoText.text.length == 0)
+    {
         [errorMessage appendString:@"\n- Enter a course no. of the book."];
     }
+    // show alert if any text filed throws an error
     if(errorMessage.length > 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!!" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
-    else {
+    else
+    {
+        // send a request to the admin, asking him to add the book
+        
+        // encode the entered text as they need to be sent in the URL
         NSString *formattedBookName = [self.bookNameText.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
         NSString *formattedBookAuthor = [self.bookAuthorText.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
         NSString *formattedCourseNo = [self.courseNoText.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
         
+        // fetch the current user id
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
         [fetchRequest setEntity:entity];
@@ -72,11 +87,14 @@
         
         User *userInfo = [user objectAtIndex:0];
         
+        // instantiate Bookio Api
         BookioApi *apiCall= [[ BookioApi alloc] init];
-        // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
+        
+        // Creates the request url and then calls the method.  The response will be returned in the completion block only.
+        // parse it according to the type of query
         NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=insertBook&userid=%@&isbn=%@&bookname=%@&bookauthor=%@&courseno=%@", userInfo.user_id,self.isbnText.text,formattedBookName,formattedBookAuthor,formattedCourseNo];
         
-        // make the api call by calling the function below which is implemented in the MyGoogleMapManager class
+        // make the api call by calling the function below which is implemented in the Bookio Api class
         [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
          {
              NSString *value = [results objectForKey:@"status"];
@@ -91,17 +109,6 @@
                  
                  NSArray *recipents = @[@"9177050153"];   //Admin phone number
                  
-                 // Fetch the devices from persistent data store
-                 NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-                 NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
-                 [fetchRequest setEntity:entity];
-                 [fetchRequest setReturnsObjectsAsFaults:NO];
-                 NSArray *user = [[NSArray alloc]init];
-                 user = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-                 
-                 
-                 User *userInfo = [user objectAtIndex:0];
-                 
                  // extract user id from core data and pass it in the message so that the user can add the rental for the user
                  NSString *message = [NSString stringWithFormat:@"Hey, My user id is %@ and I request you to add the book:\n ISBN = %@ \n Book Name = %@ \n Book Author = %@ \n Course No. = %@ ",userInfo.user_id, self.isbnText.text, self.bookNameText.text , self.bookAuthorText.text , self.courseNoText.text];
                  
@@ -113,10 +120,10 @@
                  // Present message view controller on screen
                  [self presentViewController:messageController animated:YES completion:nil];
                  
-                 
              }
              else
              {
+                 // if book already exists for some other course, then alert the user with the course no. for which the book already exists.
                  NSString *exists =  [NSString stringWithFormat:@"The book already exists for the course %@",value];
                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:exists delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                  [alert show];
@@ -126,11 +133,25 @@
     }
 }
 
+// this method is called when 'OK' button on the alert view is pressed
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 5 && buttonIndex == 0)
+    {
+        // pop the current view controller from the stack
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
+
+#pragma mark - Messaging methods
+// this method is called when the message is correctly composed
+// Ref: http://www.appcoda.com/ios-programming-send-sms-text-message/
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
 {
-    switch (result) {
+    switch (result)
+    {
         case MessageComposeResultCancelled:
             break;
             
@@ -147,30 +168,14 @@
         default:
             break;
     }
-    
+    // dismiss the message UI once the message is sent
     [self dismissViewControllerAnimated:YES completion:nil];
     
+    // alert the user that the request is sent.
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"A request has been sent to the admin. You will receive a message when the book is added." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     [alert show];
     [alert setTag:5];
 
 }
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if(alertView.tag == 5 && buttonIndex == 0) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
-
 
 @end
