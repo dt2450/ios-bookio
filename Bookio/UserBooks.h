@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 
 @interface UserBooks : NSManagedObject
