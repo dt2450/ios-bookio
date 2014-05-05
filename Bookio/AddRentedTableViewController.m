@@ -330,7 +330,17 @@
              NSString *status = [results objectForKey:@"status"];
              if([status isEqualToString:@"OK"])
              {
-                 //successfully updated global database, now update the user books database in core data
+                 
+                 //successfully updated global database,
+                 //clear the rent select and sell select from global db of my books for the user
+                 NSString  *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=updateRent&userid=%@&isbn=%@&rent=0",self.userID, cell.isbn];
+                 [apiCall asyncurlOfQuery:url];
+                 
+                 url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=updateSell&userid=%@&isbn=%@&sell=0",self.userID, cell.isbn];
+                 [apiCall asyncurlOfQuery:url];
+                 
+                 
+                 //now update the user books database in core data            
                  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
                  NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
                  [fetchRequest setEntity:entity];

@@ -383,6 +383,8 @@
     cell.SellSelect.enabled = NO;
     cell.RentPrice.enabled = NO;
     cell.SellPrice.enabled = NO;
+    cell.RentPrice.text = @"";
+    cell.SellPrice.text = @"";
     
     cell.RentPrice.keyboardType = UIKeyboardTypeNumberPad;
     cell.SellPrice.keyboardType = UIKeyboardTypeNumberPad;
