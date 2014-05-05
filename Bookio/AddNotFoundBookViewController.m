@@ -24,6 +24,10 @@
     
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     self.managedObjectContext = appDelegate.managedObjectContext;
+    
+    //Setting the UI of the AddBook button
+    self.addBookButton.layer.borderWidth = 0.5f;
+    self.addBookButton.layer.cornerRadius = 5;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
