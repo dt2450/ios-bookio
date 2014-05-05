@@ -2,7 +2,7 @@
 //  RentalsViewController.m
 //  Bookio
 //
-//  Created by Devashi Tandon on 4/20/14.
+//  Created by Bookio Team on 4/20/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
@@ -17,7 +17,11 @@ int selectedSegment;
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+    //default view is rented from
     selectedSegment = 0;
+    
+    //user cannot add books he has rented from others. He can only add users to whom he has rented books
+    //The rented from list gets updated based on other users adding rented to information
     self.addRentalsButton.hidden = YES;
     
     self.rentedFromToTableView.dataSource = self;
@@ -27,6 +31,7 @@ int selectedSegment;
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     self.managedObjectContext = appDelegate.managedObjectContext;
     
+    //fetch the user id from the core data
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -38,6 +43,7 @@ int selectedSegment;
     
     self.userID = userInfo.user_id;
     
+    //initialize the arrays
     self.RentedFromUsers = [[NSMutableArray alloc] init];
     self.RentedToUsers = [[NSMutableArray alloc] init];
 }
@@ -52,34 +58,16 @@ int selectedSegment;
     // Set the gesture
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
+    //reinitialize the arrays
     self.RentedFromUsers = [[NSMutableArray alloc] init];
     self.RentedToUsers = [[NSMutableArray alloc] init];
     
     BookioApi *apiCall= [[ BookioApi alloc] init];
     
-    // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
+    //fetch the rented from information from the global database
     NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=getRentedFrom&userid=%@", self.userID];
     
-    // make the api call by calling the function below which is implemented in the BookioApi class
-    /*[apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
-     {
-         NSArray *books = [results objectForKey:@"results"];
-         if([books count] != 0)
-         {
-             for(NSDictionary *eachBook in books)
-             {
-                 [self.RentedFromUsers addObject:eachBook];
-             }
-         }
-         //Annoying so commented out
-         //if([self.RentedFromUsers count] == 0) {
-         //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Information" message:@"You have not rented books from any other user" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-         //    [alert show];
-         }
-         
-         
-     }];*/
-    
+    //we use query which is a blocking one to avoid synchronization issues
     NSMutableDictionary *results = [apiCall asyncurlOfQuery:url];
     NSArray *books = [results objectForKey:@"results"];
     if([books count] != 0)
@@ -90,9 +78,10 @@ int selectedSegment;
         }
     }
     
-    //NSLog(@"From books = %@", books);
-    
+    //fetch the rented to information from the global database
     url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=getRentedTo&userid=%@", self.userID];
+    
+    //we use query which is a blocking one to avoid synchronization issues
     results = [apiCall asyncurlOfQuery:url];
     books = [results objectForKey:@"results"];
     if([books count] != 0)
@@ -102,9 +91,8 @@ int selectedSegment;
             [self.RentedToUsers addObject:eachBook];
         }
     }
-    
-    //NSLog(@"To books = %@", books);
 
+    //reload the table view after refreshing the information from global database
     [self.rentedFromToTableView reloadData];
 
 
@@ -126,8 +114,7 @@ int selectedSegment;
         // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
         
         NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=deleteRent&userid=%@&isbn=%@",self.userID, cell.isbn];
-        
-        //NSLog(@"URL is: %@", url);
+
         // make the api call by calling the function below which is implemented in the BookioApi class
         [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
          {
@@ -148,8 +135,7 @@ int selectedSegment;
                          [self.RentedToUsers addObject:eachBook];
                      }
                  }
-                 
-                 //NSLog(@"To books here = %@", books);
+
                  //Add to users books in core data if not already there
                  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
                  NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
@@ -158,6 +144,7 @@ int selectedSegment;
                  NSArray *userBooks = [[NSArray alloc]init];
                  Boolean found = false;
                  userBooks = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+                 //search for book using isbn
                  for(UserBooks *userBookEntity in userBooks) {
                      if([userBookEntity.isbn isEqualToString:cell.isbn]) {
                          found = true;
@@ -165,7 +152,7 @@ int selectedSegment;
                      }
                  }
                  if(found == false) {
-                     //Add book back to core data UsersBooks
+                     //Add book back to core data UsersBooks if it is not already there
                      UserBooks *addMyBook = [NSEntityDescription insertNewObjectForEntityForName:@"UserBooks"
                                                                           inManagedObjectContext:self.managedObjectContext];
                      addMyBook.user_id = self.userID;
@@ -191,6 +178,7 @@ int selectedSegment;
                          [alertView show];
                      }    
                  }
+                 //refresh the displayed data after adding the book above
                  [self.rentedFromToTableView reloadData];
              } else {
                  UIAlertView *alertView = [[UIAlertView alloc]
@@ -217,10 +205,10 @@ int selectedSegment;
 {
     if(selectedSegment == 0)
     {
-        //NSLog(@"from count = %lu", (unsigned long)[self.RentedFromUsers count]);
+        //count of rented from users
         return [self.RentedFromUsers count];
     } else if(selectedSegment == 1){
-        //NSLog(@"to count = %lu", (unsigned long)[self.RentedToUsers count]);
+        //count of rented to users
         return [self.RentedToUsers count];
     } else {
         NSLog(@"Incorrect segment value: %d", selectedSegment);
@@ -243,6 +231,7 @@ int selectedSegment;
     
     if(selectedSegment == 0)
     {
+        //display books which have been rented from others by the user
         eachBook = [self.RentedFromUsers objectAtIndex:indexPath.row];
         if(eachBook) {
             cell.bookName.text = [eachBook objectForKey:@"book_name"];
@@ -256,6 +245,7 @@ int selectedSegment;
     }
     else if (selectedSegment == 1)
     {
+        //display books which the user has rented to others
         eachBook = [self.RentedToUsers objectAtIndex:indexPath.row];
         if(eachBook) {
             cell.bookName.text = [eachBook objectForKey:@"book_name"];
@@ -267,12 +257,9 @@ int selectedSegment;
         }
     }
     
-    //NSLog(@"ISBN = %@", cell.isbn);
-    
-    //NSLog(@"From books = %@", eachBook);
-    
     cell.clipsToBounds = YES;
     
+    //disable selection of cell
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;

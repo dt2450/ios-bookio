@@ -2,7 +2,7 @@
 //  MyBooksTableViewCell.m
 //  Bookio
 //
-//  Created by Devashi Tandon on 4/28/14.
+//  Created by Bookio Team on 4/28/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
@@ -11,6 +11,7 @@
 @implementation MyBooksTableViewCell
 
 - (IBAction)RentCheckButton:(id)sender {
+    //enable the fields and set image as appropriate on toggle of rent check button
     if (self.RentSelect.selected == NO) {
         self.RentSelect.selected = YES;
         self.RentPrice.enabled = YES;
@@ -22,6 +23,7 @@
     }
 }
 - (IBAction)SellCheckButton:(id)sender {
+    //enable the fields and set image as appropriate on toggle of sell check button
     if (self.SellSelect.selected == NO) {
         self.SellSelect.selected = YES;
         self.SellPrice.enabled = YES;
@@ -61,11 +63,12 @@
     
     if ([self.RentPrice isFirstResponder] && (self.RentPrice != touch.view))
     {
+        //resign the keyboard
         if (self.RentPrice.isFirstResponder) {
             [self.RentPrice resignFirstResponder];
         }
         if ([self hasValidPrice: self.RentPrice.text] == NO) {
-            
+            //validate the price
             UIAlertView *alertView = [[UIAlertView alloc]
                                       initWithTitle:@"Alert"
                                       message:@"The rent price is invalid!!"
@@ -84,6 +87,7 @@
     
     if ([self.SellPrice isFirstResponder] && (self.SellPrice != touch.view))
     {
+        //resign the keyboard
         if (self.SellPrice.isFirstResponder) {
             [self.SellPrice resignFirstResponder];
         }
@@ -96,8 +100,10 @@
                                       cancelButtonTitle:@"OK"
                                       otherButtonTitles:nil];
             [alertView show];
+            //TODO: This is not working for some reason
             self.SellPrice.text = zeroPrice;
         }
+        
         if([self.SellPrice.text isEqualToString:@""]) {
             self.SellPrice.text = zeroPrice;
         }
@@ -106,9 +112,11 @@
 
 
 - (IBAction)finishedRentPriceEdit:(id)sender {
+    //resign keyboard
     if (self.RentPrice.isFirstResponder) {
         [self.RentPrice resignFirstResponder];
     }
+    //validate price
     if ([self hasValidPrice: self.RentPrice.text] == NO) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                     initWithTitle:@"Alert"
@@ -120,10 +128,12 @@
     }
 }
 
-- (IBAction)finishedSellPriceEdit:(id)sender {    
+- (IBAction)finishedSellPriceEdit:(id)sender {
+    //resign keyboard
     if (self.SellPrice.isFirstResponder) {
         [self.SellPrice resignFirstResponder];
     }
+    //validate price
     if ([self hasValidPrice: self.SellPrice.text] == NO) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Alert"

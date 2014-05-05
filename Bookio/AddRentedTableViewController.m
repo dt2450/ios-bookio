@@ -2,7 +2,7 @@
 //  AddRentedTableViewController.m
 //  Bookio
 //
-//  Created by Devashi Tandon on 4/30/14.
+//  Created by Bookio Team on 4/30/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
@@ -26,12 +26,13 @@
 }
 
 -(void) fetchMyBooksDataFromLocalDB {
+    //initialize all the arrays
     self.CourseList = [[NSMutableArray alloc] init];
     self.BooksList = [[NSMutableArray alloc] init];
     self.AuthorsList = [[NSMutableArray alloc] init];
     self.ISBNList = [[NSMutableArray alloc] init];
     
-    
+    //fetch the user id of the user from user db in core data
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -43,6 +44,7 @@
     
     self.userID = userInfo.user_id;
     
+    //fetch books information of books owned by user from the user books db of core data
     fetchRequest = [[NSFetchRequest alloc] init];
     entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -63,26 +65,28 @@
     }
 
     for(UserBooks *userBookEntity in userBooks) {
-        //NSUInteger courseIndex = NSNotFound;
-        //NSUInteger courseCount = [self.CourseList count];
-        
-        //if(courseCount != 0) {
+
         NSUInteger courseIndex = [self.CourseList indexOfObject:userBookEntity.courseno];
-        //}
+
         if (courseIndex == NSNotFound) {
+            //add the course to the cache
             [self.CourseList addObject:userBookEntity.courseno];
             courseIndex = [self.CourseList count] - 1;
             
+            //initialize the arrays for this particular course
             [self.BooksList addObject:[[NSMutableArray alloc] init]];
             [self.AuthorsList addObject:[[NSMutableArray alloc] init]];
             [self.ISBNList addObject:[[NSMutableArray alloc] init]];
         }
+        //add the book for this course to the cache
         NSMutableArray *courseBooksList = [self.BooksList objectAtIndex:courseIndex];
         [courseBooksList addObject:userBookEntity.name];
         
+        //add the authors for this book to the cache
         NSMutableArray *bookAuthorsList = [self.AuthorsList objectAtIndex:courseIndex];
         [bookAuthorsList addObject:userBookEntity.authors];
         
+        //add the isbn for this book to the cache
         NSMutableArray *bookISBNList = [self.ISBNList objectAtIndex:courseIndex];
         [bookISBNList addObject:userBookEntity.isbn];
     }
@@ -99,18 +103,10 @@
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     self.managedObjectContext = appDelegate.managedObjectContext;
     
-    //[self fetchMyBooksDataFromLocalDB];
-    
     //for resigning keyboard on tap on table view
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
     [gestureRecognizer setCancelsTouchesInView:NO];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void) hideKeyboard {
@@ -127,11 +123,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    //count of courses is the number of sections
     return self.CourseList.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    //no. of rows in section is the no. of books for the course of that section
     NSMutableArray *courseBooksList = [self.BooksList objectAtIndex:section];
     
     return [courseBooksList count];
@@ -140,11 +138,13 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 
 {
+    //course no. stored in the array is the title for the section
     return [self.CourseList objectAtIndex:section];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
+    //beautify the section header instead of using the default one
     UILabel *myLabel = [[UILabel alloc] init];
     myLabel.frame = CGRectMake(5, 2, 320, 20);
     myLabel.font = [UIFont boldSystemFontOfSize:16];
@@ -168,6 +168,7 @@
         cell = [[AddRentedTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
+    //display the data for this cell in the UI
     cell.bookName.text = [[self.BooksList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.bookAuthors.text = [[self.AuthorsList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.isbn = [[self.ISBNList objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -187,6 +188,7 @@
     //for numeric keyboard only
     cell.tillDate.keyboardType = UIKeyboardTypeNumberPad;
     
+    //disable selection of row
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
@@ -194,6 +196,7 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    //refresh the data displayed on the view
     [self fetchMyBooksDataFromLocalDB];
     [self.tableView reloadData];
     
@@ -276,8 +279,6 @@
                 [alertView show];
                 return NO;
             }
-            //NSLog(@"date is: %@", inputDateString);
-            //NSLog(@"current date is: %@", currentDateString);
         } else {
             NSLog(@"date is not correct");
             UIAlertView *alertView = [[UIAlertView alloc]
@@ -318,20 +319,18 @@
         [formattedDate insertString:@"-" atIndex:4];
         [formattedDate insertString:@"-" atIndex:7];
         
-        //NSLog(@"Date is: %@", formattedDate);
         
         // just create the needed quest in the url and then call the method as below.. the response will be returned in the block only. parse it accordingly
         NSString *url = [NSString stringWithFormat:@"http://bookio-env.elasticbeanstalk.com/database?query=insertRent&userid=%@&touserid=%@&isbn=%@&enddate=%@",self.userID, cell.rentedTo.text, cell.isbn, formattedDate];
         
-        //NSLog(@"url is: %@", url);
-        
         // make the api call by calling the function below which is implemented in the BookioApi class
         [apiCall urlOfQuery:url queryCompletion:^(NSMutableDictionary *results)
          {
-             //Need to verify and delete from core data only when this query succeeds
+             //Verify and delete from core data only when this query succeeds
              NSString *status = [results objectForKey:@"status"];
              if([status isEqualToString:@"OK"])
              {
+                 //successfully updated global database, now update the user books database in core data
                  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
                  NSEntityDescription *entity = [NSEntityDescription entityForName:@"UserBooks" inManagedObjectContext:self.managedObjectContext];
                  [fetchRequest setEntity:entity];
@@ -361,54 +360,5 @@
          }];
     }
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

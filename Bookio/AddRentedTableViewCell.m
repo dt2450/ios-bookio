@@ -2,7 +2,7 @@
 //  AddRentedTableViewCell.m
 //  Bookio
 //
-//  Created by Devashi Tandon on 4/30/14.
+//  Created by Bookio Team on 4/30/14.
 //  Copyright (c) 2014 Columbia University. All rights reserved.
 //
 
@@ -32,12 +32,14 @@
 }
 
 - (IBAction)finishedUserIdEdit:(id)sender {
+    //resign the keyboard
     if (self.addToRentals.isFirstResponder) {
         [self.addToRentals resignFirstResponder];
     }
 }
 
 - (IBAction)finishedDateEdit:(id)sender {
+    //resign the keyboard
     if (self.addToRentals.isFirstResponder) {
         [self.addToRentals resignFirstResponder];
     }
