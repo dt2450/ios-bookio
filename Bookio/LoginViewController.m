@@ -29,9 +29,16 @@
     delegateApp = [[UIApplication sharedApplication]delegate];
     self.managedObjectContext = appDelegateCore.managedObjectContext;
     
-    //Setting the login button UI
-    self.loginButton.layer.borderWidth = 0.5f;
-    self.loginButton.layer.cornerRadius = 5;
+    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    if (screenBounds.size.height == 568)
+    {
+        // for 4-inch screen
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookioBgBig.png"]];
+    }
+    else
+    {
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bookioBgSm.png"]];
+    }
     
 }
 
